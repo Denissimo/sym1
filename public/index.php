@@ -4,6 +4,7 @@ use App\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
+use App\Testf\Test;
 
 require __DIR__.'/../vendor/autoload.php';
 
@@ -31,6 +32,8 @@ if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? false) {
 if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
+
+var_dump((new Test())->test);
 
 $app = new Silex\Application();
 
