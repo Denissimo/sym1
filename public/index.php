@@ -32,9 +32,18 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
 
-$kernel = new Kernel($env, $debug);
-$request = Request::createFromGlobals();
-//var_dump($request);
-$response = $kernel->handle($request);
-$response->send();
-$kernel->terminate($request, $response);
+$app = new Silex\Application();
+
+$app->get('/blog', function () {
+    return 'Zxzs';
+});
+
+$app->run();
+
+//$kernel = new Kernel($env, $debug);
+//$request = Request::createFromGlobals();
+//var_dump($request->getPathInfo());
+//var_dump((new Loader())->test);
+//$response = $kernel->handle($request);
+//$response->send();
+//$kernel->terminate($request, $response);
