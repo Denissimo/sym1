@@ -2,14 +2,7 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="4slovoback">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="flowers">
+      <paths name="ecomm">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -23,28 +16,7 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="mol01">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="molchanova">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="newyear">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="sim">
+      <paths name="sym1">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -52,13 +24,6 @@
         </serverdata>
       </paths>
       <paths name="testdoct">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="yii20">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

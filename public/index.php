@@ -4,6 +4,8 @@ use App\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
+use App\Testf\Test;
+
 
 require __DIR__.'/../vendor/autoload.php';
 
@@ -32,8 +34,20 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
 
-$kernel = new Kernel($env, $debug);
-$request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
-$kernel->terminate($request, $response);
+var_dump((new Test())->test);
+
+$app = new Silex\Application();
+
+$app->get('/blog', function () {
+    return 'Zxzs';
+});
+
+$app->run();
+
+//$kernel = new Kernel($env, $debug);
+//$request = Request::createFromGlobals();
+//var_dump($request->getPathInfo());
+//var_dump((new Loader())->test);
+//$response = $kernel->handle($request);
+//$response->send();
+//$kernel->terminate($request, $response);
