@@ -1,17 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Den
- * Date: 15.09.2018
- * Time: 16:23
- */
 
 namespace App\Config;
-
 
 class Config
 {
     const
+        PARAM_PROD = 'production',
         VENDOR_DOCTRINE = 'doctrine',
         VENDOR_SILEX = 'silex'
     ;
@@ -27,7 +21,8 @@ class Config
     /**
      * @var array
      */
-    public static $params = [
+    private static $params = [
+        self::PARAM_PROD => true,
         self::VENDOR_DOCTRINE => [
             self::FIELD_DRIVER => 'pdo_mysql',
             self::FIELD_HOST => 'localhost',
@@ -38,5 +33,20 @@ class Config
         ]
     ];
 
+    /**
+     * @return array
+     */
+    public static function getDoctrine()
+    {
+        return self::$params[self::VENDOR_DOCTRINE];
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isProd()
+    {
+        return self::$params[self::PARAM_PROD];
+    }
 
 }

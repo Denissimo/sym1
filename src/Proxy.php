@@ -5,6 +5,7 @@ namespace App;
 use Silex\Application as Silex;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Doctrine\DBAL\Connection;
 
 class Proxy
 {
@@ -14,8 +15,15 @@ class Proxy
      */
     private $silex;
 
-
+    /**
+     * @var EntityManager
+     */
     private $doctrine;
+
+    /**
+     * @var Connection
+     */
+    private $pdo;
 
     private function __construct()
     {
@@ -47,18 +55,26 @@ class Proxy
     }
 
     /**
-     * @return mixed
+     * @return EntityManager
      */
     public function getDoctrine()
     {
         return $this->doctrine;
     }
 
+    /**
+     * @return Connection
+     */
+    public function getPdo()
+    {
+        return $this->pdo;
+    }
 
-    public function setDoctrine()
+
+    public function initDoctrine()
     {
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/models"), $isDevMode, null, null, false);
+        $config = Setup::createAnnotationMetadataConfiguration(array( "../models"), $isDevMode, null, null, false);
         $dbParams = array(
             'driver'   => 'pdo_mysql',
             'host'     => 'localhost',
@@ -67,9 +83,9 @@ class Proxy
             'dbname'   => 'kznew',
             'charset'  => 'UTF8',
         );
-        $entityManager = EntityManager::create($dbParams, $config);
-        $em = $entityManager->getConnection();
-        $this->doctrine = $em;
+        $this->doctrine = EntityManager::create($dbParams, $config);
+        $this->pdo = $this->doctrine->getConnection();
+        return $this;
     }
 
 

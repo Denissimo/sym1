@@ -13,7 +13,7 @@ $isDevMode = true;
 
 $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/models"), $isDevMode, null, null, false);
 $dbParams = array(
-    'driver'   => Config::$params[Config::VENDOR_DOCTRINE][Config::FIELD_DRIVER],
+    'driver'   => 'pdo_mysql',
     'host'     => 'localhost',
     'user'     => 'root',
     'password' => '',
