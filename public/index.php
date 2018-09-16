@@ -44,6 +44,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
 
 //$f = file(__DIR__."/../models/SysUrls.php");
 //var_dump($f);
+/*
 $isDevMode = true;
 $config = Setup::createAnnotationMetadataConfiguration(array( __DIR__."/../models"), $isDevMode, null, null, false);
 $dbParams = array(
@@ -58,10 +59,11 @@ $em = EntityManager::create($dbParams, $config);
 $pdo = $em->getConnection();
 $param = array("template" => "bscwarn");
 $list = $em->find('SysUrls', 1);
-//$urls = $em->getRepository('SysUrls')->findBy($param);
+$urls = $em->getRepository('SysUrls')->findBy($param);
+var_dump($urls);
 
 
-
+*/
 
 
 
@@ -76,9 +78,9 @@ $em = Proxy::init()->initDoctrine()->getDoctrine();
 //$r = $q->fetchAll();
 //var_dump($r);
 $param = array("template" => "bscwarn");
-//$list = $em->find('SysUrls', 1);
-//$urls = $em->getRepository('SysUrls')->findBy($param);
-//var_dump($urls);
+$list = $em->find('SysUrls', 1);
+$urls = $em->getRepository('SysUrls')->findBy($param);
+var_dump($urls);
 //var_dump($list);
 $app = new Silex\Application();
 
