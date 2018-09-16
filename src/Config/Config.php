@@ -28,7 +28,7 @@ class Config
             self::FIELD_HOST => 'localhost',
             self::FIELD_USER     => 'root',
             self::FIELD_PASS => '',
-            self::FIELD_HOST   => 'kznew',
+            self::FIELD_DBNAME   => 'kznew',
             self::FIELD_CHARSET  => 'UTF8'
         ]
     ];
@@ -36,7 +36,7 @@ class Config
     /**
      * @return array
      */
-    public static function getDoctrine()
+    public static function getDoctrineParams()
     {
         return self::$params[self::VENDOR_DOCTRINE];
     }

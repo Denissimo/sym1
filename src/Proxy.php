@@ -6,6 +6,7 @@ use Silex\Application as Silex;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
+use App\Config\Config;
 
 class Proxy
 {
@@ -74,20 +75,12 @@ class Proxy
     public function initDoctrine()
     {
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(array( "../models"), $isDevMode, null, null, false);
-        $dbParams = array(
-            'driver'   => 'pdo_mysql',
-            'host'     => 'localhost',
-            'user'     => 'root',
-            'password' => '',
-            'dbname'   => 'kznew',
-            'charset'  => 'UTF8',
-        );
+        $config = Setup::createAnnotationMetadataConfiguration(array("../models"), $isDevMode, null, null, false);
+        $dbParams = Config::getDoctrineParams();
         $this->doctrine = EntityManager::create($dbParams, $config);
         $this->pdo = $this->doctrine->getConnection();
         return $this;
     }
-
 
 
 }

@@ -12,14 +12,7 @@ $isDevMode = true;
 // Заметьте, что здесь я передаю путь до каталога, который будет содержать в себе классы сущностей, проецируемые на БД
 
 $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/models"), $isDevMode, null, null, false);
-$dbParams = array(
-    'driver'   => 'pdo_mysql',
-    'host'     => 'localhost',
-    'user'     => 'root',
-    'password' => '',
-    'dbname'   => 'kznew',
-    'charset'  => 'UTF8',
-);
+$dbParams = Config::getDoctrineParams();
 $entityManager = EntityManager::create($dbParams, $config);
 
 return ConsoleRunner::createHelperSet($entityManager);

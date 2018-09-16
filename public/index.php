@@ -7,9 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Testf\Test;
 use App\Proxy;
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
-
 
 require __DIR__.'/../vendor/autoload.php';
 //require __DIR__.'/../config/cli-config.php';
@@ -38,36 +35,6 @@ if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? false) {
 if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
-
-
-
-
-//$f = file(__DIR__."/../models/SysUrls.php");
-//var_dump($f);
-/*
-$isDevMode = true;
-$config = Setup::createAnnotationMetadataConfiguration(array( __DIR__."/../models"), $isDevMode, null, null, false);
-$dbParams = array(
-    'driver'   => 'pdo_mysql',
-    'host'     => 'localhost',
-    'user'     => 'root',
-    'password' => '',
-    'dbname'   => 'kznew',
-    'charset'  => 'UTF8',
-);
-$em = EntityManager::create($dbParams, $config);
-$pdo = $em->getConnection();
-$param = array("template" => "bscwarn");
-$list = $em->find('SysUrls', 1);
-$urls = $em->getRepository('SysUrls')->findBy($param);
-var_dump($urls);
-
-
-*/
-
-
-
-
 
 
 //var_dump((new Test())->test);
