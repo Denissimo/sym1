@@ -14,17 +14,17 @@ class Proxy
     /**
      * @var Silex
      */
-    private $silex;
+    private static $silex;
 
     /**
      * @var EntityManager
      */
-    private $doctrine;
+    private static $entityManager;
 
     /**
      * @var Connection
      */
-    private $pdo;
+    private static $connection;
 
     private function __construct()
     {
@@ -44,41 +44,40 @@ class Proxy
      */
     public function getSilex(): Silex
     {
-        return $this->silex;
+        return self::$silex;
     }
 
     /**
      * @param Silex $silex
      */
-    public function setSilex(Silex $silex)
+    public function initSilex(Silex $silex)
     {
-        $this->silex = $silex;
+        self::$silex = $silex;
     }
 
     /**
      * @return EntityManager
      */
-    public function getDoctrine()
+    public function getEntityManager()
     {
-        return $this->doctrine;
+        return self::$entityManager;
     }
 
     /**
      * @return Connection
      */
-    public function getPdo()
+    public function getConnecton()
     {
-        return $this->pdo;
+        return self::$connection;
     }
 
 
     public function initDoctrine()
     {
-        $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(array("../models"), $isDevMode, null, null, false);
+        $config = Setup::createAnnotationMetadataConfiguration(array("../models"), Config::isProd(), null, null, false);
         $dbParams = Config::getDoctrineParams();
-        $this->doctrine = EntityManager::create($dbParams, $config);
-        $this->pdo = $this->doctrine->getConnection();
+        self::$entityManager = EntityManager::create($dbParams, $config);
+        self::$connection = self::$entityManager->getConnection();
         return $this;
     }
 

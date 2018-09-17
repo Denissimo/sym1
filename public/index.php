@@ -4,8 +4,13 @@ use App\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Testf\Test;
 use App\Proxy;
+use App\Loader\Loader;
+use Silex\Application;
+
+
 
 
 require __DIR__.'/../vendor/autoload.php';
@@ -36,10 +41,9 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
 
-
 //var_dump((new Test())->test);
-$conn = Proxy::init()->initDoctrine()->getPdo();
-$em = Proxy::init()->initDoctrine()->getDoctrine();
+$conn = Proxy::init()->initDoctrine()->getConnecton();
+$em = Proxy::init()->initDoctrine()->getEntityManager();
 //$q = $conn->prepare("SELECT * FROM sys_urls");
 //$q->execute();
 //$r = $q->fetchAll();
@@ -51,16 +55,13 @@ var_dump($urls);
 //var_dump($list);
 $app = new Silex\Application();
 
+$app->before(function (Request $request, Application $app) {
+    var_dump($request);
+    return $app;
+});
 $app->get('/blog', function () {
     return 'Zxzs';
 });
 
 $app->run();
 
-//$kernel = new Kernel($env, $debug);
-//$request = Request::createFromGlobals();
-//var_dump($request->getPathInfo());
-//var_dump((new Loader())->test);
-//$response = $kernel->handle($request);
-//$response->send();
-//$kernel->terminate($request, $response);
