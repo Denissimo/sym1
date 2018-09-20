@@ -7,8 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Testf\Test;
 use App\Proxy;
-use App\Loader\Loader;
+use App\Routing\Init;
 use Silex\Application;
+use GuzzleHttp\Client;
 
 
 
