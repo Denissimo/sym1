@@ -74,7 +74,7 @@ class Proxy
 
     public function initDoctrine()
     {
-        $config = Setup::createAnnotationMetadataConfiguration(array("../models"), Config::isProd(), null, null, false);
+        $config = Setup::createAnnotationMetadataConfiguration(array(".." . Config::PATH_MODELS), Config::isProd(), null, null, false);
         $dbParams = Config::getDoctrineParams();
         self::$entityManager = EntityManager::create($dbParams, $config);
         self::$connection = self::$entityManager->getConnection();

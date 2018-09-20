@@ -5,6 +5,7 @@ namespace App\Config;
 class Config
 {
     const
+        PATH_MODELS = '/models',
         PARAM_PROD = 'production',
         VENDOR_DOCTRINE = 'doctrine',
         VENDOR_SILEX = 'silex'

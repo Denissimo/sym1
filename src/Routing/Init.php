@@ -8,12 +8,17 @@ use Silex\Application as Silex;
 
 class Init
 {
-    public function run()
+    public function __construct()
     {
         Proxy::init()->initSilex(new Silex());
         Proxy::init()->initDoctrine();
-        Proxy::init()->getSilex()->get('/blog', function () {
-            return 'Zxzs';
-        });
+//        Proxy::init()->getSilex()->get('/blog', function () {
+//            return 'Zxzs';
+//        });
+    }
+
+    public function run()
+    {
+        (new Map())->build(new RouteList());
     }
 }

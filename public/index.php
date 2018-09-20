@@ -49,20 +49,24 @@ $em = Proxy::init()->initDoctrine()->getEntityManager();
 //$q->execute();
 //$r = $q->fetchAll();
 //var_dump($r);
-$param = array("template" => "bscwarn");
-$list = $em->find('SysUrls', 1);
-$urls = $em->getRepository('SysUrls')->findBy($param);
-var_dump($urls);
+//$param = array("template" => "bscwarn");
+//$list = $em->find('SysUrls', 1);
+//$urls = $em->getRepository('SysUrls')->findBy($param);
+//var_dump($urls);
 //var_dump($list);
-$app = new Silex\Application();
+(new Init())->run();
 
+
+$app = new Silex\Application();
 $app->before(function (Request $request, Application $app) {
-    var_dump($request);
+//    var_dump($request);
     return $app;
 });
 $app->get('/blog', function () {
     return 'Zxzs';
 });
-
+$app->get('', function () {
+    return 'MAIN';
+});
 $app->run();
 

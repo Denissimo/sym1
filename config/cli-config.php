@@ -5,8 +5,7 @@ use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use App\Config\Config;
 
 
-
-$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/models"), Config::isProd(), null, null, false);
+$config = Setup::createAnnotationMetadataConfiguration([__DIR__ . Config::PATH_MODELS], Config::isProd(), null, null, false);
 $dbParams = Config::getDoctrineParams();
 $entityManager = EntityManager::create($dbParams, $config);
 
