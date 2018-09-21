@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Proxy;
 //use App\Routing\Init;
 use GuzzleHttp\Client;
+
 //use Symfony\Component\Routing\Matcher\UrlMatcher;
 //use Symfony\Component\Routing\RequestContext;
 //use Symfony\Component\Routing\RouteCollection;
@@ -53,15 +54,15 @@ $response->send();
 $kernel->terminate($request, $response);
 
 //var_dump((new Test())->test);
-//$conn = Proxy::init()->initDoctrine()->getConnecton();
-//$em = Proxy::init()->initDoctrine()->getEntityManager();
+$conn = Proxy::init()->initDoctrine()->getConnecton();
+$em = Proxy::init()->initDoctrine()->getEntityManager();
 //$q = $conn->prepare("SELECT * FROM sys_urls");
 //$q->execute();
 //$r = $q->fetchAll();
 //var_dump($r);
-//$param = array("template" => "bscwarn");
+$param = array("template" => "bscwarn");
 //$list = $em->find('SysUrls', 1);
-//$urls = $em->getRepository('SysUrls')->findBy($param);
+$urls = $em->getRepository('SysUrls')->findBy($param);
 //var_dump($urls);
 //var_dump($list);
 //(new Init())->run();

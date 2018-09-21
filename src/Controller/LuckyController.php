@@ -4,18 +4,30 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Proxy;
 
 class LuckyController
 {
     /**
-     * @Route("/lucky/number", name="blog_list")
+     * LuckyController constructor.
+     */
+    public function __construct()
+    {
+        Proxy::init()->initTwig();
+    }
+
+    /**
+     * @Route("/", name="blog_list")
      */
     public function number()
     {
-        $number = random_int(0, 100);
+        $data['number'] = random_int(0, 100);
 
         return new Response(
-            '<html><body>Lucky number: '.$number.'</body></html>'
+            Proxy::init()->getTwigEnvironment()->render(
+                'white1.html.twig',
+                $data
+            )
         );
     }
 }

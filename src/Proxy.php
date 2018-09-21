@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Silex\Application as Silex;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
@@ -11,10 +10,6 @@ use App\Config\Config;
 class Proxy
 {
 
-    /**
-     * @var Silex
-     */
-    private static $silex;
 
     /**
      * @var EntityManager
@@ -25,6 +20,12 @@ class Proxy
      * @var Connection
      */
     private static $connection;
+
+    /**
+     * @var \Twig_Environment
+     */
+    private static $twigEnvironment;
+
 
     private function __construct()
     {
@@ -39,21 +40,6 @@ class Proxy
         return new self();
     }
 
-    /**
-     * @return Silex
-     */
-    public function getSilex(): Silex
-    {
-        return self::$silex;
-    }
-
-    /**
-     * @param Silex $silex
-     */
-    public function initSilex(Silex $silex)
-    {
-        self::$silex = $silex;
-    }
 
     /**
      * @return EntityManager
@@ -74,11 +60,34 @@ class Proxy
 
     public function initDoctrine()
     {
-        $config = Setup::createAnnotationMetadataConfiguration(array(".." . Config::PATH_MODELS), Config::isProd(), null, null, false);
-        $dbParams = Config::getDoctrineParams();
-        self::$entityManager = EntityManager::create($dbParams, $config);
+        self::$entityManager = EntityManager::create(
+            Config::getDoctrineParams(),
+            Setup::createAnnotationMetadataConfiguration(
+                [".." . Config::getDoctrineOptions()[Config::FIELD_PATH]],
+                Config::isProd(),
+                null,
+                null,
+                false
+            )
+        );
         self::$connection = self::$entityManager->getConnection();
         return $this;
+    }
+
+    public function initTwig()
+    {
+        self::$twigEnvironment = new \Twig_Environment(
+            new \Twig_Loader_Filesystem(".." . Config::getTwigPath()),
+            Config::getTwigOptions()
+        );
+    }
+
+    /**
+     * @return \Twig_Environment
+     */
+    public function getTwigEnvironment(): \Twig_Environment
+    {
+        return self::$twigEnvironment;
     }
 
 
