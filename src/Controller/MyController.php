@@ -1,16 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Den
+ * Date: 21.09.2018
+ * Time: 8:41
+ */
 
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-class LuckyController
+class MyController
 {
-    /**
-     * @Route("/lucky/number", name="blog_list")
-     */
-    public function number()
+    public function run()
     {
         $number = random_int(0, 100);
 

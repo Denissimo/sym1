@@ -7,15 +7,16 @@
         "ext-iconv": "*",
         "guzzlehttp/guzzle": "~6.0",
         "sensio/framework-extra-bundle": "^5.2",
-        "silex/silex": "^2.0",
         "symfony/console": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
+        "symfony/twig-bundle": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*"
+        "symfony/dotenv": "*",
+        "symfony/test-pack": "^1.0"
     },
     "config": {
         "preferred-install": {
