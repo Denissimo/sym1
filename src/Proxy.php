@@ -5,7 +5,7 @@ namespace App;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
-use App\Config\Config;
+use App\Cfg\Config;
 
 class Proxy
 {

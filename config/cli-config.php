@@ -2,7 +2,7 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use App\Config\Config;
+use App\Cfg\Config;
 
 return ConsoleRunner::createHelperSet(
     EntityManager::create(
