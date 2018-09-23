@@ -6,18 +6,26 @@ class Config
 {
     const
         PARAM_PROD = 'production',
+        PARAM_AUTORIZE = 'autorize',
         VENDOR_DOCTRINE = 'doctrine',
         VENDOR_TWIG = 'twig';
 
     const
+        REQUEST_USER = 'req_user',
+        REQUEST_PASS = 'req_pass';
+
+    const
+        FIELD_LOGGED = 'logged',
         FIELD_DRIVER = 'driver',
         FIELD_HOST = 'host',
         FIELD_USER = 'user',
         FIELD_PASS = 'password',
+        FIELD_TABLE = 'table',
         FIELD_DBNAME = 'dbname',
         FIELD_CHARSET = 'charset',
         FIELD_PATH = 'path',
         FIELD_CONNECTION = 'connection',
+        FIELD_UID = 'uid',
         FIELD_OPTIONS = 'options'
     ;
 
@@ -26,6 +34,13 @@ class Config
      */
     private static $params = [
         self::PARAM_PROD => true,
+        self::PARAM_AUTORIZE => [
+            self::FIELD_TABLE => 'Users',
+            self::FIELD_USER => 'email',
+            self::FIELD_PASS => 'password',
+            self::REQUEST_USER => 'user',
+            self::REQUEST_PASS => 'pass'
+        ],
         self::VENDOR_DOCTRINE => [
             self::FIELD_CONNECTION => [
                 self::FIELD_DRIVER => 'pdo_mysql',
@@ -74,6 +89,13 @@ class Config
     public static function getTwigPath()
     {
         return self::$params[self::VENDOR_TWIG][self::FIELD_PATH];
+    }
+    /*
+    * @return array
+    */
+    public static function getAutorizeParams()
+    {
+        return self::$params[self::PARAM_AUTORIZE];
     }
 
     /**
