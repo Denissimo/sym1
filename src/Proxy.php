@@ -5,6 +5,7 @@ namespace App;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Cfg\Config;
 
 class Proxy
@@ -25,6 +26,11 @@ class Proxy
      * @var \Twig_Environment
      */
     private static $twigEnvironment;
+
+    /**
+     * @var Session
+     */
+    private static $session;
 
 
     private function __construct()
@@ -57,7 +63,9 @@ class Proxy
         return self::$connection;
     }
 
-
+    /**
+     * @return $this
+     */
     public function initDoctrine()
     {
         self::$entityManager = EntityManager::create(
@@ -90,5 +98,21 @@ class Proxy
         return self::$twigEnvironment;
     }
 
+    /**
+     * @return Session
+     */
+    public function getSession(): Session
+    {
+        return self::$session;
+    }
+
+    /**
+     * @return $this
+     */
+    public function initSession()
+    {
+        self::$session = new Session();
+        return $this;
+    }
 
 }

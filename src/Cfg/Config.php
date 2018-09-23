@@ -32,7 +32,7 @@ class Config
                 self::FIELD_HOST => 'localhost',
                 self::FIELD_USER => 'root',
                 self::FIELD_PASS => '',
-                self::FIELD_DBNAME => 'kznew',
+                self::FIELD_DBNAME => 'kz',
                 self::FIELD_CHARSET => 'UTF8'],
             self::FIELD_OPTIONS => [
                 self::FIELD_PATH => '/models'

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Proxy;
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 require __DIR__.'/../vendor/autoload.php';
@@ -37,8 +38,22 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
 
+//var_dump((new Session())->get('aza'));
 $kernel = new Kernel($env, $debug);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
+
+//$conn = Proxy::init()->initDoctrine()->getConnecton();
+//$em = Proxy::init()->initDoctrine()->getEntityManager();
+//$q = $conn->prepare("SELECT * FROM sys_urls");
+//$q->execute();
+//$r = $q->fetchAll();
+//var_dump($r);
+//$param = array("template" => "bscwarn");
+//$list = $em->find('SysUrls', 1);
+//$urls = $em->getRepository('SysUrls')->findBy($param);
+//var_dump($urls);
+//var_dump($list);
+

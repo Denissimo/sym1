@@ -80,27 +80,5 @@ class Users
      */
     private $partner;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Roles", inversedBy="user")
-     * @ORM\JoinTable(name="users_roles",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="role_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $role;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 }
