@@ -80,5 +80,77 @@ class Users
      */
     private $partner;
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getInAction()
+    {
+        return $this->inAction;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShowInFilter()
+    {
+        return $this->showInFilter;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @return Partners
+     */
+    public function getPartner(): Partners
+    {
+        return $this->partner;
+    }
+
 
 }

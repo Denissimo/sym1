@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Modules
+ * RequestApiPartner
  *
- * @ORM\Table(name="modules")
+ * @ORM\Table(name="request_api_partner")
  * @ORM\Entity
  */
-class Modules
+class RequestApiPartner
 {
     /**
      * @var int
@@ -22,25 +22,25 @@ class Modules
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="description", type="text", length=0, nullable=true)
+     * @ORM\Column(name="key", type="string", length=255, nullable=true)
      */
-    private $description;
+    private $key;
 
     /**
-     * @var bool
+     * @var bool|null
      *
-     * @ORM\Column(name="enabled", type="boolean", nullable=false, options={"default"="1"})
+     * @ORM\Column(name="is_enabled", type="boolean", nullable=true)
      */
-    private $enabled = '1';
+    private $isEnabled = '0';
 
     /**
      * @return int
@@ -51,9 +51,9 @@ class Modules
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -61,17 +61,17 @@ class Modules
     /**
      * @return null|string
      */
-    public function getDescription()
+    public function getKey()
     {
-        return $this->description;
+        return $this->key;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isEnabled(): bool
+    public function getIsEnabled()
     {
-        return $this->enabled;
+        return $this->isEnabled;
     }
 
 

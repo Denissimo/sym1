@@ -45,15 +45,3 @@ $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
 
-//$conn = Proxy::init()->initDoctrine()->getConnecton();
-//$em = Proxy::init()->initDoctrine()->getEntityManager();
-//$q = $conn->prepare("SELECT * FROM sys_urls");
-//$q->execute();
-//$r = $q->fetchAll();
-//var_dump($r);
-//$param = array("template" => "bscwarn");
-//$list = $em->find('SysUrls', 1);
-//$urls = $em->getRepository('SysUrls')->findBy($param);
-//var_dump($urls);
-//var_dump($list);
-

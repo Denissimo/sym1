@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UsersRoles
  *
- * @ORM\Table(name="users_roles", indexes={@ORM\Index(name="IDX_51498A8ED60322AC", columns={"role_id"}), @ORM\Index(name="IDX_51498A8EA76ED395", columns={"user_id"})})
+ * @ORM\Table(name="users_roles", indexes={@ORM\Index(name="IDX_51498A8EA76ED395", columns={"user_id"}), @ORM\Index(name="IDX_51498A8ED60322AC", columns={"role_id"})})
  * @ORM\Entity
  */
 class UsersRoles
@@ -40,6 +40,30 @@ class UsersRoles
      * })
      */
     private $role;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Users
+     */
+    public function getUser(): Users
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return Roles
+     */
+    public function getRole(): Roles
+    {
+        return $this->role;
+    }
 
 
 }

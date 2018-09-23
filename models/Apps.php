@@ -94,5 +94,93 @@ class Apps
      */
     private $partner;
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getForeignId()
+    {
+        return $this->foreignId;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedat(): DateTime
+    {
+        return $this->createdat;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getTrash()
+    {
+        return $this->trash;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getInWork()
+    {
+        return $this->inWork;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIp(): int
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCheck()
+    {
+        return $this->check;
+    }
+
+    /**
+     * @return Partners
+     */
+    public function getPartner(): Partners
+    {
+        return $this->partner;
+    }
+
 
 }

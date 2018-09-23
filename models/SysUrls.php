@@ -154,5 +154,165 @@ class SysUrls
      */
     private $slash;
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getScrip()
+    {
+        return $this->scrip;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIndepend()
+    {
+        return $this->independ;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getH1()
+    {
+        return $this->h1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMenu(): string
+    {
+        return $this->menu;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getNoindex()
+    {
+        return $this->noindex;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getVirtual()
+    {
+        return $this->virtual;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getSlash()
+    {
+        return $this->slash;
+    }
+
 
 }
