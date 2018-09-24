@@ -88,7 +88,7 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
 
 
         <nav class=\"navbar navbar-expand-lg navbar-light grad1 rounded d-flex flex-row\">
-            <a class=\"navbar-brand align-self-center\" href=\"#\">ZZZZZZ</a>
+            <a class=\"navbar-brand align-self-center\" href=\"/\">ZZZZZZ</a>
             <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
                 <span class=\"navbar-toggler-icon\"></span>
             </button>
@@ -99,7 +99,7 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
                         <a class=\"nav-link\" href=\"#\">О нас <span class=\"sr-only\">(current)</span></a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"#\">Документы</a>
+                        <a class=\"nav-link\" href=\"docs/\">Документы</a>
                     </li>
                     <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"#\">Контакты</a>

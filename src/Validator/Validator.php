@@ -5,10 +5,11 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraint;
-use App\Exception\DefaultException;
+use App\Exceptions\DefaultException;
 use Symfony\Component\Validator\Validator\RecursiveValidator;
+use App\Proxy;
 
-class BaseValidator
+class Validator
 {
     /**
      * Проверка обязательных для заполнения полей
@@ -98,7 +99,29 @@ class BaseValidator
         $message = null,
         $exception = DefaultException::class
     ) {
+        if (!is_string($exception) && !is_callable($exception)) {
+            throw new \InvalidArgumentException(
+                sprintf('Argument %s is not type string or callable', $exception)
+            );
+        }
 
+        /** @var ValidatorInterface $baseValidator */
+        $baseValidator = Proxy::init()->getValidator();
+        $errors = $baseValidator->validate($data, $validator);
+
+        if (count($errors) !== 0) {
+            if (is_callable($exception)) {
+                call_user_func(
+                    $exception,
+                    $errors[0]->getPropertyPath(),
+                    $errors[0]->getMessage()
+                );
+            }
+
+            throw new $exception(
+                $message ?? $errors[0]->getPropertyPath() . ': ' . $errors[0]->getMessage()
+            );
+        }
 
     }
 }

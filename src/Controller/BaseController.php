@@ -3,16 +3,12 @@
 namespace App\Controller;
 
 use App\Proxy;
-use App\Cfg\Config;
 use Symfony\Component\HttpFoundation\Request;
-use App\Controller\Actions\Autorize;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-abstract class BaseController
+abstract class BaseController extends Controller
 {
-    const
-        POST = 'POST',
-        LOGOUT = 'logout';
     /**
      * @var Request
      */
@@ -24,7 +20,7 @@ abstract class BaseController
         Proxy::init()->initTwig();
         Proxy::init()->initDoctrine();
         Proxy::init()->initSession()->getSession()->start();
-        $this->autorize();
+        Proxy::init()->initValidator();
     }
 
     /**
@@ -35,14 +31,4 @@ abstract class BaseController
         return self::$request;
     }
 
-    private function autorize()
-    {
-        if(self::$request->getMethod() == self::POST && self::$request->get(Config::getRequestUserField())) {
-            (new Autorize())->login(self::$request);
-        }
-
-        if(self::$request->getMethod() == self::POST && self::$request->get(self::LOGOUT)) {
-            (new Autorize())->logout();
-        }
-    }
 }

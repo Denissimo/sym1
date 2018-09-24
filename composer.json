@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "guzzlehttp/guzzle": "~6.0",
+        "monolog/monolog": "^1.23",
         "robmorgan/phinx": "^0.10.6",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/console": "*",

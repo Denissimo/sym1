@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Autorize
 {
+    const
+        POST = 'POST',
+        LOGOUT = 'logout';
+
     /**
      * @var \Users
      */
@@ -62,5 +66,19 @@ class Autorize
     public function isLogged()
     {
         return Proxy::init()->getSession()->get(Config::FIELD_LOGIN);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function autorize(Request $request)
+    {
+        if($request->getMethod() == self::POST && $request->get(Config::getRequestUserField())) {
+            (new Autorize())->login($request);
+        }
+
+        if($request->getMethod() == self::POST && $request->get(self::LOGOUT)) {
+            (new Autorize())->logout();
+        }
     }
 }

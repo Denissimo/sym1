@@ -43,7 +43,7 @@ class __TwigTemplate_62d4f381157f220456f9bc128e6347ba3dc3189d2a55bc7362c7fe7483a
         echo " ";
         echo twig_escape_filter($this->env, ($context["login"] ?? null), "html", null, true);
         echo "<br />
-        <form class=\"form-horizontal\" role=\"form\" method=\"POST\">
+        <form class=\"form-horizontal\" role=\"form\" method=\"POST\" action=\"/autorize\">
             <div class=\"form-group\">
                 <div class=\"form-group\">
                     <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Логин</label>

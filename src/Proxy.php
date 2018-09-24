@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Validator\RecursiveValidator as Validator;
+use Symfony\Component\Validator\Validation;
 use App\Cfg\Config;
 
 class Proxy
@@ -129,8 +130,16 @@ class Proxy
      */
     public function initValidator()
     {
-        //self::$validator = new Validator();
+        self::$validator = Validation::createValidator();
         return $this;
+    }
+
+    /**
+     * @return Validator
+     */
+    public function getValidator(): Validator
+    {
+        return self::$validator;
     }
 
 }
