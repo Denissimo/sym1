@@ -8,6 +8,7 @@ use App\Proxy;
 //use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Actions\Autorize;
+use App\Twig\Render;
 
 
 class MainController extends BaseController
@@ -32,12 +33,9 @@ class MainController extends BaseController
     {
         $login = (new Autorize())->login(self::getRequest());
 //        var_dump($login);
+        $data['login'] = $login;
         $data['number'] = random_int(0, 100);
-        return new Response(
-            Proxy::init()->getTwigEnvironment()->render(
-                'white1.html.twig',
-                $data
-            )
-        );
+        $data['post'] = self::getRequest()->getMethod();
+        return (new Render())->render($data);
     }
 }

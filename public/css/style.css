@@ -1,0 +1,33 @@
+
+
+body {
+    /*background: url("images/dzen.jpg");*/
+    background: #000000 url('/images/1554644.jpg') fixed center center no-repeat;
+    
+}
+
+.bg-white0{
+    background: #FFFFFF;
+}
+
+.bg-white1{
+    background: rgba(255, 255,255, 0.7);
+    border-radius: 5px;
+}
+
+.mart10{
+    margin-top: 10px;
+}
+
+.panel-body{
+    background: rgba(255, 255,255, 0.7);
+}
+
+.panel{
+    background: rgba(0, 0, 0, 0.0);
+}
+
+.padside10{
+    padding-left: 10px;
+    padding-right: 10px;
+}

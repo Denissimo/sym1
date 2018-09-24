@@ -1,0 +1,61 @@
+
+
+body {
+    background: #f1dfd1 url('/images/001.png') fixed right top no-repeat;
+}
+
+.bg-white0{
+    background: #FFFFFF;
+}
+
+.bg-white1{
+    background: rgba(255, 255,255, 0.7);
+    border-radius: 5px;
+}
+
+.mart10{
+    margin-top: 10px;
+}
+
+
+.panel-body{
+    background: rgba(255, 255,255, 0.7);
+}
+
+.panel{
+    background: rgba(0, 0, 0, 0.0);
+}
+
+.grad1 {
+    background: -webkit-linear-gradient(#d8c786, #75662a);
+    background: -o-linear-gradient(#d8c786, #75662a);
+    background: -moz-linear-gradient(#d8c786, #75662a);
+    background: linear-gradient(#d8c786, #75662a);
+}
+
+.padt01{
+    padding-top: 15px;
+}
+
+.padt00{
+    padding-top: 5px;
+}
+
+.imgbut {
+    margin: 5px;
+    width: 300px;
+}
+
+.carousel-caption{
+    text-shadow: 3px 3px 3px #303030;
+}
+
+.footer{
+    height: 30px;
+    border-radius: 3px;
+}
+.login form {
+    width: 300px;
+    margin: 0 auto;
+    padding-top: 20px;
+}

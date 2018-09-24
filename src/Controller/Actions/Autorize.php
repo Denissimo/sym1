@@ -13,6 +13,10 @@ class Autorize
      */
     private $user;
 
+    /**
+     * @param Request $request
+     * @return bool
+     */
     public function login(Request $request)
     {
         $config = Config::getAutorizeParams();
@@ -21,10 +25,10 @@ class Autorize
             ->getRepository($config[Config::FIELD_TABLE])
             ->findBy(
                 [
-                    $config[Config::FIELD_USER] => $request->get($config[Config::REQUEST_USER]),
-                    $config[Config::FIELD_PASS] => sha1(
+                    Config::getDbUserField() => $request->get(Config::getRequestUserField()),
+                    Config::getDbPassField() => sha1(
                         strtolower(
-                            $request->get($config[Config::REQUEST_USER]) . $request->get($config[Config::REQUEST_PASS])
+                            $request->get(Config::getRequestUserField()) . $request->get(Config::getRequestPassField())
                         )
                     )
                 ]
@@ -32,12 +36,31 @@ class Autorize
 
         if(count($users)) {
             $this->user = $users[0];
-            Proxy::init()->getSession()->set(Config::FIELD_LOGGED, true);
+            Proxy::init()->getSession()->set(Config::FIELD_LOGIN, true);
             Proxy::init()->getSession()->set(Config::FIELD_USER, $this->user->getEmail());
             Proxy::init()->getSession()->set(Config::FIELD_UID, $this->user->getId());
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function logout()
+    {
+        Proxy::init()->getSession()->set(Config::FIELD_LOGIN, false);
+        Proxy::init()->getSession()->set(Config::FIELD_USER, null);
+        Proxy::init()->getSession()->set(Config::FIELD_UID, null);
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLogged()
+    {
+        return Proxy::init()->getSession()->get(Config::FIELD_LOGIN);
     }
 }

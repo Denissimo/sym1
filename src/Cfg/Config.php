@@ -15,7 +15,8 @@ class Config
         REQUEST_PASS = 'req_pass';
 
     const
-        FIELD_LOGGED = 'logged',
+        FIELD_OBLIG = 'obligatory',
+        FIELD_LOGIN = 'login',
         FIELD_DRIVER = 'driver',
         FIELD_HOST = 'host',
         FIELD_USER = 'user',
@@ -23,7 +24,9 @@ class Config
         FIELD_TABLE = 'table',
         FIELD_DBNAME = 'dbname',
         FIELD_CHARSET = 'charset',
+        FIELD_DEFAULT = 'default',
         FIELD_PATH = 'path',
+        FIELD_FILE = 'file',
         FIELD_CONNECTION = 'connection',
         FIELD_UID = 'uid',
         FIELD_OPTIONS = 'options'
@@ -35,6 +38,7 @@ class Config
     private static $params = [
         self::PARAM_PROD => true,
         self::PARAM_AUTORIZE => [
+            self::FIELD_OBLIG => true,
             self::FIELD_TABLE => 'Users',
             self::FIELD_USER => 'email',
             self::FIELD_PASS => 'password',
@@ -55,6 +59,8 @@ class Config
         ],
         self::VENDOR_TWIG => [
             self::FIELD_PATH => '/templates',
+            self::FIELD_DEFAULT => 'default.html.twig',
+            self::FIELD_LOGIN => 'login.html.twig',
             self::FIELD_OPTIONS => ['cache' => 'compilation_cache', 'auto_reload' => true]
         ]
     ];
@@ -90,12 +96,70 @@ class Config
     {
         return self::$params[self::VENDOR_TWIG][self::FIELD_PATH];
     }
+
+    /**
+     * @return string
+     */
+    public static function getTwigDefaultTemplate()
+    {
+        return self::$params[self::VENDOR_TWIG][self::FIELD_DEFAULT];
+    }
+
+    /**
+     * @return string
+     */
+    public static function getTwigLoginTemplate()
+    {
+        return self::$params[self::VENDOR_TWIG][self::FIELD_LOGIN];
+    }
+
     /*
     * @return array
     */
     public static function getAutorizeParams()
     {
         return self::$params[self::PARAM_AUTORIZE];
+    }
+
+    /*
+    * @return string
+    */
+    public static function getRequestUserField()
+    {
+        return self::$params[self::PARAM_AUTORIZE][Config::REQUEST_USER];
+    }
+
+    /*
+    * @return string
+    */
+    public static function getRequestPassField()
+    {
+        return self::$params[self::PARAM_AUTORIZE][Config::REQUEST_PASS];
+    }
+
+    /*
+    * @return string
+    */
+    public static function getDbUserField()
+    {
+        return self::$params[self::PARAM_AUTORIZE][Config::FIELD_USER];
+    }
+
+    /*
+    * @return string
+    */
+    public static function getDbPassField()
+    {
+        return self::$params[self::PARAM_AUTORIZE][Config::FIELD_PASS];
+    }
+
+
+    /*
+    * @return bool
+    */
+    public static function isAutorizeObligatory()
+    {
+        return self::$params[self::PARAM_AUTORIZE][self::FIELD_OBLIG];
     }
 
     /**
