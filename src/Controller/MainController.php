@@ -31,9 +31,9 @@ class MainController extends BaseController
      */
     public function run()
     {
-        $login = (new Autorize())->login(self::getRequest());
+//        $login = (new Autorize())->login(self::getRequest());
 //        var_dump($login);
-        $data['login'] = $login;
+//        $data['login'] = $login;
         $data['number'] = random_int(0, 100);
         $data['post'] = self::getRequest()->getMethod();
         return (new Render())->render($data);

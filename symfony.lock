@@ -1,4 +1,22 @@
 {
+    "cakephp/cache": {
+        "version": "3.6.11"
+    },
+    "cakephp/collection": {
+        "version": "3.6.11"
+    },
+    "cakephp/core": {
+        "version": "3.6.11"
+    },
+    "cakephp/database": {
+        "version": "3.6.11"
+    },
+    "cakephp/datasource": {
+        "version": "3.6.11"
+    },
+    "cakephp/utility": {
+        "version": "3.6.11"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -97,6 +115,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "robmorgan/phinx": {
+        "version": "0.10.6"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
