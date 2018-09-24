@@ -36,13 +36,13 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
         // line 6
         $this->displayBlock('stylesheets', $context, $blocks);
         // line 7
-        echo "        <link rel=\"stylesheet\" href=\"/css/boot4/bootstrap.css\">
-        <link rel=\"stylesheet\" href=\"/css/boot4/bootstrap-grid.css\">
-        <link rel=\"stylesheet\" href=\"/css/boot4/bootstrap-reboot.css\">
-        <link rel=\"stylesheet\" href=\"/css/style4.css\">
+        echo "        <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">
+        <link rel=\"stylesheet\" href=\"/css/bootstrap-grid.css\">
+        <link rel=\"stylesheet\" href=\"/css/bootstrap-reboot.css\">
+        <link rel=\"stylesheet\" href=\"/css/style.css\">
         <script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js\"></script>
-        <script src=\"js/boot4/bootstrap.js\"></script>
-        <script src=\"js/boot4/bootstrap.bundle.js\"></script>
+        <script src=\"js/bootstrap.js\"></script>
+        <script src=\"js/bootstrap.bundle.js\"></script>
     </head>
     <body>
     <div class=\"container padt01\">
