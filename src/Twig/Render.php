@@ -17,6 +17,7 @@ class Render
      */
     public function render(array $data, string $template = null)
     {
+        $data[Autorize::FIELD_LOGGED] = (new Autorize())->isLogged();
         if(Config::isAutorizeObligatory() && !(new Autorize())->isLogged()){
             $tpl = Config::getTwigLoginTemplate();
         } else {

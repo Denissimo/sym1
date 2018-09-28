@@ -42,6 +42,7 @@ class __TwigTemplate_98ac14a015987f53b410c7d4d26a673562d5380a0b52f404ef22e389e5f
         echo " ";
         echo twig_escape_filter($this->env, ($context["login"] ?? null), "html", null, true);
         echo "<br />
+            <!--
             <form class=\"form-horizontal\" role=\"form\" method=\"POST\" action=\"/autorize\">
                     <div class=\"form-group\">
                         <div class=\"col-sm-offset-2 col-sm-10\">
@@ -50,6 +51,7 @@ class __TwigTemplate_98ac14a015987f53b410c7d4d26a673562d5380a0b52f404ef22e389e5f
                         </div>
                     </div>
             </form>
+            -->
         </div>
     </div>
 ";

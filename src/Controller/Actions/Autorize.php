@@ -10,7 +10,8 @@ class Autorize
 {
     const
         POST = 'POST',
-        LOGOUT = 'logout';
+        LOGOUT = 'logout',
+        FIELD_LOGGED = 'logged';
 
     /**
      * @var \Users

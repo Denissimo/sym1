@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Validator;
+namespace App;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraint;
 use App\Exceptions\DefaultException;
 use Symfony\Component\Validator\Validator\RecursiveValidator;
+use Symfony\Component\Validator\Validation;
 use App\Proxy;
 
 class Validator
@@ -106,7 +107,7 @@ class Validator
         }
 
         /** @var ValidatorInterface $baseValidator */
-        $baseValidator = Proxy::init()->getValidator();
+        $baseValidator = Validation::createValidator();
         $errors = $baseValidator->validate($data, $validator);
 
         if (count($errors) !== 0) {

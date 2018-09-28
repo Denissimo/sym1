@@ -11,7 +11,7 @@ use App\Controller\Actions\Autorize;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Twig\Render;
-use App\Validator\Validator;
+use App\Validator;
 
 
 class MainController extends BaseController
@@ -20,6 +20,7 @@ class MainController extends BaseController
      * @var \Apps
      */
     private $unit;
+
     /**
      * LuckyController constructor.
      */
@@ -51,7 +52,8 @@ class MainController extends BaseController
         $data['login'] = self::getRequest()->get('_route');
         $data['number'] = 'docs';
         $data['post'] = self::getRequest()->getMethod();
-        try{
+
+        try {
             (new Validator())->validateRequired(
                 $data,
                 ['numer'],

@@ -119,12 +119,18 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
                         <a class=\"nav-link disabled\" href=\"#\">Disabled</a>
                     </li>
                 </ul>
-
-                <form class=\"form-inline my-2 my-lg-0\">
-                    <input class=\"form-control mr-sm-2\" type=\"search\" placeholder=\"Search\" aria-label=\"Search\">
-                    <button class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\">Search</button>
+            ";
+        // line 90
+        if (($context["logged"] ?? null)) {
+            // line 91
+            echo "                <form class=\"form-horizontal\" role=\"form\" method=\"POST\" action=\"/autorize\">
+                            <input type=\"hidden\" name=\"logout\" value=\"1\">
+                            <button type=\"submit\" class=\"btn btn-default btn-sm\">Logout</button>
                 </form>
-            </div>
+            ";
+        }
+        // line 96
+        echo "            </div>
         </nav>
 
 
@@ -138,12 +144,12 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
 
 
         ";
-        // line 108
-        $this->displayBlock('body', $context, $blocks);
         // line 109
+        $this->displayBlock('body', $context, $blocks);
+        // line 110
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 110
+        // line 111
         echo "
         <div class=\"row\">
             <div class=\"col\">
@@ -169,12 +175,12 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
     {
     }
 
-    // line 108
+    // line 109
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 109
+    // line 110
     public function block_javascripts($context, array $blocks = array())
     {
     }
@@ -184,9 +190,14 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
         return "base.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  178 => 109,  173 => 108,  168 => 6,  162 => 5,  147 => 110,  144 => 109,  142 => 108,  39 => 7,  37 => 6,  33 => 5,  27 => 1,);
+        return array (  184 => 110,  179 => 109,  174 => 6,  168 => 5,  153 => 111,  150 => 110,  148 => 109,  133 => 96,  126 => 91,  124 => 90,  39 => 7,  37 => 6,  33 => 5,  27 => 1,);
     }
 
     public function getSourceContext()

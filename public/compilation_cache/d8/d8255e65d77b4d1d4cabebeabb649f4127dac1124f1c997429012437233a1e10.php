@@ -66,6 +66,9 @@ class __TwigTemplate_62d4f381157f220456f9bc128e6347ba3dc3189d2a55bc7362c7fe7483a
             </div>
         </form>
     </div>
+     <div class=\"loginform col-6 offset-3\">
+
+    </div>
     </div>
 ";
     }
