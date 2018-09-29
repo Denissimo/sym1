@@ -50,6 +50,13 @@ class Apps
     private $createdat;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
+     */
+    private $updatedat;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(name="comment", type="text", length=65535, nullable=true)
@@ -135,6 +142,14 @@ class Apps
     }
 
     /**
+     * @return DateTime
+     */
+    public function getUpdatedat(): DateTime
+    {
+        return $this->updatedat;
+    }
+
+    /**
      * @return null|string
      */
     public function getComment()
@@ -181,6 +196,4 @@ class Apps
     {
         return $this->partner;
     }
-
-
 }

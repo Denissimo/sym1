@@ -38,29 +38,5 @@ class ChannelSettings
      */
     private $channel;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDatestart(): DateTime
-    {
-        return $this->datestart;
-    }
-
-    /**
-     * @return Channels
-     */
-    public function getChannel(): Channels
-    {
-        return $this->channel;
-    }
-
 
 }

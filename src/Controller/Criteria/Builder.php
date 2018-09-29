@@ -3,46 +3,23 @@
 namespace App\Controller\Criteria;
 
 use Doctrine\Common\Collections\Criteria;
+use App\Controller\MainController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class Builder
 {
 
-    const
-        CREATE_FROM = 'created_from',
-        CREATE_TO = 'created_from',
-        UPDATE_FROM = 'updated_from',
-        UPDATE_TO = 'updated_to',
-        USER_ID = 'user_id',
-        PER_PAGE = 'per_page';
 
-    private $fields = [
-        self::CREATE_FROM,
-        self::CREATE_TO,
-        self::UPDATE_FROM,
-        self::UPDATE_TO,
-        self::USER_ID
-    ];
 
-    private $gte = [
-        self::CREATE_FROM,
-        self::UPDATE_FROM,
-    ];
-
-    private $lte = [
-        self::CREATE_TO,
-        self::UPDATE_TO,
-    ];
-
-    private $eq = [
-        self::USER_ID,
-    ];
-
+    /**
+     * @param Request $request
+     * @return Criteria
+     */
     public function appsCommon(Request $request): Criteria
     {
         $criteria = Criteria::create();
         $criteria->where(
-            Criteria::expr()->eq('in_work', 1)
+            Criteria::expr()->eq('inWork', 1)
         );
 
         //$criteria = $this->addWhere($criteria, $request);
@@ -53,31 +30,37 @@ class Builder
             }
         }
 
+        $criteria->setMaxResults(50);
+
         return $criteria;
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     private function initExpressions(Request $request) : array
     {
         return [
-            self::CREATE_FROM => 
-                $request->get(self::CREATE_FROM) ? 
-                    Criteria::expr()->gte(self::CREATE_FROM, $request->get(self::CREATE_FROM)) : null,
-            self::CREATE_TO =>
-                $request->get(self::CREATE_TO) ?
-                    Criteria::expr()->gte(self::CREATE_TO, $request->get(self::CREATE_TO)) : null,
-            self::UPDATE_FROM =>
-                $request->get(self::UPDATE_FROM) ?
-                    Criteria::expr()->gte(self::UPDATE_FROM, $request->get(self::UPDATE_FROM)) : null,
-            self::UPDATE_TO =>
-                $request->get(self::UPDATE_TO) ?
-                    Criteria::expr()->lte(self::UPDATE_TO, $request->get(self::UPDATE_TO)) : null,
-            self::USER_ID =>
-                $request->get(self::USER_ID) ?
-                    Criteria::expr()->eq(self::USER_ID, $request->get(self::USER_ID)) : null,
+            Controller::CREATE_FROM =>
+                $request->get(Controller::CREATE_FROM) ?
+                    Criteria::expr()->gte(Controller::CREATE_FROM, $request->get(Controller::CREATE_FROM)) : null,
+            Controller::CREATE_TO =>
+                $request->get(Controller::CREATE_TO) ?
+                    Criteria::expr()->gte(Controller::CREATE_TO, $request->get(Controller::CREATE_TO)) : null,
+            Controller::UPDATE_FROM =>
+                $request->get(Controller::UPDATE_FROM) ?
+                    Criteria::expr()->gte(Controller::UPDATE_FROM, $request->get(Controller::UPDATE_FROM)) : null,
+            Controller::UPDATE_TO =>
+                $request->get(Controller::UPDATE_TO) ?
+                    Criteria::expr()->lte(Controller::UPDATE_TO, $request->get(Controller::UPDATE_TO)) : null,
+            Controller::USER_ID =>
+                $request->get(Controller::USER_ID) ?
+                    Criteria::expr()->eq(Controller::USER_ID, $request->get(Controller::USER_ID)) : null,
         ];
         
     }
-
+/*
     private function addWhere(Criteria $criteria, Request $request) : Criteria
     {
         foreach ($this->gte as $field) {
@@ -103,7 +86,7 @@ class Builder
                 );
             }
         }
-
         return $criteria;
     }
+*/
 }

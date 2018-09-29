@@ -28,21 +28,5 @@ class Region2offset
      */
     private $offset = '0';
 
-    /**
-     * @return int
-     */
-    public function getRegion(): int
-    {
-        return $this->region;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getOffset()
-    {
-        return $this->offset;
-    }
-
 
 }

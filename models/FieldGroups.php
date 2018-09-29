@@ -42,37 +42,5 @@ class FieldGroups
      */
     private $ordernum;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getType(): int
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrdernum(): int
-    {
-        return $this->ordernum;
-    }
-
 
 }

@@ -65,53 +65,5 @@ class FieldValues
      */
     private $valueItem;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getValueText()
-    {
-        return $this->valueText;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return Fields
-     */
-    public function getField(): Fields
-    {
-        return $this->field;
-    }
-
-    /**
-     * @return Apps
-     */
-    public function getApp(): Apps
-    {
-        return $this->app;
-    }
-
-    /**
-     * @return ValueLists
-     */
-    public function getValueItem(): ValueLists
-    {
-        return $this->valueItem;
-    }
-
 
 }

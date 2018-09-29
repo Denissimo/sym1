@@ -38,29 +38,5 @@ class ValueLists
      */
     private $field;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return Fields
-     */
-    public function getField(): Fields
-    {
-        return $this->field;
-    }
-
 
 }

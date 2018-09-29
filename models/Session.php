@@ -45,37 +45,5 @@ class Session
      */
     private $user;
 
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIp(): string
-    {
-        return $this->ip;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDateStart(): DateTime
-    {
-        return $this->dateStart;
-    }
-
-    /**
-     * @return Users
-     */
-    public function getUser(): Users
-    {
-        return $this->user;
-    }
-
 
 }

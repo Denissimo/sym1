@@ -36,28 +36,18 @@ class Roles
     private $description;
 
     /**
-     * @return int
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Users", mappedBy="role")
      */
-    public function getId(): int
-    {
-        return $this->id;
-    }
+    private $user;
 
     /**
-     * @return string
+     * Constructor
      */
-    public function getName(): string
+    public function __construct()
     {
-        return $this->name;
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-    /**
-     * @return null|string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
 
 }

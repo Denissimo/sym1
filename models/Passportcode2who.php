@@ -28,21 +28,5 @@ class Passportcode2who
      */
     private $w = '';
 
-    /**
-     * @return string
-     */
-    public function getPcode(): string
-    {
-        return $this->pcode;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getW()
-    {
-        return $this->w;
-    }
-
 
 }

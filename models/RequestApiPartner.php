@@ -42,37 +42,5 @@ class RequestApiPartner
      */
     private $isEnabled = '0';
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getIsEnabled()
-    {
-        return $this->isEnabled;
-    }
-
 
 }

@@ -37,29 +37,5 @@ class Ip2reg
      */
     private $reg = '';
 
-    /**
-     * @return int
-     */
-    public function getIp1(): int
-    {
-        return $this->ip1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIp2(): int
-    {
-        return $this->ip2;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getReg()
-    {
-        return $this->reg;
-    }
-
 
 }
