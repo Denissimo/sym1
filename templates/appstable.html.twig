@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="loginform col-2 offset-5">
+             {{ number }} ++ {{ post }} ++ {{ login }}<br />
+            <table class="table table-striped">
+                <tr>
+                    <td> App.id</td><td> Com.id</td>
+                </tr>
+            {% for com in comments %}
+                <tr><td>{{ com.app.id|e }}</td><td>{{ com.id|e }}</td></tr>
+            {% endfor %}
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

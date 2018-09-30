@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Twig\Render;
 use App\Validator;
 use App\Controller\Criteria\Builder;
+use App\Controller\Apps\Builder as AppBuilder;
 use App\Controller\Query\Builder as Qb;
 
 
@@ -52,6 +53,8 @@ class MainController extends BaseController
      */
     private $unit;
 
+    private $s;
+
     /**
      * LuckyController constructor.
      */
@@ -74,23 +77,48 @@ class MainController extends BaseController
     }
 
     /**
-     * @Route("docs", name="docs")
+     * @Route("apps", name="apps")
      * @return Response
      */
-    public function docs()
+    public function apps()
     {
 
         $data['login'] = self::getRequest()->get('_route');
         $data['number'] = 'docs';
         $data['post'] = self::getRequest()->getMethod();
 
-        /** @var \Apps $apps */
-        $apps = Proxy::init()->getEntityManager()->getRepository('Apps')->matching(
+//        /** @var \Apps $apps */
+//        $apps = Proxy::init()->getEntityManager()->getRepository('Apps')->matching(
+//            (new Builder())->appsCommon(self::getRequest())
+//        )->getValues();
+
+        $apps = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             (new Builder())->appsCommon(self::getRequest())
-        )[0];
+        );
+
+        $appsArray = (new AppBuilder())->getArrayById($apps);
+        $ids = array_keys($appsArray);
+
+        $comments = Proxy::init()->getEntityManager()->getRepository(\Comments::class)->matching(
+            (new Builder())->commentsCommon($ids)
+        )->toArray();
+
+        $data['comments'] = $comments;
+
+        /** @var \Comments $comment */
+//        $comment = $comments->toArray()[0];
+        //var_dump($comment->getApp()); die;
+
+//        $commetsArray = (new AppBuilder())->getArrayByAppId($comments);
+//        var_dump((new AppBuilder())->getArrayById($apps));
+
 
 //        echo "<pre>";
-//        var_dump((new Qb())->queryApps());
+//        try {
+//            var_dump((new Qb())->queryApps());
+//        } catch (\Exception $e) {
+//            var_dump($e->getMessage());
+//        }
 //        var_dump($apps->getUserId());
 //        echo "<pre>";
 //        die;
@@ -98,23 +126,23 @@ class MainController extends BaseController
 
 //        $param = array("id" => "1");
 //        $urls = Proxy::init()->getEntityManager()->getRepository('Users')->findBy($param);
-//        /** @var \Users $user */
+        /** @var \Users $user */
 //        $user = $urls[0];
 //        echo "<pre>";
 //        var_dump($user->getRole()->getKeys());
+//        var_dump($this->s);
+//        var_dump(get_class($apps));
+
+        /** @var \Apps $app */
+//        $app = $apps->toArray()[0];
+//        var_dump($app);
+        /** @var \Comments $comment */
+//        $comment = $comments->toArray()[0];
+//        var_dump(($comment));
 //        echo "<pre>";
 //        die;
 
-        try {
-            (new Validator())->validateRequired(
-                $data,
-                ['numer'],
-                'Mess 1'
-            );
-        } catch (DefaultException $e) {
-            $data['number'] = $e->getMessage();
-        }
-        return (new Render())->render($data);
+        return (new Render())->render($data, 'appstable.html.twig');
     }
 
     /**

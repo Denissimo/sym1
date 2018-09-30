@@ -101,6 +101,8 @@ class Apps
      */
     private $partner;
 
+
+
     /**
      * @return int
      */

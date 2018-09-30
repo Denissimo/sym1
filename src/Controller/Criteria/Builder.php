@@ -36,6 +36,19 @@ class Builder
     }
 
     /**
+     * @param array $ids
+     * @return Criteria
+     */
+    public function commentsCommon(array $ids): Criteria
+    {
+        $criteria = Criteria::create();
+        $criteria->where(
+            Criteria::expr()->in('appId', $ids)
+        );
+        return $criteria;
+    }
+
+    /**
      * @param Request $request
      * @return array
      */

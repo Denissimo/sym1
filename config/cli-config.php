@@ -8,7 +8,7 @@ return ConsoleRunner::createHelperSet(
     EntityManager::create(
         Config::getDoctrineParams(),
         Setup::createAnnotationMetadataConfiguration(
-            [__DIR__ . Config::getDoctrineOptions()[Config::FIELD_PATH]],
+            [__DIR__ .'\..'. Config::getDoctrineOptions()[Config::FIELD_PATH]],
             Config::isProd(),
             null,
             null,

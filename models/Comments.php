@@ -22,11 +22,20 @@ class Comments
     private $id;
 
     /**
-     * @var int|null
+     * @var int
      *
-     * @ORM\Column(name="app_id", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="app_id", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $appId = '0';
+    private $appId;
+
+    /**
+     * @var \Apps
+     * @ORM\ManyToOne(targetEntity="\Apps")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="app_id", referencedColumnName="id", nullable=false)
+     * })
+     */
+    private $app;
 
     /**
      * @var \DateTime|null
@@ -63,5 +72,69 @@ class Comments
      */
     private $ctype = '0';
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAppId(): int
+    {
+        return $this->appId;
+    }
+
+    /**
+     * @return Apps
+     */
+    public function getApp(): Apps
+    {
+        return $this->app;
+    }
+
+
+    /**
+     * @return DateTime|null
+     */
+    public function getTs()
+    {
+        return $this->ts;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getReminder()
+    {
+        return $this->reminder;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCtype()
+    {
+        return $this->ctype;
+    }
 
 }

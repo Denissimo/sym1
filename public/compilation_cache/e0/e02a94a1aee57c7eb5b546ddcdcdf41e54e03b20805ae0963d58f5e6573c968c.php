@@ -99,7 +99,7 @@ class __TwigTemplate_d4adedf8b628bb02b902f8903d0c2a7429bfcb447924bfd69ba04027b5b
                         <a class=\"nav-link\" href=\"#\">О нас <span class=\"sr-only\">(current)</span></a>
                     </li>
                     <li class=\"nav-item\">
-                        <a class=\"nav-link\" href=\"docs/\">Документы</a>
+                        <a class=\"nav-link\" href=\"apps/\">Заявки</a>
                     </li>
                     <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"#\">Контакты</a>
