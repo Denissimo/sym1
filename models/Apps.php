@@ -101,7 +101,14 @@ class Apps
      */
     private $partner;
 
-
+    /**
+     * @var \Comments
+     * @ORM\OneToMany(targetEntity="\Comments", mappedBy="app")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="app_id", nullable=false)
+     * })
+     */
+    private $comments;
 
     /**
      * @return int
@@ -197,5 +204,13 @@ class Apps
     public function getPartner(): Partners
     {
         return $this->partner;
+    }
+
+    /**
+     * @return Comments
+     */
+    public function getComments(): Comments
+    {
+        return $this->comments;
     }
 }

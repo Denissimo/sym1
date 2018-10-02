@@ -30,7 +30,7 @@ class Comments
 
     /**
      * @var \Apps
-     * @ORM\ManyToOne(targetEntity="\Apps")
+     * @ORM\ManyToOne(targetEntity="\Apps", inversedBy="comments")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="app_id", referencedColumnName="id", nullable=false)
      * })
