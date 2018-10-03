@@ -1,7 +1,8 @@
 <?php
 
 
-
+use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +49,7 @@ class Apps
      * @ORM\Column(name="createdAt", type="datetime", nullable=false)
      */
     private $createdat;
+
 
     /**
      * @var \DateTime
@@ -102,8 +104,9 @@ class Apps
     private $partner;
 
     /**
-     * @var \Comments
+     * @var Collection
      * @ORM\OneToMany(targetEntity="\Comments", mappedBy="app")
+     * @ORM\OrderBy({"id" = "DESC"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id", referencedColumnName="app_id", nullable=false)
      * })
@@ -148,6 +151,22 @@ class Apps
     public function getCreatedat(): DateTime
     {
         return $this->createdat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedatString(): string
+    {
+        return $this->createdat->format('d.m.Y h:i');
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedatString(): string
+    {
+        return $this->updatedat->format('d.m.Y h:i');
     }
 
     /**
@@ -207,9 +226,9 @@ class Apps
     }
 
     /**
-     * @return Comments
+     * @return Collection
      */
-    public function getComments(): Comments
+    public function getComments(): Collection
     {
         return $this->comments;
     }

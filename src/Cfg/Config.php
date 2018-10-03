@@ -8,6 +8,7 @@ class Config
         PARAM_PROD = 'production',
         PARAM_AUTORIZE = 'autorize',
         VENDOR_DOCTRINE = 'doctrine',
+        VENDOR_LOGGER = 'logger',
         VENDOR_TWIG = 'twig';
 
     const
@@ -62,6 +63,9 @@ class Config
             self::FIELD_DEFAULT => 'default.html.twig',
             self::FIELD_LOGIN => 'login.html.twig',
             self::FIELD_OPTIONS => ['cache' => 'compilation_cache', 'auto_reload' => true]
+        ],
+        self::VENDOR_LOGGER => [
+            self::FIELD_PATH => __DIR__.'/../../logs/log.txt'
         ]
     ];
 
@@ -153,7 +157,6 @@ class Config
         return self::$params[self::PARAM_AUTORIZE][Config::FIELD_PASS];
     }
 
-
     /*
     * @return bool
     */
@@ -168,6 +171,14 @@ class Config
     public static function isProd()
     {
         return self::$params[self::PARAM_PROD];
+    }
+
+    /*
+    * @return string
+    */
+    public static function getLoggerPath()
+    {
+        return self::$params[self::VENDOR_LOGGER][Config::FIELD_PATH];
     }
 
 }

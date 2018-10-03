@@ -106,6 +106,15 @@ class Comments
     }
 
     /**
+     * @return string
+     */
+    public function getTsString()
+    {
+        return $this->ts->format('d.m.Y h:i');
+    }
+
+
+    /**
      * @return int|null
      */
     public function getUid()

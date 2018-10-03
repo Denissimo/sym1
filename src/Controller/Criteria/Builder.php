@@ -3,12 +3,14 @@
 namespace App\Controller\Criteria;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\CompositeExpression;
+use Doctrine\Common\Collections\Expr\Comparison;
 use App\Controller\MainController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class Builder
 {
-
 
 
     /**
@@ -23,14 +25,23 @@ class Builder
         );
 
         //$criteria = $this->addWhere($criteria, $request);
-        foreach ($this->initExpressions($request) as $expression)
-        {
-            if($expression) {
+//        var_dump(\DateTime::createFromFormat('Ymd', '20180104')); die;
+//        echo "<pre>";var_dump($this->initExpressions($request)); echo "</pre>"; die;
+        foreach ($this->initExpressions($request) as $expression) {
+            if ($expression) {
                 $criteria->andWhere($expression);
             }
         }
-
-        $criteria->setMaxResults(50);
+/*
+        $criteria->andWhere(
+            Criteria::expr()->gte(
+                'createdat',
+                \DateTime::createFromFormat('Ymdhis', '20180103055050')
+            )
+        );
+*/
+        $criteria->orderBy(['id' => 'DESC']);
+        $criteria->setMaxResults($request->get(Controller::LIMIT) ?? Controller::DEFAULT_LIMIT);
 
         return $criteria;
     }
@@ -52,54 +63,83 @@ class Builder
      * @param Request $request
      * @return array
      */
-    private function initExpressions(Request $request) : array
+    private function initExpressions(Request $request): array
     {
         return [
-            Controller::CREATE_FROM =>
-                $request->get(Controller::CREATE_FROM) ?
-                    Criteria::expr()->gte(Controller::CREATE_FROM, $request->get(Controller::CREATE_FROM)) : null,
-            Controller::CREATE_TO =>
-                $request->get(Controller::CREATE_TO) ?
-                    Criteria::expr()->gte(Controller::CREATE_TO, $request->get(Controller::CREATE_TO)) : null,
-            Controller::UPDATE_FROM =>
-                $request->get(Controller::UPDATE_FROM) ?
-                    Criteria::expr()->gte(Controller::UPDATE_FROM, $request->get(Controller::UPDATE_FROM)) : null,
-            Controller::UPDATE_TO =>
-                $request->get(Controller::UPDATE_TO) ?
-                    Criteria::expr()->lte(Controller::UPDATE_TO, $request->get(Controller::UPDATE_TO)) : null,
+            Controller::CREATE_AT => $this->buildPeriod($request, Controller::CREATE_AT),
+            Controller::UPDATE_AT => $this->buildPeriod($request, Controller::UPDATE_AT),
             Controller::USER_ID =>
                 $request->get(Controller::USER_ID) ?
                     Criteria::expr()->eq(Controller::USER_ID, $request->get(Controller::USER_ID)) : null,
         ];
-        
+
     }
-/*
-    private function addWhere(Criteria $criteria, Request $request) : Criteria
+
+    /**
+     * @param Request $request
+     * @param string $field
+     * @return CompositeExpression | Comparison | null
+     */
+    private function buildPeriod(Request $request, string $field)
     {
-        foreach ($this->gte as $field) {
-            if($request->get($field)) {
-                $criteria->andWhere(
-                    Criteria::expr()->gte($field, $request->get($field))
-                );
-            }
+        $from = $request->get(Controller::$fields[$field][Controller::FROM]);
+        $to = $request->get(Controller::$fields[$field][Controller::TO]);
+//        var_dump(Controller::$fields[$field]);
+        if ($from && $to) {
+//            var_dump($from); var_dump($to);die;
+            return Criteria::expr()->andX(
+                Criteria::expr()->gte(
+                    $field,
+                    \DateTime::createFromFormat('YmdHis', $from)
+                ),
+                Criteria::expr()->lte(
+                    $field,
+                    \DateTime::createFromFormat('YmdHis', $to)
+                )
+            );
+        } elseif ($from) {
+            return Criteria::expr()->gte(
+                $field,
+                \DateTime::createFromFormat('YmdHis', $from)
+            );
+        } elseif ($to) {
+            return Criteria::expr()->lte(
+                $field,
+                \DateTime::createFromFormat('YmdHis', $to)
+            );
+        } else {
+            return null;
         }
-
-        foreach ($this->lte as $field) {
-            if($request->get($field)) {
-                $criteria->andWhere(
-                    Criteria::expr()->lte($field, $request->get($field))
-                );
-            }
-        }
-
-        foreach ($this->eq as $field) {
-            if($request->get($field)) {
-                $criteria->andWhere(
-                    Criteria::expr()->eq($field, $request->get($field))
-                );
-            }
-        }
-        return $criteria;
     }
-*/
+
+
+    /*
+        private function addWhere(Criteria $criteria, Request $request) : Criteria
+        {
+            foreach ($this->gte as $field) {
+                if($request->get($field)) {
+                    $criteria->andWhere(
+                        Criteria::expr()->gte($field, $request->get($field))
+                    );
+                }
+            }
+
+            foreach ($this->lte as $field) {
+                if($request->get($field)) {
+                    $criteria->andWhere(
+                        Criteria::expr()->lte($field, $request->get($field))
+                    );
+                }
+            }
+
+            foreach ($this->eq as $field) {
+                if($request->get($field)) {
+                    $criteria->andWhere(
+                        Criteria::expr()->eq($field, $request->get($field))
+                    );
+                }
+            }
+            return $criteria;
+        }
+    */
 }

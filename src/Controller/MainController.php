@@ -15,24 +15,28 @@ use App\Validator;
 use App\Controller\Criteria\Builder;
 use App\Controller\Apps\Builder as AppBuilder;
 use App\Controller\Query\Builder as Qb;
+use Monolog\Logger;
 
 
 class MainController extends BaseController
 {
     const
+        FROM = '_from',
+        TO = '_to',
         CREATE_FROM = 'create_from',
-        CREATE_TO = 'create_from',
+        CREATE_TO = 'create_to',
+        CREATE_AT = 'createdat',
         UPDATE_FROM = 'update_from',
         UPDATE_TO = 'update_to',
+        UPDATE_AT = 'updatedat',
         USER_ID = 'userId',
-        PER_PAGE = 'per_page';
+        PER_PAGE = 'per_page',
+        DEFAULT_LIMIT = 50,
+        LIMIT = 'limit';
 
-    private $fields = [
-        self::CREATE_FROM,
-        self::CREATE_TO,
-        self::UPDATE_FROM,
-        self::UPDATE_TO,
-        self::USER_ID
+    public static $fields = [
+        self::CREATE_AT => [self::FROM => self::CREATE_FROM, self::TO => self::CREATE_TO],
+        self::UPDATE_AT => [self::FROM => self::UPDATE_FROM, self::TO => self::UPDATE_TO]
     ];
 
     private $gte = [
@@ -85,6 +89,7 @@ class MainController extends BaseController
 
         $data['login'] = self::getRequest()->get('_route');
         $data['number'] = 'docs';
+        $data['request'] = self::getRequest()->query->all();
         $data['post'] = self::getRequest()->getMethod();
 
 //        /** @var \Apps $apps */
@@ -95,7 +100,7 @@ class MainController extends BaseController
         $apps = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             (new Builder())->appsCommon(self::getRequest())
         );
-
+/*
         $appsArray = (new AppBuilder())->getArrayById($apps);
         $ids = array_keys($appsArray);
 
@@ -104,6 +109,8 @@ class MainController extends BaseController
         )->toArray();
 
         $data['comments'] = $comments;
+*/
+        $data['apps'] = $apps->toArray();
 
         /** @var \Comments $comment */
 //        $comment = $comments->toArray()[0];
@@ -135,11 +142,13 @@ class MainController extends BaseController
 
         /** @var \Apps $app */
 //        $app = $apps->toArray()[0];
-//        var_dump($app);
+
         /** @var \Comments $comment */
 //        $comment = $comments->toArray()[0];
 //        var_dump(($comment));
 //        echo "<pre>";
+//        var_dump($app->getComments()[0]->getId());
+//        echo "</pre>";
 //        die;
 
         return (new Render())->render($data, 'appstable.html.twig');

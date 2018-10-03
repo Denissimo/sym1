@@ -9,10 +9,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 //use Symfony\Component\Validator\Validator\RecursiveValidator as Validator;
 use App\Validator;
 use App\Cfg\Config;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class Proxy
 {
 
+    const DEFAULT = 'default';
 
     /**
      * @var EntityManager
@@ -39,7 +42,10 @@ class Proxy
      */
     private static $validator;
 
-
+    /**
+     * @var Logger
+     */
+    private static $logger;
 
 
 
@@ -141,5 +147,25 @@ class Proxy
     {
         return self::$validator;
     }
+
+    /**
+     * @return $this
+     */
+    public function initLogger($name = Config::FIELD_DEFAULT)
+    {
+        self::$logger = new Logger($name);
+        self::$logger->pushHandler(new StreamHandler(Config::getLoggerPath(), Logger::WARNING));
+        return $this;
+    }
+
+    /**
+     * @return Logger
+     */
+    public function getLogger(): Logger
+    {
+        return self::$logger;
+    }
+
+
 
 }
