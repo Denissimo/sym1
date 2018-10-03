@@ -50,8 +50,8 @@ class Config
             self::FIELD_CONNECTION => [
                 self::FIELD_DRIVER => 'pdo_mysql',
                 self::FIELD_HOST => 'localhost',
-                self::FIELD_USER => 'root',
-                self::FIELD_PASS => '',
+                self::FIELD_USER => 'kz',
+                self::FIELD_PASS => 'kz221459',
                 self::FIELD_DBNAME => 'kz',
                 self::FIELD_CHARSET => 'UTF8'],
             self::FIELD_OPTIONS => [

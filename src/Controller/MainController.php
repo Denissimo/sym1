@@ -166,4 +166,17 @@ class MainController extends BaseController
         );
 
     }
+
+    /**
+     * @Route("addcomment", name="addcomment")
+     * @return RedirectResponse
+     */
+    public function addComment()
+    {
+//        (new Autorize())->autorize(self::getRequest());
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+
+    }
 }

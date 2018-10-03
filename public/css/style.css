@@ -59,3 +59,38 @@ body {
     margin: 0 auto;
     padding-top: 20px;
 }
+
+/* datepicker */
+.ui-datepicker{
+    /*width:auto;*/
+    width:170px;
+    height:190px;
+    border-radius:8px;
+}
+
+.ui-datepicker-title {
+    color: #8B7462;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.transp, .ui-datepicker{
+    background:rgba(128, 128, 128, 0.3);
+    border:rgba(245, 245, 245, 0.3) 1px solid;
+    -moz-transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+#datepicker, table.ui-datepicker-calendar thead tr th
+{
+    font-size : 8pt;
+}
+.ui-datepicker-calendar thead td{
+    font-size : 8pt;
+}
+.ui-datepicker table{
+    font-size : 8pt;
+}

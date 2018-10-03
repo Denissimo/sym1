@@ -1,72 +1,135 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="row mart10">
-        <div class="col-12">
+        <div class="col-3">
             <div class="card text-center bg-white1">
                 <div class="card-header">
-                    Фильтр
+                    Create from
                 </div>
                 <div class="card-body">
-
-                    <p class="card-text">
-                         Начало подробной информации. Начало подробной информации. Начало подробной информации. Начало подробной информации
-                        <form class="form-inline">
-                            {#<div class="form-row col-4 align-items-center">#}
-                            <input type="text" class="form-control-sm col-2" name="create_from" placeholder="create_from" value="{{ request.create_from }}">
-                            <button type="submit" class="btn btn-sm btn-primary">Ok</button>
-                            {#</div>#}
-                        </form>
-                    </p>
-
+                    <div class="col-10" id="datepick_create_from">
+                    </div>
                 </div>
                 {#<div class="card-footer text-muted">#}
-                    {#Гештальт#}
+                {#Гештальт#}
                 {#</div>#}
             </div>
         </div>
+        <div class="col-3">
+            <div class="card text-center bg-white1">
+                <div class="card-header">
+                    Create to
+                </div>
+                <div class="card-body">
+                    <div class="col-10" id="datepick_create_to">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card text-center bg-white1">
+                <div class="card-header">
+                    Update from
+                </div>
+                <div class="card-body">
+                    <div class="col-10" id="datepick_update_from">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-center bg-white1">
+                <div class="card-header">
+                    Update to
+                </div>
+                <div class="card-body">
+                    <div class="col-10" id="datepick_update_to">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="container">
+        <div class="row mart10">
+            <div class="col-12 bg-white1">
+                <p class="card-text">
+                <form class="form-inline">
+                    <div class="form-row col-12 align-items-center">
+                        <div class="col-2">
+                            <input type="text" class="form-control-sm" name="create_from" id="create_from"
+                                   placeholder="create_from" value="{{ request.create_from }}">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control-sm" name="create_to" id="create_to"
+                                   placeholder="create_to" value="{{ request.create_to }}">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control-sm" name="update_from" id="update_from"
+                                   placeholder="update_from" value="{{ request.update_from }}">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control-sm" name="update_to" id="update_to"
+                                   placeholder="update_to" value="{{ request.update_to }}">
+                        </div>
+                        <div class="col-2 offset-1">
+                            <button type="submit" class="btn btn-sm btn-primary">Ok</button>
+                        </div>
+                    </div>
+                </form>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="row mart10">
         <div class="loginform col-12">
             <table class="table table-striped">
                 <tr>
-                    <th> id</th><th>Создано</th><th>Изменено</th><th>Комментарии</th><th>Добавить</th>
+                    <th> id</th>
+                    <th>Создано</th>
+                    <th>Изменено</th>
+                    <th>Комментарии</th>
+                    <th>Добавить</th>
                 </tr>
                 {% for app in apps %}
-                <tr>
-                    <td>{{ app.id }}</td>
-                    <td>{{ app.createdAtString }}</td>
-                    <td>{{ app.updatedAtString }}</td>
-                    <td>
-                        {% for com in app.comments %}
-                        {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br />
-                        {% endfor %}
-                    </td>
-                    <td>
-                        <form method="post" class="form-inline">
-                            {#<div class="form-row col-4 align-items-center">#}
-                            <input type="hidden" name="app_id" value="{{ app.id }}">
-                            <input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">
-                            <button type="submit" class="btn btn-sm btn-primary">Ok</button>
-                            {#</div>#}
-                        </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ app.id }}</td>
+                        <td>{{ app.createdAtString }}</td>
+                        <td>{{ app.updatedAtString }}</td>
+                        <td>
+                            {% for com in app.comments %}
+                                {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <form method="post" class="form-inline">
+                                {#<div class="form-row col-4 align-items-center">#}
+                                <input type="hidden" name="app_id" value="{{ app.id }}">
+                                <input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">
+                                <button type="submit" class="btn btn-sm btn-primary">Ok</button>
+                                {#</div>#}
+                            </form>
+                        </td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
 
-    <div class="row">
-        <div class="loginform col-2 offset-5">
-             {{ number }} ++ {{ post }} ++ {{ login }}<br />
-            <table class="table table-striped">
-                <tr>
-                    <td> App.id</td><td> Com.id</td>
-                </tr>
-            {#{% for com in comments %}#}
+    {#<div class="row">#}
+        {#<div class="loginform col-2 offset-5">#}
+            {#{{ number }} ++ {{ post }} ++ {{ login }}<br/>#}
+            {#<table class="table table-striped">#}
+                {#<tr>#}
+                    {#<td> App.id</td>#}
+                    {#<td> Com.id</td>#}
+                {#</tr>#}
+                {#{% for com in comments %}#}
                 {#<tr><td>{{ com.app.id|e }}</td><td>{{ com.id|e }}</td></tr>#}
-            {#{% endfor %}#}
-            </table>
-        </div>
-    </div>
+                {#{% endfor %}#}
+            {#</table>#}
+        {#</div>#}
+    {#</div>#}
 {% endblock %}
