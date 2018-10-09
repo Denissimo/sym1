@@ -88,6 +88,7 @@
             <table class="table table-striped">
                 <tr>
                     <th> id</th>
+                    <th>Пользователь</th>
                     <th>Создано</th>
                     <th>Изменено</th>
                     <th>Комментарии</th>
@@ -95,7 +96,8 @@
                 </tr>
                 {% for app in apps %}
                     <tr>
-                        <td>{{ app.id }}</td>
+                        <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
+                        <td>{{ app.userName }}</td>
                         <td>{{ app.createdAtString }}</td>
                         <td>{{ app.updatedAtString }}</td>
                         <td>

@@ -104,6 +104,16 @@ class Apps
     private $partner;
 
     /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+    /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="\Comments", mappedBy="app")
      * @ORM\OrderBy({"id" = "DESC"})
@@ -223,6 +233,22 @@ class Apps
     public function getPartner(): Partners
     {
         return $this->partner;
+    }
+
+    /**
+     * @return Users
+     */
+    public function getUser(): Users
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->user->getName();
     }
 
     /**
