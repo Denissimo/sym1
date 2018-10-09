@@ -60,6 +60,19 @@ class Builder
     }
 
     /**
+     * @param int $id
+     * @return Criteria
+     */
+    public function fieldValuesByAppId(int $id): Criteria
+    {
+        $criteria = Criteria::create();
+        $criteria->where(
+            Criteria::expr()->eq('appId', $id)
+        );
+        return $criteria;
+    }
+
+    /**
      * @param Request $request
      * @return array
      */

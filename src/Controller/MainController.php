@@ -124,8 +124,8 @@ class MainController extends BaseController
 //        var_dump($this->s);
 //        var_dump(get_class($apps));
 
-        /** @var \Apps $app */
-        $app = $apps->toArray()[0];
+//        /** @var \Apps $app */
+//        $app = $apps->toArray()[0];
 
         /** @var \Comments $comment */
 //        $comment = $comments->toArray()[0];
@@ -134,11 +134,11 @@ class MainController extends BaseController
 //        var_dump($app->getComments()[0]->getId());
 //        echo "</pre>";
 //        die;
-        Proxy::init()->getLogger()->addWarning(
+//        Proxy::init()->getLogger()->addWarning(
 //            \GuzzleHttp\json_encode(
-                $app->getUser()->getName()
+//                $app->getUser()->getName()
 //            )
-        );
+//        );
 
         return (new Render())->render($data, 'appstable.html.twig');
     }

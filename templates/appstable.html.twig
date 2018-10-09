@@ -101,18 +101,20 @@
                         <td>{{ app.createdAtString }}</td>
                         <td>{{ app.updatedAtString }}</td>
                         <td>
+                            {#{{ app.comments[0].id }}#}
                             {% for com in app.comments %}
                                 {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
                             {% endfor %}
                         </td>
                         <td>
-                            <form method="post" class="form-inline">
+
+                            {#<form method="post" class="form-inline">#}
                                 {#<div class="form-row col-4 align-items-center">#}
-                                <input type="hidden" name="app_id" value="{{ app.id }}">
-                                <input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">
-                                <button type="submit" class="btn btn-sm btn-primary">Ok</button>
+                                {#<input type="hidden" name="app_id" value="{{ app.id }}">#}
+                                {#<input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">#}
+                                {#<button type="submit" class="btn btn-sm btn-primary">Ok</button>#}
                                 {#</div>#}
-                            </form>
+                            {#</form>#}
                         </td>
                     </tr>
                 {% endfor %}

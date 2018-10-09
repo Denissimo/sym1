@@ -168,11 +168,12 @@ class __TwigTemplate_d4cdf72faa837c630e45f2c38e8b2fdeebee1c87970ffe49ff0c5ca7d8c
             echo "</td>
                         <td>
                             ";
-            // line 104
+            // line 105
+            echo "                            ";
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["app"], "comments", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["com"]) {
-                // line 105
+                // line 106
                 echo "                                ";
                 echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["com"], "id", array()), "html", null, true);
                 echo " ";
@@ -185,58 +186,62 @@ class __TwigTemplate_d4cdf72faa837c630e45f2c38e8b2fdeebee1c87970ffe49ff0c5ca7d8c
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['com'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 107
+            // line 108
             echo "                        </td>
                         <td>
-                            <form method=\"post\" class=\"form-inline\">
-                                ";
-            // line 111
-            echo "                                <input type=\"hidden\" name=\"app_id\" value=\"";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["app"], "id", array()), "html", null, true);
-            echo "\">
-                                <input type=\"text\" class=\"form-control-sm col-6\" id=\"comfield\" placeholder=\"коммент\">
-                                <button type=\"submit\" class=\"btn btn-sm btn-primary\">Ok</button>
-                                ";
+
+                            ";
+            // line 112
+            echo "                                ";
+            // line 113
+            echo "                                ";
+            // line 114
+            echo "                                ";
             // line 115
-            echo "                            </form>
-                        </td>
+            echo "                                ";
+            // line 116
+            echo "                                ";
+            // line 117
+            echo "                            ";
+            // line 118
+            echo "                        </td>
                     </tr>
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['app'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 119
+        // line 121
         echo "            </table>
         </div>
     </div>
 
     ";
-        // line 124
-        echo "        ";
-        // line 125
-        echo "            ";
         // line 126
-        echo "            ";
+        echo "        ";
         // line 127
-        echo "                ";
+        echo "            ";
         // line 128
-        echo "                    ";
+        echo "            ";
         // line 129
-        echo "                    ";
+        echo "                ";
         // line 130
-        echo "                ";
+        echo "                    ";
         // line 131
-        echo "                ";
+        echo "                    ";
         // line 132
         echo "                ";
         // line 133
         echo "                ";
         // line 134
-        echo "            ";
+        echo "                ";
         // line 135
-        echo "        ";
+        echo "                ";
         // line 136
+        echo "            ";
+        // line 137
+        echo "        ";
+        // line 138
         echo "    ";
     }
 
@@ -252,7 +257,7 @@ class __TwigTemplate_d4cdf72faa837c630e45f2c38e8b2fdeebee1c87970ffe49ff0c5ca7d8c
 
     public function getDebugInfo()
     {
-        return array (  240 => 136,  238 => 135,  236 => 134,  234 => 133,  232 => 132,  230 => 131,  228 => 130,  226 => 129,  224 => 128,  222 => 127,  220 => 126,  218 => 125,  216 => 124,  210 => 119,  201 => 115,  194 => 111,  189 => 107,  176 => 105,  172 => 104,  167 => 102,  163 => 101,  159 => 100,  153 => 99,  150 => 98,  146 => 97,  120 => 74,  113 => 70,  106 => 66,  99 => 62,  51 => 16,  49 => 15,  47 => 14,  35 => 3,  32 => 2,  15 => 1,);
+        return array (  245 => 138,  243 => 137,  241 => 136,  239 => 135,  237 => 134,  235 => 133,  233 => 132,  231 => 131,  229 => 130,  227 => 129,  225 => 128,  223 => 127,  221 => 126,  215 => 121,  207 => 118,  205 => 117,  203 => 116,  201 => 115,  199 => 114,  197 => 113,  195 => 112,  190 => 108,  177 => 106,  172 => 105,  167 => 102,  163 => 101,  159 => 100,  153 => 99,  150 => 98,  146 => 97,  120 => 74,  113 => 70,  106 => 66,  99 => 62,  51 => 16,  49 => 15,  47 => 14,  35 => 3,  32 => 2,  15 => 1,);
     }
 
     public function getSourceContext()
