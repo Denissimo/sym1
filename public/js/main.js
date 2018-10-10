@@ -22,28 +22,12 @@ $(document).ready(function(){
 
     $.datepicker.setDefaults($.datepicker.regional['ru']);
 
-    $( "#datepick_create_from" ).datepicker({
-        onSelect: function (dateText, inst) {
-            $('#create_from').val(dateText).effect('highlight', {color: '#FFFF00'}, 200);
-        }
-    });
+    $( "#create_from" ).datepicker();
 
-    $( "#datepick_create_to" ).datepicker({
-        onSelect: function (dateText, inst) {
-            $('#create_to').val(dateText).effect('highlight', {color: '#FFFF00'}, 200);
-        }
-    });
+    $( "#create_to" ).datepicker();
 
-    $( "#datepick_update_from" ).datepicker({
-        onSelect: function (dateText, inst) {
-            $('#update_from').val(dateText).effect('highlight', {color: '#FFFF00'}, 200);
-        }
-    });
+    $( "#update_from" ).datepicker();
 
-    $( "#datepick_update_to" ).datepicker({
-        onSelect: function (dateText, inst) {
-            $('#update_to').val(dateText).effect('highlight', {color: '#FFFF00'}, 200);
-        }
-    });
+    $( "#update_to" ).datepicker();
 
 });

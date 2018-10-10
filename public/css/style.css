@@ -49,6 +49,10 @@ body {
     display: none;
 }
 
+.oldfilter {
+    display: none;
+}
+
 .carousel-caption{
     text-shadow: 3px 3px 3px #303030;
 }
@@ -69,6 +73,7 @@ body {
     width:170px;
     height:190px;
     border-radius:8px;
+    z-index: 500;
 }
 
 .ui-datepicker-title {
