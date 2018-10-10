@@ -27,7 +27,7 @@ class AppController extends BaseController
     {
         $appId = self::getRequest()->get(self::APP_ID);
         /** @var \Apps $app */
-        $app = (array)Proxy::init()->getEntityManager()->getRepository(\Apps::class)->findBy(
+        $app = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->findBy(
             [self::ID => $appId]
         )[0];
 
@@ -35,7 +35,8 @@ class AppController extends BaseController
             (new Builder())->fieldValuesByAppId($appId)
         );
 //        var_dump($fieldValues);die;
-//        $data[self::APP] =
+//        var_dump($app->getUser()->getName());die;
+
 
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;

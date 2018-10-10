@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9979d501-2e6a-484a-b69d-87207abc0640" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/AppController.php" afterPath="$PROJECT_DIR$/src/Controller/AppController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,7 +27,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="composer.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-289">
@@ -38,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AppController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="22" />
+            <state relative-caret-position="646">
+              <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
                 <element signature="e#34#70#0#PHP" expanded="true" />
               </folding>
@@ -190,9 +189,9 @@
         <option value="$PROJECT_DIR$/src/Controller/Criteria/Builder.php" />
         <option value="$PROJECT_DIR$/templates/application.html.twig" />
         <option value="$PROJECT_DIR$/templates/appstable.html.twig" />
-        <option value="$PROJECT_DIR$/src/Controller/AppController.php" />
         <option value="$PROJECT_DIR$/src/Controller/MainController.php" />
         <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/src/Controller/AppController.php" />
       </list>
     </option>
   </component>
@@ -444,12 +443,12 @@
       <workItem from="1538771514403" duration="635000" />
       <workItem from="1539099320828" duration="11185000" />
       <workItem from="1539148450759" duration="599000" />
-      <workItem from="1539165434808" duration="496000" />
+      <workItem from="1539165434808" duration="1227000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="200256000" />
+    <option name="totallyTimeSpent" value="200987000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1678" height="1048" extended-state="0" />
@@ -802,16 +801,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="22" />
-          <folding>
-            <element signature="e#34#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/MainController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -867,6 +856,16 @@
         <state relative-caret-position="-289">
           <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="e#34#70#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
