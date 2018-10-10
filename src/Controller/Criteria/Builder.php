@@ -68,6 +68,8 @@ class Builder
         $criteria = Criteria::create();
         $criteria->where(
             Criteria::expr()->eq('app', $id)
+        )->orderBy(
+            ['field' => Criteria::ASC]
         );
         return $criteria;
     }

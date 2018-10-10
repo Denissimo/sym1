@@ -7,6 +7,11 @@
                 <a href="/apps">
                     <button class="btn btn-warning">Список заявок</button>
                 </a>
+
+                <br /><br />
+
+                <h4>Данные заявки</h4>
+
                 <table class="table table-striped">
                     <tr>
                         <th>Параметр</th>
@@ -41,7 +46,22 @@
                         </td>
                     </tr>
                 </table>
-                Дальше тут будут данные заёмщика (FieldValues)
+
+                <br />
+
+                <h4>Данные заёмщика</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Значение</th>
+                    </tr>
+                    {% for fv in fieldValues %}
+                    <tr>
+                        <td>{{ fv.field.Description }}</td>
+                        <td>{{ fv.valueText }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
     </div>

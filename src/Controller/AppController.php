@@ -40,11 +40,12 @@ class AppController extends BaseController
         )->toArray();
 //        var_dump($fieldValues[1]->getValue());die;
 //        var_dump($fieldValues[0]->getField()->getName());die;
+//        var_dump($fieldValues[0]->getField()->getDescription());die;
 //        var_dump($fields[9]->getDescription());die;
 //        var_dump($app->getUser()->getName());die;
 
 
-        $data[self::APP_ID] = $appId;
+        $data[self::FIELD_VALUES] = $fieldValues;
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
         return (new Render())->render($data, 'application.html.twig');

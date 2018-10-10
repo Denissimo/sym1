@@ -15,7 +15,7 @@ abstract class BaseController extends Controller
         APP_ID = 'app_id',
         APP = 'app',
         ID = 'id',
-        FIELD_VALUES = 'field_values',
+        FIELD_VALUES = 'fieldValues',
         CREATE_FROM = 'create_from',
         CREATE_TO = 'create_to',
         CREATE_AT = 'createdat',
@@ -26,6 +26,7 @@ abstract class BaseController extends Controller
         PER_PAGE = 'per_page',
         DEFAULT_LIMIT = 50,
         LIMIT = 'limit';
+
 
     public static $fields = [
         self::CREATE_AT => [self::FROM => self::CREATE_FROM, self::TO => self::CREATE_TO],
