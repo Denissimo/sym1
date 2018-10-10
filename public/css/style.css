@@ -4,6 +4,14 @@ body {
     background: #F0F0F0 url('/images/finance01.jpg') fixed center top no-repeat;
 }
 
+.navbar{
+    height: 50px;
+}
+
+.navbar-brand img{
+    height: 80px;
+}
+
 .bg-white0{
     background: #FFFFFF;
 }
@@ -15,6 +23,15 @@ body {
 
 .mart10{
     margin-top: 10px;
+}
+
+.mart20{
+    margin-top: 20px;
+}
+
+
+.mart30{
+    margin-top: 30px;
 }
 
 
@@ -31,6 +48,13 @@ body {
     background: -o-linear-gradient(#d8c786, #75662a);
     background: -moz-linear-gradient(#d8c786, #75662a);
     background: linear-gradient(#d8c786, #75662a);
+}
+
+.grad2 {
+    background: -webkit-linear-gradient(#D0D0D0 5%, #505050 20%, #D0D0D0 51%, #303030 100%);
+    background: -o-linear-gradient(#D0D0D0 5%, #505050 20%, #D0D0D0 51%, #303030 100%);
+    background: -moz-linear-gradient(#D0D0D0 5%, #505050 20%, #D0D0D0 51%, #303030 100%);
+    background: linear-gradient(#E0E0E0 5%, #808080 20%, #D0D0D0 51%, #404040 100%);
 }
 
 .padt01{
