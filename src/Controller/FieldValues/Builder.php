@@ -1,15 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Den
- * Date: 10.10.2018
- * Time: 13:41
- */
 
-namespace App\Controller\FiejdValues;
+namespace App\Controller\FieldValues;
 
 
 class Builder
 {
+    /**
+     * @param \Fields[] $fields
+     * @param \FieldValues $fieldValues
+     * @return array
+     */
+    public function buildFieldValue($fields, $fieldValues) : array
+    {
 
+    }
 }

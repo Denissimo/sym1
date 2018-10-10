@@ -38,7 +38,13 @@ class Autorize
                     )
                 ]
             );
-
+        Proxy::init()->getLogger()->addWarning(
+            sha1(
+                strtolower(
+                    $request->get(Config::getRequestUserField()) . $request->get(Config::getRequestPassField())
+                )
+            )
+        );
         if(count($users)) {
             $this->user = $users[0];
             Proxy::init()->getSession()->set(Config::FIELD_LOGIN, true);

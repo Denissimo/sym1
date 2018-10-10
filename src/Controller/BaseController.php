@@ -15,6 +15,7 @@ abstract class BaseController extends Controller
         APP_ID = 'app_id',
         APP = 'app',
         ID = 'id',
+        FIELD_VALUES = 'field_values',
         CREATE_FROM = 'create_from',
         CREATE_TO = 'create_to',
         CREATE_AT = 'createdat',

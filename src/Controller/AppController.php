@@ -31,13 +31,20 @@ class AppController extends BaseController
             [self::ID => $appId]
         )[0];
 
+            /** @var \Fields[] $fields */
+        $fields = Proxy::init()->getEntityManager()->getRepository(\Fields::class)->findAll();
+
+        /** @var \FieldValues[] $fieldValues */
         $fieldValues = Proxy::init()->getEntityManager()->getRepository(\FieldValues::class)->matching(
-            (new Builder())->fieldValuesByAppId($appId)
-        );
-//        var_dump($fieldValues);die;
+            (new Builder())->fieldValuesByAppId($app)
+        )->toArray();
+//        var_dump($fieldValues[1]->getValue());die;
+//        var_dump($fieldValues[0]->getField()->getName());die;
+//        var_dump($fields[9]->getDescription());die;
 //        var_dump($app->getUser()->getName());die;
 
 
+        $data[self::APP_ID] = $appId;
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
         return (new Render())->render($data, 'application.html.twig');
