@@ -83,57 +83,59 @@
         </div>
     </div>
 
-    <div class="row mart10">
-        <div class="loginform col-12">
-            <table class="table table-striped">
-                <tr>
-                    <th> id</th>
-                    <th>Пользователь</th>
-                    <th>Создано</th>
-                    <th>Изменено</th>
-                    <th>Комментарии</th>
-                    <th>Добавить</th>
-                </tr>
-                {% for app in apps %}
-                    <tr>
-                        <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
-                        <td>{{ app.userName }}</td>
-                        <td>{{ app.createdAtString }}</td>
-                        <td>{{ app.updatedAtString }}</td>
-                        <td>
-                            {#{{ app.comments[0].id }}#}
-                            {% for com in app.comments %}
-                                {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
-                            {% endfor %}
-                        </td>
-                        <td>
+    <div class="container">
+        <div class="row mart10">
+                <div class="loginform col-12 shadow-lg padt01 bg-white1">
+                    <table class="table table-striped">
+                        <tr>
+                            <th> id</th>
+                            <th>Пользователь</th>
+                            <th>Создано</th>
+                            <th>Изменено</th>
+                            <th>Комментарии</th>
+                            <th>Добавить</th>
+                        </tr>
+                        {% for app in apps %}
+                            <tr>
+                                <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
+                                <td>{{ app.userName }}</td>
+                                <td>{{ app.createdAtString }}</td>
+                                <td>{{ app.updatedAtString }}</td>
+                                <td>
+                                    {#{{ app.comments[0].id }}#}
+                                    {% for com in app.comments %}
+                                        {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
+                                    {% endfor %}
+                                </td>
+                                <td>
 
-                            {#<form method="post" class="form-inline">#}
-                                {#<div class="form-row col-4 align-items-center">#}
-                                {#<input type="hidden" name="app_id" value="{{ app.id }}">#}
-                                {#<input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">#}
-                                {#<button type="submit" class="btn btn-sm btn-primary">Ok</button>#}
-                                {#</div>#}
-                            {#</form>#}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+                                    {#<form method="post" class="form-inline">#}
+                                    {#<div class="form-row col-4 align-items-center">#}
+                                    {#<input type="hidden" name="app_id" value="{{ app.id }}">#}
+                                    {#<input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">#}
+                                    {#<button type="submit" class="btn btn-sm btn-primary">Ok</button>#}
+                                    {#</div>#}
+                                    {#</form>#}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
         </div>
     </div>
 
     {#<div class="row">#}
-        {#<div class="loginform col-2 offset-5">#}
-            {#{{ number }} ++ {{ post }} ++ {{ login }}<br/>#}
-            {#<table class="table table-striped">#}
-                {#<tr>#}
-                    {#<td> App.id</td>#}
-                    {#<td> Com.id</td>#}
-                {#</tr>#}
-                {#{% for com in comments %}#}
-                {#<tr><td>{{ com.app.id|e }}</td><td>{{ com.id|e }}</td></tr>#}
-                {#{% endfor %}#}
-            {#</table>#}
-        {#</div>#}
+    {#<div class="loginform col-2 offset-5">#}
+    {#{{ number }} ++ {{ post }} ++ {{ login }}<br/>#}
+    {#<table class="table table-striped">#}
+    {#<tr>#}
+    {#<td> App.id</td>#}
+    {#<td> Com.id</td>#}
+    {#</tr>#}
+    {#{% for com in comments %}#}
+    {#<tr><td>{{ com.app.id|e }}</td><td>{{ com.id|e }}</td></tr>#}
+    {#{% endfor %}#}
+    {#</table>#}
+    {#</div>#}
     {#</div>#}
 {% endblock %}
