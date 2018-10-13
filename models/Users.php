@@ -182,4 +182,100 @@ class Users
     {
         return $this->role;
     }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @param bool $enabled
+     * @return $this
+     */
+    public function setEnabled(bool $enabled)
+    {
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+    /**
+     * @param $inAction
+     * @return $this
+     */
+    public function setInAction($inAction)
+    {
+        $this->inAction = $inAction;
+        return $this;
+    }
+
+    /**
+     * @param $showInFilter
+     */
+    public function setShowInFilter($showInFilter)
+    {
+        $this->showInFilter = $showInFilter;
+    }
+
+    /**
+     * @param $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
+    /**
+     * @param Partners $partner
+     */
+    public function setPartner(Partners $partner)
+    {
+        $this->partner = $partner;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $role
+     * @return $this
+     */
+    public function setRole(\Doctrine\Common\Collections\Collection $role)
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+
 }
