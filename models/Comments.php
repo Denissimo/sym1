@@ -66,11 +66,14 @@ class Comments
     private $comment = '';
 
     /**
-     * @var int|null
+     * @var \CommentTypes
      *
-     * @ORM\Column(name="ctype", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\ManyToOne(targetEntity="CommentTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctype", referencedColumnName="id")
+     * })
      */
-    private $ctype = '0';
+    private $ctype;
 
     /**
      * @return int
@@ -78,6 +81,14 @@ class Comments
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -89,6 +100,14 @@ class Comments
     }
 
     /**
+     * @param int $appId
+     */
+    public function setAppId(int $appId)
+    {
+        $this->appId = $appId;
+    }
+
+    /**
      * @return Apps
      */
     public function getApp(): Apps
@@ -96,6 +115,13 @@ class Comments
         return $this->app;
     }
 
+    /**
+     * @param Apps $app
+     */
+    public function setApp(Apps $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * @return DateTime|null
@@ -106,13 +132,12 @@ class Comments
     }
 
     /**
-     * @return string
+     * @param DateTime|null $ts
      */
-    public function getTsString()
+    public function setTs($ts)
     {
-        return $this->ts->format('d.m.Y h:i');
+        $this->ts = $ts;
     }
-
 
     /**
      * @return int|null
@@ -120,6 +145,14 @@ class Comments
     public function getUid()
     {
         return $this->uid;
+    }
+
+    /**
+     * @param int|null $uid
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
     }
 
     /**
@@ -131,6 +164,14 @@ class Comments
     }
 
     /**
+     * @param int|null $reminder
+     */
+    public function setReminder($reminder)
+    {
+        $this->reminder = $reminder;
+    }
+
+    /**
      * @return null|string
      */
     public function getComment()
@@ -139,11 +180,27 @@ class Comments
     }
 
     /**
-     * @return int|null
+     * @param null|string $comment
      */
-    public function getCtype()
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return CommentTypes
+     */
+    public function getCtype(): CommentTypes
     {
         return $this->ctype;
+    }
+
+    /**
+     * @param CommentTypes $ctype
+     */
+    public function setCtype(CommentTypes $ctype)
+    {
+        $this->ctype = $ctype;
     }
 
 }

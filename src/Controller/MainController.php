@@ -142,30 +142,4 @@ class MainController extends BaseController
 
         return (new Render())->render($data, 'appstable.html.twig');
     }
-
-    /**
-     * @Route("autorize", name="autorize")
-     * @return RedirectResponse
-     */
-    public function autorize()
-    {
-        (new Autorize())->autorize(self::getRequest());
-        return $this->redirect(
-            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
-        );
-
-    }
-
-    /**
-     * @Route("addcomment", name="addcomment")
-     * @return RedirectResponse
-     */
-    public function addComment()
-    {
-//        (new Autorize())->autorize(self::getRequest());
-        return $this->redirect(
-            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
-        );
-
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Apps;
 
+use App\Proxy;
 use Doctrine\Common\Collections\Collection;
 
 class Builder
@@ -34,5 +35,10 @@ class Builder
             $res[$item->getId()] = $item;
         }
         return $res;
+    }
+
+    public function getCommentTypes()
+    {
+        //Proxy::init()->getEntityManager()->getRepository()
     }
 }
