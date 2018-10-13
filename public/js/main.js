@@ -29,5 +29,4 @@ $(document).ready(function(){
     $( "#update_from" ).datepicker();
 
     $( "#update_to" ).datepicker();
-
 });

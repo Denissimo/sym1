@@ -25,6 +25,26 @@ class PostController extends BaseController
      */
     public function addComment()
     {
+//        var_dump(self::getRequest()->request); die;
+//        var_dump(\DateTime::createFromFormat(
+//                        'Y-m-d\TH:i',
+//                        self::getRequest()->get('reminder')
+//                    )
+//        );die;
+        Proxy::init()->getEntityManager()->persist(
+            (new \Comments())
+                ->setAppId(self::getRequest()->get(self::APP_ID))
+                ->setComment(self::getRequest()->get('comment'))
+                ->setUid(self::getRequest()->get('user_id'))
+                ->setTs(new \DateTime())
+                ->setReminder(
+                    \DateTime::createFromFormat(
+                        'Y-m-d\TH:i',
+                        self::getRequest()->get('reminder')
+                    )
+                )
+        );
+        Proxy::init()->getEntityManager()->flush();
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
         );

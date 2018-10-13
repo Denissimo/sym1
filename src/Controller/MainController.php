@@ -21,20 +21,6 @@ use Monolog\Logger;
 class MainController extends BaseController
 {
 
-
-    private $gte = [
-        self::CREATE_FROM,
-        self::UPDATE_FROM,
-    ];
-
-    private $lte = [
-        self::CREATE_TO,
-        self::UPDATE_TO,
-    ];
-
-    private $eq = [
-        self::USER_ID,
-    ];
     /**
      * @var \Apps
      */
@@ -95,6 +81,9 @@ class MainController extends BaseController
         $data['comments'] = $comments;
 */
         $data['apps'] = $apps->toArray();
+        $data['time_picker'] = (new AppBuilder())->buildTimePicker();
+        $data[self::ADD_COMMENT] = $this->generateUrl(self::ADD_COMMENT);
+        $data['ctype'] = Proxy::init()->getEntityManager()->getRepository(\CommentTypes::class)->findAll();
 
         /** @var \Comments $comment */
 //        $comment = $comments->toArray()[0];

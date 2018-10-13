@@ -38,6 +38,7 @@ class AppController extends BaseController
         $fieldValues = Proxy::init()->getEntityManager()->getRepository(\FieldValues::class)->matching(
             (new Builder())->fieldValuesByAppId($app)
         )->toArray();
+
 //        var_dump($fieldValues[1]->getValue());die;
 //        var_dump($fieldValues[0]->getField()->getName());die;
 //        var_dump($fieldValues[0]->getField()->getDescription());die;

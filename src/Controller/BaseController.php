@@ -10,9 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 abstract class BaseController extends Controller
 {
     const
+        ADD_COMMENT = 'addcomment',
         FROM = '_from',
         TO = '_to',
         APP_ID = 'app_id',
+        COMMENT = 'comment',
         APP = 'app',
         ID = 'id',
         FIELD_VALUES = 'fieldValues',

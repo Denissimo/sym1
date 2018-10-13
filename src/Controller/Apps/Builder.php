@@ -11,12 +11,11 @@ class Builder
      * @param Collection $apps
      * @return array
      */
-    public function getArrayById(Collection $apps) : array
+    public function getArrayById(Collection $apps): array
     {
         /** @var array $res */
         /** @var \Apps $item */
-        foreach ($apps->toArray() as $item)
-        {
+        foreach ($apps->toArray() as $item) {
             $res[$item->getId()] = $item;
         }
         return $res;
@@ -26,19 +25,27 @@ class Builder
      * @param Collection $comments
      * @return array
      */
-    public function getArrayByAppId(Collection $comments) : array
+    public function getArrayByAppId(Collection $comments): array
     {
         /** @var array $res */
         /** @var \Comments $item */
-        foreach ($comments->toArray() as $item)
-        {
+        foreach ($comments->toArray() as $item) {
             $res[$item->getId()] = $item;
         }
         return $res;
     }
 
-    public function getCommentTypes()
+
+    /**
+     * @return array
+     */
+    public function buildTimePicker() : array
     {
-        //Proxy::init()->getEntityManager()->getRepository()
+        $time = [];
+        for ($i=0; $i<24; $i++) {
+            $time[] = ['value' => $i * 24, 'text' => $i.':00'];
+            $time[] = ['value' => $i * 24 + 30, 'text' => $i.':30'];
+        }
+        return $time;
     }
 }

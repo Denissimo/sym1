@@ -22,9 +22,9 @@ class Comments
     private $id;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(name="app_id", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="app_id", type="integer", nullable=true, options={"unsigned"=true})
      */
     private $appId;
 
@@ -52,11 +52,11 @@ class Comments
     private $uid = '0';
 
     /**
-     * @var int|null
+     * @var \DateTime|null
      *
-     * @ORM\Column(name="reminder", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\Column(name="reminder", type="datetime", nullable=true)
      */
-    private $reminder = '0';
+    private $reminder;
 
     /**
      * @var string|null
@@ -101,10 +101,12 @@ class Comments
 
     /**
      * @param int $appId
+     * @return $this
      */
     public function setAppId(int $appId)
     {
         $this->appId = $appId;
+        return $this;
     }
 
     /**
@@ -117,10 +119,12 @@ class Comments
 
     /**
      * @param Apps $app
+     * @return $this
      */
     public function setApp(Apps $app)
     {
         $this->app = $app;
+        return $this;
     }
 
     /**
@@ -132,11 +136,13 @@ class Comments
     }
 
     /**
-     * @param DateTime|null $ts
+     * @param $ts
+     * @return $this
      */
     public function setTs($ts)
     {
         $this->ts = $ts;
+        return $this;
     }
 
     /**
@@ -148,15 +154,17 @@ class Comments
     }
 
     /**
-     * @param int|null $uid
+     * @param $uid
+     * @return $this
      */
     public function setUid($uid)
     {
         $this->uid = $uid;
+        return $this;
     }
 
     /**
-     * @return int|null
+     * @return DateTime|null
      */
     public function getReminder()
     {
@@ -164,11 +172,13 @@ class Comments
     }
 
     /**
-     * @param int|null $reminder
+     * @param $reminder
+     * @return $this
      */
     public function setReminder($reminder)
     {
         $this->reminder = $reminder;
+        return $this;
     }
 
     /**
@@ -180,11 +190,13 @@ class Comments
     }
 
     /**
-     * @param null|string $comment
+     * @param $comment
+     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
     }
 
     /**
@@ -197,10 +209,11 @@ class Comments
 
     /**
      * @param CommentTypes $ctype
+     * @return $this
      */
     public function setCtype(CommentTypes $ctype)
     {
         $this->ctype = $ctype;
+        return $this;
     }
-
 }
