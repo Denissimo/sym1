@@ -65,7 +65,7 @@ class Config
             self::FIELD_OPTIONS => ['cache' => 'compilation_cache', 'auto_reload' => true]
         ],
         self::VENDOR_LOGGER => [
-            self::FIELD_PATH => __DIR__.'/../../logs/log.txt'
+            self::FIELD_PATH => __DIR__.'/../../logs/'
         ]
     ];
 

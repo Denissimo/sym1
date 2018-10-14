@@ -48,7 +48,6 @@ class Proxy
     private static $logger;
 
 
-
     private function __construct()
     {
         return $this;
@@ -151,10 +150,15 @@ class Proxy
     /**
      * @return $this
      */
-    public function initLogger($name = Config::FIELD_DEFAULT)
+    public function initLogger($name = Config::FIELD_DEFAULT, $stream = null, $level = null)
     {
         self::$logger = new Logger($name);
-        self::$logger->pushHandler(new StreamHandler(Config::getLoggerPath(), Logger::WARNING));
+        self::$logger->pushHandler(
+            new StreamHandler(
+                $stream ?? Config::getLoggerPath().'log_'.(new \DateTime())->format('YmdHis').'_.txt',
+                $level ?? Logger::WARNING
+            )
+        );
         return $this;
     }
 
@@ -165,7 +169,6 @@ class Proxy
     {
         return self::$logger;
     }
-
 
 
 }

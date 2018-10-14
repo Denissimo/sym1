@@ -62,4 +62,15 @@ class ApiController extends BaseController
         }
 //        $data['data'] = Config::get('requestAPI.workingTime');
     }
+
+    /**
+     * @Route("postlog", name="postlog")
+     * @return Response
+     */
+    public function postlog()
+    {
+        Proxy::init()->getLogger()
+            ->addWarning(\GuzzleHttp\json_encode(self::getRequest()->request));
+        return (new Render())->render([], 'test.html.twig');
+    }
 }
