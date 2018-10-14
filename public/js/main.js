@@ -29,4 +29,15 @@ $(document).ready(function(){
     $( "#update_from" ).datepicker();
 
     $( "#update_to" ).datepicker();
+
+
+    $('[data-toggle="buttons"] .btn').on('click', function () {
+        // toggle style
+        $(this).toggleClass('btn-success active');
+        // toggle checkbox
+        var $chk = $(this).find('[type=checkbox]');
+        $chk.prop('checked',!$chk.prop('checked'));
+
+        return false;
+    });
 });

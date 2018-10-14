@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Apps
 {
+    const
+        ID = 'id',
+        USER_ID = 'user_id';
+
     /**
      * @var int
      *

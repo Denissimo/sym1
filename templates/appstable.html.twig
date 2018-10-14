@@ -99,15 +99,17 @@
                             <td>{{ app.createdAtString }}</td>
                             <td>{{ app.updatedAtString }}</td>
                             <td>
-                                {#{{ app.comments[0].id }}#}
+                                {#{{ app.comments.0.id }}#}
+                                <table class="table table-borderless table-sm table-small">
                                 {% for com in app.comments %}
-                                    {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
+                                    <tr><td>{{ com.id }}</td><td>{{ com.ctype.value }}</td><td>{{ com.tsString }}</td><td>{{ com.comment }}</td><td>{{ com.reminderString }}</td></tr>
                                 {% endfor %}
+                                </table>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#modal{{ app.id }}">
-                                    {{ app.id }}
+                                    +
                                 </button>
 
 

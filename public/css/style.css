@@ -1,45 +1,50 @@
 
-
 body {
     background: #F0F0F0 url('/images/finance01.jpg') fixed center top no-repeat;
 }
 
-.navbar{
+.navbar {
     height: 50px;
 }
 
-.navbar-brand img{
+.navbar-brand img {
     height: 80px;
 }
 
-.bg-white0{
+.bg-white0 {
     background: #FFFFFF;
 }
 
-.bg-white1{
-    background: rgba(255, 255,255, 0.7);
+.bg-white1 {
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 5px;
 }
 
-.mart10{
+.mart10 {
     margin-top: 10px;
 }
 
-.mart20{
+.marb10 {
+    margin-bottom: 10px;
+}
+
+.mart20 {
     margin-top: 20px;
 }
 
+.marb20 {
+    margin-bottom: 20px;
+}
 
-.mart30{
+.mart30 {
     margin-top: 30px;
 }
 
-
-.panel-body{
-    background: rgba(255, 255,255, 0.7);
+.panel-body {
+    background: rgba(255, 255, 255, 0.7);
 }
 
-.panel{
+.panel {
     background: rgba(0, 0, 0, 0.0);
 }
 
@@ -57,11 +62,11 @@ body {
     background: linear-gradient(#E0E0E0 5%, #808080 20%, #D0D0D0 51%, #404040 100%);
 }
 
-.padt01{
+.padt01 {
     padding-top: 15px;
 }
 
-.padt00{
+.padt00 {
     padding-top: 5px;
 }
 
@@ -69,6 +74,7 @@ body {
     margin: 5px;
     width: 300px;
 }
+
 .carousel {
     display: none;
 }
@@ -77,14 +83,15 @@ body {
     display: none;
 }
 
-.carousel-caption{
+.carousel-caption {
     text-shadow: 3px 3px 3px #303030;
 }
 
-.footer{
+.footer {
     height: 30px;
     border-radius: 3px;
 }
+
 .login form {
     width: 300px;
     margin: 0 auto;
@@ -92,11 +99,11 @@ body {
 }
 
 /* datepicker */
-.ui-datepicker{
+.ui-datepicker {
     /*width:auto;*/
-    width:170px;
-    height:190px;
-    border-radius:8px;
+    width: 170px;
+    height: 190px;
+    border-radius: 8px;
     z-index: 500;
 }
 
@@ -107,22 +114,36 @@ body {
     text-transform: uppercase;
 }
 
-.transp, .ui-datepicker{
-    background:rgba(128, 128, 128, 0.3);
-    border:rgba(245, 245, 245, 0.3) 1px solid;
+.transp, .ui-datepicker {
+    background: rgba(128, 128, 128, 0.3);
+    border: rgba(245, 245, 245, 0.3) 1px solid;
     -moz-transition: all 1s ease;
     -webkit-transition: all 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
 }
 
-#datepicker, table.ui-datepicker-calendar thead tr th
-{
-    font-size : 8pt;
+#datepicker, table.ui-datepicker-calendar thead tr th {
+    font-size: 8pt;
 }
-.ui-datepicker-calendar thead td{
-    font-size : 8pt;
+
+.ui-datepicker-calendar thead td {
+    font-size: 8pt;
 }
-.ui-datepicker table{
-    font-size : 8pt;
+
+.ui-datepicker table {
+    font-size: 8pt;
 }
+
+.table-small td {
+    /*color: #FF0000;*/
+    font-size: 14px;
+    background: #FFFFE0;
+
+}
+
+.table-small {
+
+    box-shadow: 1px 1px 5px #909090;
+}
+

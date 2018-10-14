@@ -6,6 +6,7 @@ use App\Exceptions\DefaultException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Proxy;
+use App\Cfg\Config;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Actions\Autorize;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,30 +26,84 @@ class PostController extends BaseController
      */
     public function addComment()
     {
-//        var_dump(self::getRequest()->request); die;
-//        var_dump(\DateTime::createFromFormat(
-//                        'Y-m-d\TH:i',
-//                        self::getRequest()->get('reminder')
-//                    )
-//        );die;
-        Proxy::init()->getEntityManager()->persist(
-            (new \Comments())
-                ->setAppId(self::getRequest()->get(self::APP_ID))
-                ->setComment(self::getRequest()->get('comment'))
-                ->setUid(self::getRequest()->get('user_id'))
-                ->setTs(new \DateTime())
-                ->setReminder(
-                    \DateTime::createFromFormat(
-                        'Y-m-d\TH:i',
-                        self::getRequest()->get('reminder')
-                    )
-                )
-        );
-        Proxy::init()->getEntityManager()->flush();
+        $query = 'INSERT INTO comments SET app_id = :app_id, comment = :comment, uid = :user_id, ts = now(), reminder = :reminder, ctype = :ctype;';
+        $sth = Proxy::init()->getConnecton()->prepare($query);
+        $sth->bindValue(':app_id', (int)self::getRequest()->get('app_id'), \PDO::PARAM_INT);
+        $sth->bindValue(':user_id', (int)self::getRequest()->get('user_id'), \PDO::PARAM_INT);
+        $sth->bindValue(':ctype', (int)self::getRequest()->get('ctype'), \PDO::PARAM_INT);
+        $sth->bindValue(':comment', self::getRequest()->get('comment'), \PDO::PARAM_STR);
+        $sth->bindValue(':reminder', self::getRequest()->get('reminder') ? self::getRequest()->get('reminder') : null);
+        $sth->execute();
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
         );
 
+    }
+
+    /**
+     * @Route("adduser", name="adduser")
+     * @return RedirectResponse
+     */
+    public function addUser()
+    {
+        $newUser = (new \Users())
+            ->setName(self::getRequest()->get(\Users::NAME))
+            ->setEmail(self::getRequest()->get(\Users::EMAIL))
+            ->setPassword(
+                sha1(
+                    strtolower(
+                        self::getRequest()->get(\Users::EMAIL) . self::getRequest()->get(\Users::PASSWORD)
+                    )
+                )
+            )
+            ->setEnabled(
+                self::getRequest()->get(\Users::ENABLED) ? true : false
+            )
+            ->setPriority(
+                self::getRequest()->get(\Users::PRIORITY)
+            );
+        Proxy::init()->getEntityManager()->persist($newUser);
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
+     * @Route("edituser", name="edituser")
+     * @return RedirectResponse
+     */
+    public function editUser()
+    {
+        /** @var \Users $user */
+        $user = Proxy::init()->getEntityManager()->getRepository(\Users::class)->find(
+            self::getRequest()->get(\Users::ID)
+        )
+
+        ;
+        $user->setName(self::getRequest()->get(\Users::NAME))
+            ->setEmail(self::getRequest()->get(\Users::EMAIL))
+            ->setEnabled(
+                self::getRequest()->get(\Users::ENABLED) ? true : false
+            )
+            ->setPriority(
+                self::getRequest()->get(\Users::PRIORITY)
+            );
+        if(self::getRequest()->get(\Users::PASSWORD)) {
+            $user->setPassword(
+                sha1(
+                    strtolower(
+                        self::getRequest()->get(\Users::EMAIL) . self::getRequest()->get(\Users::PASSWORD)
+                    )
+                )
+            );
+        }
+//        var_dump($user->getName()); die;
+//        Proxy::init()->getEntityManager()->persist($user);
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            $this->generateUrl('users')
+        );
     }
 
     /**

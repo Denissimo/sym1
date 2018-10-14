@@ -50,4 +50,36 @@ class Roles
         $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUser(): \Doctrine\Common\Collections\Collection
+    {
+        return $this->user;
+    }
+
 }

@@ -136,6 +136,23 @@ class Comments
     }
 
     /**
+     * @return string
+     */
+    public function getTsString()
+    {
+        return $this->ts->format('d.m.Y_h:i');
+    }
+
+
+    /**
+     * @return string | null
+     */
+    public function getReminderString()
+    {
+        return $this->reminder ? $this->reminder->format('d.m.Y_h:i') : null;
+    }
+
+    /**
      * @param $ts
      * @return $this
      */

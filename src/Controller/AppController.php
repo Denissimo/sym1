@@ -28,7 +28,7 @@ class AppController extends BaseController
         $appId = self::getRequest()->get(self::APP_ID);
         /** @var \Apps $app */
         $app = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->findBy(
-            [self::ID => $appId]
+            [\Users::ID => $appId]
         )[0];
 
             /** @var \Fields[] $fields */

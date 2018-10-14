@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Users
 {
+    const
+        ID = 'id',
+        NAME = 'name',
+        EMAIL = 'email',
+        PASSWORD = 'password',
+        ENABLED = 'enabled',
+        PRIORITY = 'priority',
+        ROLE = 'role';
+
+
     /**
      * @var int
      *
@@ -183,6 +193,14 @@ class Users
         return $this->role;
     }
 
+
+    public function getRoleId()
+    {
+        /** @var \Roles $role */
+        $role = $this->role->toArray()[0];
+        return $role;
+    }
+
     /**
      * @param int $id
      * @return $this
@@ -245,26 +263,32 @@ class Users
 
     /**
      * @param $showInFilter
+     * @return $this
      */
     public function setShowInFilter($showInFilter)
     {
         $this->showInFilter = $showInFilter;
+        return $this;
     }
 
     /**
      * @param $priority
+     * @return $this
      */
     public function setPriority($priority)
     {
         $this->priority = $priority;
+        return $this;
     }
 
     /**
      * @param Partners $partner
+     * @return $this
      */
     public function setPartner(Partners $partner)
     {
         $this->partner = $partner;
+        return $this;
     }
 
     /**
