@@ -48,4 +48,27 @@ class Builder
         }
         return $time;
     }
+
+    /**
+     * @param \Roles[] $roles
+     * @param \Roles[] $userRoles
+     * @return array
+     */
+    public function buildRoles($roles, $userRoles) : array
+    {
+        $granted = [];
+        foreach ($userRoles as $uRole){
+            $granted[$uRole->getId()] = true;
+        }
+        $listRoles = [];
+        foreach ($roles as $role){
+            $listRoles[$role->getId()] = [
+                'id' => $role->getId(),
+                'name' => $role->getName(),
+                'access' => $granted[$role->getId()] ?? false
+            ];
+        }
+
+        return $listRoles;
+    }
 }

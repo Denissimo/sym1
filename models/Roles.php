@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Roles
 {
+    const
+        FIELD_ACTION = 'action',
+        ACTION_ADD = 'add',
+        ACTION_DEL = 'del';
     /**
      * @var int
      *

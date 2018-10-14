@@ -21,6 +21,38 @@ use Monolog\Logger;
 class PostController extends BaseController
 {
     /**
+     * @Route("changerole", name="changerole")
+     * @return RedirectResponse
+     */
+    public function changeRole()
+    {
+//        var_dump(self::getRequest()->request); die;
+        /** var string $query */
+        $query = null;
+        switch (self::getRequest()->get(\Roles::FIELD_ACTION)) {
+            case \Roles::ACTION_ADD :
+                $query = 'INSERT INTO users_roles SET user_id = :user_id, role_id = :role_id;';
+            break;
+
+            case \Roles::ACTION_DEL :
+                $query = 'DELETE FROM users_roles WHERE user_id = :user_id AND role_id = :role_id;';
+            break;
+            default:
+                return $this->redirect(
+                    self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+                );
+        }
+//        echo $query; die;
+        $sth = Proxy::init()->getConnecton()->prepare($query);
+        $sth->bindValue(':user_id', (int)self::getRequest()->get('user_id'), \PDO::PARAM_INT);
+        $sth->bindValue(':role_id', (int)self::getRequest()->get('role_id'), \PDO::PARAM_INT);
+        $sth->execute();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
      * @Route("addcomment", name="addcomment")
      * @return RedirectResponse
      */
