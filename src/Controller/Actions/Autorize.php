@@ -75,6 +75,18 @@ class Autorize
         return Proxy::init()->getSession()->get(Config::FIELD_LOGIN);
     }
 
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    private function isUriGranted(Request $request){
+        return in_array(
+            $request->getRequestUri(),
+            Config::getGrantedUris()
+        );
+    }
+
     /**
      * @param Request $request
      */

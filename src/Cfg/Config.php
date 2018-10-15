@@ -6,6 +6,7 @@ class Config
 {
     const
         PARAM_PROD = 'production',
+        PARAM_GRANTED = 'granted_uris',
         PARAM_AUTORIZE = 'autorize',
         VENDOR_DOCTRINE = 'doctrine',
         VENDOR_LOGGER = 'logger',
@@ -66,6 +67,10 @@ class Config
         ],
         self::VENDOR_LOGGER => [
             self::FIELD_PATH => __DIR__.'/../../logs/'
+        ],
+        self::PARAM_GRANTED =>[
+            '/api',
+            '/postlog'
         ]
     ];
 
@@ -123,6 +128,13 @@ class Config
     public static function getAutorizeParams()
     {
         return self::$params[self::PARAM_AUTORIZE];
+    }
+    /*
+    * @return array
+    */
+    public static function getGrantedUris()
+    {
+        return self::$params[self::PARAM_GRANTED];
     }
 
     /*

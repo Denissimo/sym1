@@ -23,6 +23,7 @@ use App\Api\RequestAPI\RequestAPI;
 
 class ApiController extends BaseController
 {
+
     /**
      * @Route("api", name="api")
      * @return Response
@@ -32,7 +33,7 @@ class ApiController extends BaseController
         $appId = self::getRequest()->get(self::APP_ID);
 //        $data['data'] = json_decode(Config::get('requestAPI.workingTime'), true);
         $res = true;
-
+            var_dump(self::getRequest()->getRequestUri());
 
 
         try {
@@ -45,20 +46,20 @@ class ApiController extends BaseController
             );
 
             Proxy::init()->getLogger()->addWarning(
-                "\r\nGET:\r\n" . \GuzzleHttp\json_encode($_POST)
+                "\r\nGET:\r\n" . \GuzzleHttp\json_encode($_GET)
             );
 //            var_dump($_POST);die;
             new RequestAPI($data);
             $res = $data;
             $data['data'] = $res;
-            return (new Render())->render($data, 'test.html.twig');
+            return (new Render())->simpleRender($data, 'test.html.twig');
 
         } catch (\Exception $e) {
             Proxy::init()->getLogger()->addWarning(
                 $e->getMessage()
             );
             $res = $e->getMessage();
-            return (new Render())->render(['data' => $e->getMessage()], 'test.html.twig');
+            return (new Render())->simpleRender(['data' => $e->getMessage()], 'test.html.twig');
         }
 //        $data['data'] = Config::get('requestAPI.workingTime');
     }
@@ -70,7 +71,7 @@ class ApiController extends BaseController
     public function postlog()
     {
         Proxy::init()->getLogger()
-            ->addWarning(\GuzzleHttp\json_encode(self::getRequest()->request));
-        return (new Render())->render([], 'test.html.twig');
+            ->addWarning(\GuzzleHttp\json_encode(self::getRequest()->request->all()));
+        return (new Render())->simpleRender([], 'test.html.twig');
     }
 }

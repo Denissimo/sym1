@@ -30,4 +30,16 @@ class Render
             )
         );
     }
+
+    public function simpleRender(array $data, string $template = null)
+    {
+        $data[Autorize::FIELD_LOGGED] = (new Autorize())->isLogged();
+        $tpl = $template ?? Config::getTwigDefaultTemplate();
+        return new Response(
+            Proxy::init()->getTwigEnvironment()->render(
+                $tpl,
+                $data
+            )
+        );
+    }
 }
