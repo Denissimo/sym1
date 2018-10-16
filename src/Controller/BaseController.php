@@ -31,6 +31,7 @@ abstract class BaseController extends Controller
         USER_ID = 'userId',
         PER_PAGE = 'per_page',
         DEFAULT_LIMIT = 50,
+        SORT = 'sort',
         LIMIT = 'limit';
 
 

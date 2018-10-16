@@ -12,6 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 class Builder
 {
 
+    private $orderFields = [
+        'id1' => ['id' => 'ASC'],
+        'id2' => ['id' => 'DESC'],
+        'createdAt1' => ['createdat' => 'ASC'],
+        'createdAt2' => ['createdat' => 'DESC'],
+        'updatedAt1' => ['updatedat' => 'ASC'],
+        'updatedAt2' => ['updatedat' => 'DESC'],
+    ];
 
     /**
      * @param Request $request
@@ -40,8 +48,10 @@ class Builder
             )
         );
 */
-        $criteria->orderBy(['id' => 'DESC']);
-        $criteria->setMaxResults($request->get(Controller::LIMIT) ?? Controller::DEFAULT_LIMIT);
+        $criteria->orderBy(
+            $this->orderFields[$request->get(Controller::SORT)] ?? ['id' => 'DESC']);
+
+        $criteria->setMaxResults((int)$request->get(Controller::LIMIT) ?? Controller::DEFAULT_LIMIT);
 
         return $criteria;
     }
