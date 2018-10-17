@@ -138,7 +138,7 @@
                                             <td>{{ com.tsString }}</td>
                                             <td>
                                                 {% autoescape false %}
-                                                {{ com.user.name|raw|replace({' ' : '&nbsp;'}) }}
+                                                    <a href="/user/?user_id={{ com.user.id }}">{{ com.user.name|raw|replace({' ' : '&nbsp;'}) }}</a>
                                                 {% endautoescape %}
                                             </td>
                                             <td>{{ com.ctype.value }}</td>

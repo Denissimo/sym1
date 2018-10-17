@@ -11,6 +11,7 @@ use App\Controller\Actions\Autorize;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Twig\Render;
+use App\Cfg\Config;
 use App\Validator;
 use App\Controller\Criteria\Builder;
 use App\Controller\Apps\Builder as AppBuilder;
@@ -61,6 +62,8 @@ class MainController extends BaseController
         $data['number'] = 'docs';
         $data['request'] = self::getRequest()->query->all();
         $data['post'] = self::getRequest()->getMethod();
+        $data['uid'] = (new Autorize())->getUserId();
+//      var_dump((new Autorize())->getUserName());die;
 
 //        /** @var \Apps $apps */
 //        $apps = Proxy::init()->getEntityManager()->getRepository('Apps')->matching(

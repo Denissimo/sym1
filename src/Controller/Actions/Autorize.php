@@ -11,7 +11,9 @@ class Autorize
     const
         POST = 'POST',
         LOGOUT = 'logout',
-        FIELD_LOGGED = 'logged';
+        FIELD_LOGGED = 'logged',
+        FIELD_USER_NAME = 'name',
+        FIELD_UID = 'uid';
 
     /**
      * @var \Users
@@ -38,6 +40,7 @@ class Autorize
                     )
                 ]
             );
+        /*
         Proxy::init()->getLogger()->addWarning(
             sha1(
                 strtolower(
@@ -45,10 +48,12 @@ class Autorize
                 )
             )
         );
+        */
         if(count($users)) {
             $this->user = $users[0];
             Proxy::init()->getSession()->set(Config::FIELD_LOGIN, true);
             Proxy::init()->getSession()->set(Config::FIELD_USER, $this->user->getEmail());
+            Proxy::init()->getSession()->set(Config::FIELD_NAME, $this->user->getName());
             Proxy::init()->getSession()->set(Config::FIELD_UID, $this->user->getId());
             return true;
         } else {
@@ -63,6 +68,7 @@ class Autorize
     {
         Proxy::init()->getSession()->set(Config::FIELD_LOGIN, false);
         Proxy::init()->getSession()->set(Config::FIELD_USER, null);
+        Proxy::init()->getSession()->set(Config::FIELD_NAME, null);
         Proxy::init()->getSession()->set(Config::FIELD_UID, null);
         return true;
     }
@@ -75,6 +81,22 @@ class Autorize
         return Proxy::init()->getSession()->get(Config::FIELD_LOGIN);
     }
 
+    /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return Proxy::init()->getSession()->get(Config::FIELD_NAME);
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return Proxy::init()->getSession()->get(Config::FIELD_UID);
+    }
 
     /**
      * @param Request $request

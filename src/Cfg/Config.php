@@ -22,6 +22,7 @@ class Config
         FIELD_DRIVER = 'driver',
         FIELD_HOST = 'host',
         FIELD_USER = 'user',
+        FIELD_NAME = 'name',
         FIELD_PASS = 'password',
         FIELD_TABLE = 'table',
         FIELD_DBNAME = 'dbname',
