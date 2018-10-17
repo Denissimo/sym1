@@ -76,6 +76,17 @@ class Comments
     private $ctype;
 
     /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="uid", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -233,4 +244,23 @@ class Comments
         $this->ctype = $ctype;
         return $this;
     }
+
+    /**
+     * @return Users
+     */
+    public function getUser(): Users
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param Users $user
+     * @return $this
+     */
+    public function setUser(Users $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
 }
