@@ -64,20 +64,20 @@ class PostController extends BaseController
             $reminderTime = self::getRequest()->get('reminder_time') ?? '00:00';
             $reminderGet = self::getRequest()->get('reminder').'T'.$reminderTime;
             $reminderDt = \DateTime::createFromFormat('d.m.Y\TH:i', $reminderGet);
-            $reminder = $reminderDt->format('YmdHis');
+            $reminderStr = $reminderDt->format('YmdHis');
 
         } else {
-            $reminder = null;
+            $reminderStr = null;
         }
 
 //        var_dump($reminder); die;
         switch ($ctype) {
             case 1:
-                $updateTime = $reminder;
+                $updateTime = $reminderStr;
             break;
 
             case 2:
-                $updateTime = $reminder;
+                $updateTime = $reminderStr;
             break;
 
 
@@ -89,7 +89,7 @@ class PostController extends BaseController
         $sth->bindValue(':user_id', (int)self::getRequest()->get('user_id'), \PDO::PARAM_INT);
         $sth->bindValue(':ctype', $ctype, \PDO::PARAM_INT);
         $sth->bindValue(':comment', self::getRequest()->get('comment'), \PDO::PARAM_STR);
-        $sth->bindValue(':reminder', $reminder);
+        $sth->bindValue(':reminder', $reminderStr);
         $sth->execute();
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')

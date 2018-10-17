@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CommentTypes
  *
- * @ORM\Table(name="comment_types")
+ * @ORM\Table(name="comment_types", indexes={@ORM\Index(name="appstatus", columns={"app_status"})})
  * @ORM\Entity
  */
 class CommentTypes
@@ -36,6 +36,16 @@ class CommentTypes
     private $value;
 
     /**
+     * @var \AppStatus
+     *
+     * @ORM\ManyToOne(targetEntity="AppStatus")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="app_status", referencedColumnName="id")
+     * })
+     */
+    private $appStatus;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -57,6 +67,14 @@ class CommentTypes
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return AppStatus
+     */
+    public function getAppStatus(): AppStatus
+    {
+        return $this->appStatus;
     }
 
 
