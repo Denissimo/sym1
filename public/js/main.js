@@ -13,7 +13,7 @@ $(document).ready(function(){
         dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
         dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
         weekHeader: 'Не',
-        dateFormat: 'yymmdd000000',
+        dateFormat: 'dd.mm.yy',
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,

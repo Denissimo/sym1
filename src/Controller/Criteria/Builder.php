@@ -51,7 +51,9 @@ class Builder
         $criteria->orderBy(
             $this->orderFields[$request->get(Controller::SORT)] ?? ['id' => 'DESC']);
 
-        $criteria->setMaxResults((int)$request->get(Controller::LIMIT) ?? Controller::DEFAULT_LIMIT);
+        $criteria->setMaxResults(
+            (int)$request->get(Controller::LIMIT) ? (int)$request->get(Controller::LIMIT) : Controller::DEFAULT_LIMIT
+        );
 
         return $criteria;
     }
@@ -115,22 +117,22 @@ class Builder
             return Criteria::expr()->andX(
                 Criteria::expr()->gte(
                     $field,
-                    \DateTime::createFromFormat('YmdHis', $from)
+                    \DateTime::createFromFormat('d.m.Y', $from)
                 ),
                 Criteria::expr()->lte(
                     $field,
-                    \DateTime::createFromFormat('YmdHis', $to)
+                    \DateTime::createFromFormat('d.m.Y', $to)
                 )
             );
         } elseif ($from) {
             return Criteria::expr()->gte(
                 $field,
-                \DateTime::createFromFormat('YmdHis', $from)
+                \DateTime::createFromFormat('d.m.Y', $from)
             );
         } elseif ($to) {
             return Criteria::expr()->lte(
                 $field,
-                \DateTime::createFromFormat('YmdHis', $to)
+                \DateTime::createFromFormat('d.m.Y', $to)
             );
         } else {
             return null;
