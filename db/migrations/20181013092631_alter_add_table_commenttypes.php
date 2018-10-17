@@ -41,21 +41,22 @@ class AlterAddTableCommenttypes extends AbstractMigration
             ->addColumn( 'id', 'integer', ['signed' => false] )
             ->addColumn( 'name', 'string' )
             ->addColumn( 'value', 'string' )
+            ->addColumn( 'app_status', 'integer' )
             ->create();
 
         $table = $this->table('comment_types')
             ->insert(
             [
-                ['id' => 1, 'name' => 'recall', 'value' => 'Перезвонить'],
-                ['id' => 2, 'name' => 'busy', 'value' => 'Занято'],
-                ['id' => 3, 'name' => 'no_answer', 'value' => 'Не отвечает'],
-                ['id' => 4, 'name' => 'unawailable', 'value' => 'Недоступен'],
-                ['id' => 5, 'name' => 'drops', 'value' => 'Скидывает'],
-                ['id' => 6, 'name' => 'not_actual', 'value' => 'Не актуально'],
-                ['id' => 7, 'name' => 'wrong', 'value' => 'Неправильный номер'],
-                ['id' => 8, 'name' => 'moron', 'value' => 'Неадекват'],
-                ['id' => 9, 'name' => 'process', 'value' => 'Обработать'],
-                ['id' => 10, 'name' => 'comment', 'value' => 'Заметка']
+                ['id' => 1, 'name' => 'recall', 'value' => 'Перезвонить', 'app_status' => 1],
+                ['id' => 2, 'name' => 'busy', 'value' => 'Занято', 'app_status' => 2],
+                ['id' => 3, 'name' => 'no_answer', 'value' => 'Не отвечает', 'app_status' => 2],
+                ['id' => 4, 'name' => 'unawailable', 'value' => 'Недоступен', 'app_status' => 2],
+                ['id' => 5, 'name' => 'drops', 'value' => 'Скидывает', 'app_status' => 2],
+                ['id' => 6, 'name' => 'not_actual', 'value' => 'Не актуально', 'app_status' => 3],
+                ['id' => 7, 'name' => 'wrong', 'value' => 'Неправильный номер', 'app_status' => 3],
+                ['id' => 8, 'name' => 'moron', 'value' => 'Неадекват', 'app_status' => 3],
+                ['id' => 9, 'name' => 'process', 'value' => 'Обработать', 'app_status' => 1],
+                ['id' => 10, 'name' => 'comment', 'value' => 'Другое', 'app_status' => 2]
             ]
         )->save();
     }

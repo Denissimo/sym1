@@ -70,6 +70,7 @@ class MainController extends BaseController
 //            (new Builder())->appsCommon(self::getRequest())
 //        )->getValues();
 
+
         $apps = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             (new Builder())->appsCommon(self::getRequest())
         );
@@ -83,6 +84,9 @@ class MainController extends BaseController
 
         $data['comments'] = $comments;
 */
+        /** @var \Apps[] $appArr */
+        $appArr = $apps->toArray();
+//        var_dump($appArr[0]->getLastComment()->getId()); die;
         $data['apps'] = $apps->toArray();
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
         $data[self::ADD_COMMENT] = $this->generateUrl(self::ADD_COMMENT);

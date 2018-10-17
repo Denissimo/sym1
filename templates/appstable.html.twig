@@ -121,6 +121,7 @@
                         <th>Пользователь</th>
                         <th>Создано</th>
                         <th>Изменено</th>
+                        {#<th>ZZZ</th>#}
                         <th>Комментарии</th>
                         <th>Добавить</th>
                     </tr>
@@ -130,11 +131,13 @@
                             <td>{{ app.userName }}</td>
                             <td>{{ app.createdAtString }}</td>
                             <td>{{ app.updatedAtString }}</td>
+                            {#<td>{{ app.lastComment.id }}</td>#}
                             <td>
                                 {#{{ app.comments.0.id }}#}
                                 <table class="table table-borderless table-sm table-small">
-                                    {% for com in app.comments %}
+                                    {% for key, com in app.comments %}
                                         <tr>
+                                            <td>{{ com.id }}</td>
                                             <td>{{ com.tsString }}</td>
                                             <td>
                                                 {% autoescape false %}
@@ -153,13 +156,6 @@
                                 {{ include('sub_modal_btn.html.twig', { 'article': article }) }}
 
                                 {{ include('sub_modal.html.twig', { 'article': article }) }}
-                                {#<form method="post" class="form-inline">#}
-                                {#<div class="form-row col-4 align-items-center">#}
-                                {#<input type="hidden" name="app_id" value="{{ app.id }}">#}
-                                {#<input type="text" class="form-control-sm col-6" id="comfield" placeholder="коммент">#}
-                                {#<button type="submit" class="btn btn-sm btn-primary">Ok</button>#}
-                                {#</div>#}
-                                {#</form>#}
                             </td>
                         </tr>
                     {% endfor %}

@@ -30,6 +30,8 @@ $(document).ready(function(){
 
     $( "#update_to" ).datepicker();
 
+    $( ".reminder" ).datepicker();
+
 
     $('[data-toggle="buttons"] .btn').on('click', function () {
         // toggle style

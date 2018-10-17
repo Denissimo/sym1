@@ -58,13 +58,38 @@ class PostController extends BaseController
      */
     public function addComment()
     {
+        $ctype = (int)self::getRequest()->get('ctype');
+
+        if(self::getRequest()->get('reminder')) {
+            $reminderTime = self::getRequest()->get('reminder_time') ?? '00:00';
+            $reminderGet = self::getRequest()->get('reminder').'T'.$reminderTime;
+            $reminderDt = \DateTime::createFromFormat('d.m.Y\TH:i', $reminderGet);
+            $reminder = $reminderDt->format('YmdHis');
+
+        } else {
+            $reminder = null;
+        }
+
+//        var_dump($reminder); die;
+        switch ($ctype) {
+            case 1:
+                $updateTime = $reminder;
+            break;
+
+            case 2:
+                $updateTime = $reminder;
+            break;
+
+
+        }
+
         $query = 'INSERT INTO comments SET app_id = :app_id, comment = :comment, uid = :user_id, ts = now(), reminder = :reminder, ctype = :ctype;';
         $sth = Proxy::init()->getConnecton()->prepare($query);
         $sth->bindValue(':app_id', (int)self::getRequest()->get('app_id'), \PDO::PARAM_INT);
         $sth->bindValue(':user_id', (int)self::getRequest()->get('user_id'), \PDO::PARAM_INT);
-        $sth->bindValue(':ctype', (int)self::getRequest()->get('ctype'), \PDO::PARAM_INT);
+        $sth->bindValue(':ctype', $ctype, \PDO::PARAM_INT);
         $sth->bindValue(':comment', self::getRequest()->get('comment'), \PDO::PARAM_STR);
-        $sth->bindValue(':reminder', self::getRequest()->get('reminder') ? self::getRequest()->get('reminder') : null);
+        $sth->bindValue(':reminder', $reminder);
         $sth->execute();
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')

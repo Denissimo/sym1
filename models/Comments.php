@@ -151,7 +151,7 @@ class Comments
      */
     public function getTsString()
     {
-        return $this->ts->format('d.m.Y_h:i');
+        return $this->ts->format('d.m.Y_H:i');
     }
 
 
@@ -160,7 +160,7 @@ class Comments
      */
     public function getReminderString()
     {
-        return $this->reminder ? $this->reminder->format('d.m.Y_h:i') : null;
+        return $this->reminder ? $this->reminder->format('d.m.Y_H:i') : null;
     }
 
     /**

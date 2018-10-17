@@ -128,6 +128,14 @@ class Apps
     private $comments;
 
     /**
+     * @var Comments
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="app")
+     * @ORM\OrderBy({"id" = "DESC"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="app_id")
+     */
+    private $lastComment;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -261,5 +269,13 @@ class Apps
     public function getComments(): Collection
     {
         return $this->comments;
+    }
+
+    /**
+     * @return Comments
+     */
+    public function getLastComment() : Comments
+    {
+        return $this->comments->first();
     }
 }
