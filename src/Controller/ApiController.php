@@ -39,20 +39,20 @@ class ApiController extends BaseController
         try {
             $data = file_get_contents("php://input");
             Proxy::init()->getLogger()->addWarning(
-                "\r\nINPUT:\r\n" . \GuzzleHttp\json_encode($data)
+                "\nINPUT:\r\n" . \GuzzleHttp\json_encode($data)
             );
             Proxy::init()->getLogger()->addWarning(
-                "\r\nPOST:\r\n" . \GuzzleHttp\json_encode($_POST)
+                "\nPOST:\r\n" . \GuzzleHttp\json_encode($_POST)
             );
 
             Proxy::init()->getLogger()->addWarning(
-                "\r\nGET:\r\n" . \GuzzleHttp\json_encode($_GET)
+                "\nGET:\r\n" . \GuzzleHttp\json_encode($_GET)
             );
 //            var_dump($_POST);die;
             new RequestAPI($data);
             $res = $data;
-            $data['data'] = $res;
-            return (new Render())->simpleRender($data, 'test.html.twig');
+            $renderData['data'] = $res;
+            return (new Render())->simpleRender($renderData, 'test.html.twig');
 
         } catch (\Exception $e) {
             Proxy::init()->getLogger()->addWarning(
