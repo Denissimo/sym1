@@ -59,7 +59,16 @@ class PostController extends BaseController
     public function addComment()
     {
         $ctype = (int)self::getRequest()->get('ctype');
+        $appId = (int)self::getRequest()->get('app_id');
+        /** @var \CommentTypes $commentTypes */
+        $commentTypes = Proxy::init()->getEntityManager()->getRepository(\CommentTypes::class)->find($ctype);
+        /** @var \Apps $app */
+        $app = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->find($appId);
+        $inWork = $commentTypes->isInWork();
+        $appStatus = $commentTypes->getAppStatus()->getId();
+        $interval = $commentTypes->getDateInterval();
 
+        /** @var \DateTime $reminderDt $app */
         if(self::getRequest()->get('reminder')) {
             $reminderTime = self::getRequest()->get('reminder_time') ?? '00:00';
             $reminderGet = self::getRequest()->get('reminder').'T'.$reminderTime;
@@ -68,20 +77,36 @@ class PostController extends BaseController
 
         } else {
             $reminderStr = null;
+
         }
 
 //        var_dump($reminder); die;
-        switch ($ctype) {
+        switch ($appStatus) {
             case 1:
-                $updateTime = $reminderStr;
+                $updateTime = $app->getUpdatedat();
             break;
 
             case 2:
-                $updateTime = $reminderStr;
+                $updateTime = $app->getUpdatedat();
             break;
 
+            case 3:
+                $updateTime = $reminderDt;
+            break;
 
+            default:
+                $updateTime = $app->getUpdatedat();
+            break;
         }
+
+        $newUpdateTime = $updateTime->add(new \DateInterval($interval));
+
+        $app->setUpdatedat($newUpdateTime)
+            ->setStatus($appStatus)
+            ->setInWork($inWork)
+        ;
+        Proxy::init()->getEntityManager()->flush();
+
 
         $query = 'INSERT INTO comments SET app_id = :app_id, comment = :comment, uid = :user_id, ts = now(), reminder = :reminder, ctype = :ctype;';
         $sth = Proxy::init()->getConnecton()->prepare($query);

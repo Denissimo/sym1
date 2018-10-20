@@ -48,6 +48,16 @@ class Apps
     private $status;
 
     /**
+     * @var \AppStatus
+     *
+     * @ORM\ManyToOne(targetEntity="AppStatus")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="status", referencedColumnName="id")
+     * })
+     */
+    private $appStatus;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdAt", type="datetime", nullable=false)
@@ -168,6 +178,14 @@ class Apps
     }
 
     /**
+     * @return AppStatus
+     */
+    public function getAppStatus(): AppStatus
+    {
+        return $this->appStatus;
+    }
+
+    /**
      * @return DateTime
      */
     public function getCreatedat(): DateTime
@@ -277,5 +295,166 @@ class Apps
     public function getLastComment() : Comments
     {
         return $this->comments->first();
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @param $foreignId
+     * @return $this
+     */
+    public function setForeignId($foreignId)
+    {
+        $this->foreignId = $foreignId;
+        return $this;
+    }
+
+    /**
+     * @param $userId
+     * @return $this
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    /**
+     * @param int $status
+     * @return $this
+     */
+    public function setStatus(int $status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @param AppStatus $appStatus
+     * @return $this
+     */
+    public function setAppStatus(AppStatus $appStatus)
+    {
+        $this->appStatus = $appStatus;
+        return $this;
+    }
+
+
+    /**
+     * @param DateTime $createdat
+     * @return $this
+     */
+    public function setCreatedat(DateTime $createdat)
+    {
+        $this->createdat = $createdat;
+        return $this;
+    }
+
+    /**
+     * @param DateTime $updatedat
+     * @return $this
+     */
+    public function setUpdatedat(DateTime $updatedat)
+    {
+        $this->updatedat = $updatedat;
+        return $this;
+    }
+
+    /**
+     * @param $comment
+     * @return $this
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @param $trash
+     * @return $this
+     */
+    public function setTrash($trash)
+    {
+        $this->trash = $trash;
+        return $this;
+    }
+
+    /**
+     * @param $inWork
+     * @return $this
+     */
+    public function setInWork($inWork)
+    {
+        $this->inWork = $inWork;
+        return $this;
+    }
+
+    /**
+     * @param int $ip
+     * @return $this
+     */
+    public function setIp(int $ip)
+    {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
+     * @param $check
+     * @return $this
+     */
+    public function setCheck($check)
+    {
+        $this->check = $check;
+        return $this;
+    }
+
+    /**
+     * @param Partners $partner
+     * @return $this
+     */
+    public function setPartner(Partners $partner)
+    {
+        $this->partner = $partner;
+        return $this;
+    }
+
+    /**
+     * @param Users $user
+     * @return $this
+     */
+    public function setUser(Users $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @param Collection $comments
+     * @return $this
+     */
+    public function setComments(Collection $comments)
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
+    /**
+     * @param Comments $lastComment
+     * @return $this
+     */
+    public function setLastComment(Comments $lastComment)
+    {
+        $this->lastComment = $lastComment;
+        return $this;
     }
 }

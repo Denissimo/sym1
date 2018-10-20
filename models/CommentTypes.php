@@ -36,6 +36,20 @@ class CommentTypes
     private $value;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="date_interval", type="string", length=8, nullable=false)
+     */
+    private $dateInterval;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="in_work", type="boolean", nullable=false)
+     */
+    private $inWork;
+
+    /**
      * @var \AppStatus
      *
      * @ORM\ManyToOne(targetEntity="AppStatus")
@@ -67,6 +81,22 @@ class CommentTypes
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateInterval(): string
+    {
+        return $this->dateInterval;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInWork(): bool
+    {
+        return $this->inWork;
     }
 
     /**

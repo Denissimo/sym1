@@ -119,25 +119,30 @@
                     <tr>
                         <th> id</th>
                         <th>Пользователь</th>
+                        <th>Статус</th>
                         <th>Создано</th>
                         <th>Изменено</th>
-                        {#<th>ZZZ</th>#}
+
                         <th>Комментарии</th>
+                        <th></th>
                         <th>Добавить</th>
                     </tr>
                     {% for app in apps %}
                         <tr>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
                             <td>{{ app.userName }}</td>
+                            <td>{{ app.status }}</td>
                             <td>{{ app.createdAtString }}</td>
                             <td>{{ app.updatedAtString }}</td>
                             {#<td>{{ app.lastComment.id }}</td>#}
+
                             <td>
                                 {#{{ app.comments.0.id }}#}
                                 <table class="table table-borderless table-sm table-small">
                                     {% for key, com in app.comments %}
-                                        <tr>
-                                            <td>{{ com.id }}</td>
+
+                                        <tr{% if key>0 %} class="collapse_row collapse_{{ app.id }}" {% endif %}>
+                                            {#<td>{{ com.id }}</td>#}
                                             <td>{{ com.tsString }}</td>
                                             <td>
                                                 {% autoescape false %}
@@ -149,8 +154,15 @@
                                             <td>{{ com.comment }}</td>
 
                                         </tr>
+                                        {#{% if key==0 %}<div class="collapse" id="#collapse{{ app.id }}">{% endif %}#}
                                     {% endfor %}
+                                        {#{% if app.comments | length %} </div> {% endif %}#}
                                 </table>
+                            </td>
+                            <td>
+                                {% if app.comments | length > 1 %}
+                                    {{ include('sub_modal_btn_down.html.twig', { 'article': article }) }}
+                                {% endif %}
                             </td>
                             <td>
                                 {{ include('sub_modal_btn.html.twig', { 'article': article }) }}
