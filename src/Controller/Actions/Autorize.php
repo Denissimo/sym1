@@ -13,7 +13,28 @@ class Autorize
         LOGOUT = 'logout',
         FIELD_LOGGED = 'logged',
         FIELD_USER_NAME = 'name',
+        FIELD_ROLES = 'roles',
+        FIELD_ACCESS = 'access',
         FIELD_UID = 'uid';
+
+    const
+        ROLE_ADMIN = 'admin',
+        ROLE_OPERATOR = 'operator',
+        ROLE_OPERATOR4S = 'operator4s',
+        ROLE_SUPERVISOR = 'supervisor';
+
+    const
+        ACCESS_USERLIST = 'userlist',
+        ACCESS_ALL_APPS = 'all_apps',
+        ACCESS_COMMAND_PROC = 'command_proc';
+
+
+    private static $access = [
+        self::ROLE_ADMIN => [self::ACCESS_USERLIST => true, self::ACCESS_COMMAND_PROC => true, self::ACCESS_ALL_APPS => true],
+        self::ROLE_SUPERVISOR => [self::ACCESS_USERLIST => false, self::ACCESS_COMMAND_PROC => true, self::ACCESS_ALL_APPS => true],
+        self::ROLE_OPERATOR4S => [self::ACCESS_USERLIST => true, self::ACCESS_COMMAND_PROC => false, self::ACCESS_ALL_APPS => false],
+        self::ROLE_OPERATOR => [self::ACCESS_USERLIST => false, self::ACCESS_COMMAND_PROC => false, self::ACCESS_ALL_APPS => false]
+    ];
 
     /**
      * @var \Users
@@ -27,6 +48,7 @@ class Autorize
     public function login(Request $request)
     {
         $config = Config::getAutorizeParams();
+        /** @var \Users[] $users */
         $users = (array)Proxy::init()
             ->getEntityManager()
             ->getRepository($config[Config::FIELD_TABLE])
@@ -49,8 +71,12 @@ class Autorize
             )
         );
         */
-        if(count($users)) {
+        if (count($users)) {
             $this->user = $users[0];
+            /** @var \Roles[] $roles */
+            $roles = $this->user->getRole();
+            Proxy::init()->getSession()->set(Config::FIELD_ROLES, implode(', ', $this->roleList($roles)));
+            Proxy::init()->getSession()->set(Config::FIELD_ACCESS, $this->accessList($roles));
             Proxy::init()->getSession()->set(Config::FIELD_LOGIN, true);
             Proxy::init()->getSession()->set(Config::FIELD_USER, $this->user->getEmail());
             Proxy::init()->getSession()->set(Config::FIELD_NAME, $this->user->getName());
@@ -89,7 +115,21 @@ class Autorize
         return Proxy::init()->getSession()->get(Config::FIELD_NAME);
     }
 
+    /**
+     * @return string
+     */
+    public function getRolesList()
+    {
+        return Proxy::init()->getSession()->get(Config::FIELD_ROLES);
+    }
 
+    /**
+     * @return array
+     */
+    public function getAccessList()
+    {
+        return Proxy::init()->getSession()->get(Config::FIELD_ACCESS);
+    }
     /**
      * @return int
      */
@@ -102,7 +142,8 @@ class Autorize
      * @param Request $request
      * @return bool
      */
-    private function isUriGranted(Request $request){
+    private function isUriGranted(Request $request)
+    {
         return in_array(
             $request->getRequestUri(),
             Config::getGrantedUris()
@@ -114,12 +155,41 @@ class Autorize
      */
     public function autorize(Request $request)
     {
-        if($request->getMethod() == self::POST && $request->get(Config::getRequestUserField())) {
+        if ($request->getMethod() == self::POST && $request->get(Config::getRequestUserField())) {
             (new Autorize())->login($request);
         }
 
-        if($request->getMethod() == self::POST && $request->get(self::LOGOUT)) {
+        if ($request->getMethod() == self::POST && $request->get(self::LOGOUT)) {
             (new Autorize())->logout();
         }
+    }
+
+    /**
+ * @param \Roles[] $roles
+ * @return array
+ */
+    private function accessList($roles)
+    {
+        $access = [self::ACCESS_USERLIST => false, self::ACCESS_COMMAND_PROC => false, self::ACCESS_ALL_APPS => false];
+        foreach ($roles as $role) {
+            $roleAccess = self::$access[$role->getName()];
+            foreach ($roleAccess as $key => $val) {
+                $access[$key] = $access[$key] ? $access[$key] : $val;
+            }
+        }
+        return $access;
+    }
+
+    /**
+     * @param \Roles[] $roles
+     * @return array
+     */
+    private function roleList($roles)
+    {
+        $roleList = [];
+        foreach ($roles as $role) {
+            $roleList[] = $role->getName();
+        }
+        return $roleList;
     }
 }

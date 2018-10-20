@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
+{% if access.userlist %}
 
     <div class="container-fluid">
         <div class="row mart10">
@@ -97,5 +97,5 @@
             </div>
         </div>
     </div>
-
+{% endif %}
 {% endblock %}

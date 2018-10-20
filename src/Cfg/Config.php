@@ -17,6 +17,7 @@ class Config
         REQUEST_PASS = 'req_pass';
 
     const
+        FIELD_ACCESS = 'access',
         FIELD_OBLIG = 'obligatory',
         FIELD_LOGIN = 'login',
         FIELD_DRIVER = 'driver',
@@ -32,6 +33,7 @@ class Config
         FIELD_FILE = 'file',
         FIELD_CONNECTION = 'connection',
         FIELD_UID = 'uid',
+        FIELD_ROLES = 'roles',
         FIELD_OPTIONS = 'options'
     ;
 

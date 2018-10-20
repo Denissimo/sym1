@@ -63,6 +63,8 @@ class MainController extends BaseController
         $data['request'] = self::getRequest()->query->all();
         $data['post'] = self::getRequest()->getMethod();
         $data['uid'] = (new Autorize())->getUserId();
+
+//      var_dump((new Autorize())->getAccessList()); die;
 //      var_dump((new Autorize())->getUserName());die;
 
 //        /** @var \Apps $apps */

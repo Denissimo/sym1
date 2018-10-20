@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 abstract class BaseController extends Controller
 {
+
     const
         ADD_COMMENT = 'addcomment',
         FROM = '_from',
@@ -39,6 +40,7 @@ abstract class BaseController extends Controller
         self::CREATE_AT => [self::FROM => self::CREATE_FROM, self::TO => self::CREATE_TO],
         self::UPDATE_AT => [self::FROM => self::UPDATE_FROM, self::TO => self::UPDATE_TO]
     ];
+
 
     /**
      * @var Request
