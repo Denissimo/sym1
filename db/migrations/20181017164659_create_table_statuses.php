@@ -75,6 +75,20 @@ class CreateTableStatuses extends AbstractMigration
                 'color'  => '007bff',
                 'style'  => 'bg-primary',
                 'picture'  => 'color_blue.png'
+            ],
+            [
+                'sort'  => '600',
+                'color_name'  => 'green',
+                'color'  => '28a745',
+                'style'  => 'bg-success',
+                'picture'  => 'color_green.png'
+            ],
+            [
+                'sort'  => '700',
+                'color_name'  => 'gray',
+                'color'  => '6c757d',
+                'style'  => 'bg-secondary',
+                'picture'  => 'color_gray.png'
             ]
         ];
 

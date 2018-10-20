@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AppStatus
 {
+
+    const
+        RED = 1;
     /**
      * @var int
      *
