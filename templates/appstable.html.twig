@@ -131,7 +131,7 @@
                         <tr>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
                             <td>{{ app.userName }}</td>
-                            <td>{{ app.status }}</td>
+                            <td><img src="/images/color_labels/{{ app.appStatus.picture }}" class="color_label" /> </td>
                             <td>{{ app.createdAtString }}</td>
                             <td>{{ app.updatedAtString }}</td>
                             {#<td>{{ app.lastComment.id }}</td>#}
