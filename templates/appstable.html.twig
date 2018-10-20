@@ -123,7 +123,10 @@
                             <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
                             <td>{{ app.userName }}</td>
                             {#<td><img src="/images/color_labels/{{ app.appStatus.picture }}" class="color_label" /> </td>#}
-                            <td><img src="/images/color_labels/{{ appstatus[app.status].picture}}" class="color_label" /> </td>
+                            <td>
+                                {#{{ app.status }}#}
+                                <img src="/images/color_labels/{{ appstatus[app.status].picture}}" class="color_label" />
+                            </td>
                             {#<td>{{ appstatus[app.status].picture}}</td>#}
                             <td>{{ app.createdAtString }}</td>
                             <td>{{ app.updatedAtString }}</td>
@@ -134,17 +137,17 @@
                                 <table class="table table-borderless table-sm table-small">
                                     {% for key, com in app.comments %}
 
-                                        <tr{% if key>0 %} class="collapse_row collapse_{{ app.id }}" {% endif %}>
+                                        <tr class="row{% if key>0 %} collapse_row collapse_{{ app.id }}{% endif %}">
                                             {#<td>{{ com.id }}</td>#}
-                                            <td>{{ com.tsString }}</td>
-                                            <td>
+                                            <td class="col-2">{{ com.tsString }}</td>
+                                            <td class="col-2">
                                                 {% autoescape false %}
                                                     <a href="/user/?user_id={{ com.user.id }}">{{ com.user.name|raw|replace({' ' : '&nbsp;'}) }}</a>
                                                 {% endautoescape %}
                                             </td>
-                                            <td>{{ com.ctype.value }}</td>
-                                            <td>{{ com.reminderString }}</td>
-                                            <td>{{ com.comment }}</td>
+                                            <td class="col-2">{{ com.ctype.value }}</td>
+                                            <td class="col-2">{{ com.reminderString }}</td>
+                                            <td class="col-4">{{ com.comment }}</td>
 
                                         </tr>
                                         {#{% if key==0 %}<div class="collapse" id="#collapse{{ app.id }}">{% endif %}#}

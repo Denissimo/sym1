@@ -14,6 +14,7 @@ use App\Twig\Render;
 use App\Cfg\Config;
 use App\Validator;
 use App\Controller\Criteria\Builder;
+use Doctrine\Common\Collections\Criteria;
 use App\Controller\Apps\Builder as AppBuilder;
 use App\Controller\Query\Builder as Qb;
 use Monolog\Logger;
@@ -73,28 +74,82 @@ class MainController extends BaseController
 //        )->getValues();
 
 
-        $apps = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+        $criteria = (new Builder())->appsCommon(self::getRequest());
+        //$criteria->andWhere(Criteria::expr()->eq('status', 2));
+        /** @var \Apps[] $allApps */
+        $allApps = [];
+        $apps = [];
+        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             (new Builder())->appsCommon(self::getRequest())
-        );
+                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
+                ->andWhere(Criteria::expr()->lt(
+                    \Apps::UPDATED,
+                    (new \DateTime())
+                ))
+        )->toArray();
+
+        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+            (new Builder())->appsCommon(self::getRequest())
+                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::YELLOW))
+                ->andWhere(Criteria::expr()->lt(
+                    \Apps::UPDATED,
+                    new \DateTime()
+                ))
+        )->toArray();
+
+        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+            (new Builder())->appsCommon(self::getRequest())
+                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::WHITE))
+        )->toArray();
+
+        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+            (new Builder())->appsCommon(self::getRequest())
+                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
+                ->andWhere(Criteria::expr()->gte(
+                    \Apps::UPDATED,
+                    (new \DateTime())
+                ))
+        )->toArray();
+
+        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+            (new Builder())->appsCommon(self::getRequest())
+                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::YELLOW))
+                ->andWhere(Criteria::expr()->gte(
+                    \Apps::UPDATED,
+                    new \DateTime()
+                ))
+        )->toArray();
+
+        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+            (new Builder())->appsCommon(self::getRequest())
+                ->andWhere(Criteria::expr()->notIn(\Apps::STATUS, [\AppStatus::WHITE, \AppStatus::YELLOW, \AppStatus::RED]))
+        )->toArray();
+
+
+        foreach ($apps as $a) {
+            $allApps = array_merge($allApps, $a);
+        }
+//        $allApps = array_merge($apps[0], $apps[1]);
 
         $appStatus = Proxy::init()->getEntityManager()->getRepository(\AppStatus::class)->findAll();
         $appStatusArray = (new AppBuilder())->buildAppStatus($appStatus);
-//        var_dump($appStatusArray);die;
-/*
-        $appsArray = (new AppBuilder())->getArrayById($apps);
-        $ids = array_keys($appsArray);
+//        var_dump($allApps[1]->getUpdatedat());die;
 
-        $comments = Proxy::init()->getEntityManager()->getRepository(\Comments::class)->matching(
-            (new Builder())->commentsCommon($ids)
-        )->toArray();
+        /*
+                $appsArray = (new AppBuilder())->getArrayById($apps);
+                $ids = array_keys($appsArray);
 
-        $data['comments'] = $comments;
-*/
+                $comments = Proxy::init()->getEntityManager()->getRepository(\Comments::class)->matching(
+                    (new Builder())->commentsCommon($ids)
+                )->toArray();
+
+                $data['comments'] = $comments;
+        */
         /** @var \Apps[] $appArr */
-        $appArr = $apps->toArray();
+//        $appArr = $apps->toArray();
 //        var_dump($appArr[0]->getLastComment()->getId()); die;
         $data['appstatus'] = $appStatusArray;
-        $data['apps'] = $apps->toArray();
+        $data['apps'] = $allApps;
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
         $data[self::ADD_COMMENT] = $this->generateUrl(self::ADD_COMMENT);
         $data['ctype'] = Proxy::init()->getEntityManager()->getRepository(\CommentTypes::class)->findAll();

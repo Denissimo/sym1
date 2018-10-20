@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 
 class Builder
 {
+    const DEFAULT_ID = 3;
+
     /**
      * @param Collection $apps
      * @return array
@@ -78,7 +80,7 @@ class Builder
      */
     public function buildAppStatus($appStatus): array
     {
-        $appstatusArray = [];
+        $appstatusArray = [0 => $appStatus[self::DEFAULT_ID]];
         foreach ($appStatus as $as) {
             $appstatusArray[$as->getId()] = $as;
         }

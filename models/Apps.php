@@ -15,6 +15,8 @@ class Apps
 {
     const
         ID = 'id',
+        STATUS = 'status',
+        UPDATED = 'updatedat',
         USER_ID = 'user_id'
     ;
 
@@ -200,7 +202,7 @@ class Apps
      */
     public function getCreatedatString(): string
     {
-        return $this->createdat->format('d.m.Y h:i');
+        return $this->createdat->format('d.m.Y H:i');
     }
 
     /**
@@ -208,7 +210,7 @@ class Apps
      */
     public function getUpdatedatString(): string
     {
-        return $this->updatedat->format('d.m.Y h:i');
+        return $this->updatedat->format('d.m.Y H:i');
     }
 
     /**
