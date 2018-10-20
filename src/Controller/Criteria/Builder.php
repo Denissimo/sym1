@@ -48,8 +48,8 @@ class Builder
             )
         );
 */
-        $criteria->orderBy(
-            $this->orderFields[$request->get(Controller::SORT)] ?? ['id' => 'DESC']);
+
+        $criteria->orderBy(['status' => 'ASC', 'updatedat' => 'DESC', 'id' => 'DESC']);
 
         $criteria->setMaxResults(
             (int)$request->get(Controller::LIMIT) ? (int)$request->get(Controller::LIMIT) : Controller::DEFAULT_LIMIT

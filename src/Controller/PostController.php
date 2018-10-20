@@ -74,23 +74,38 @@ class PostController extends BaseController
             $reminderGet = self::getRequest()->get('reminder').'T'.$reminderTime;
             $reminderDt = \DateTime::createFromFormat('d.m.Y\TH:i', $reminderGet);
             $reminderStr = $reminderDt->format('YmdHis');
+            $updateTime = $reminderDt;
 
         } else {
             $reminderStr = null;
+            $updateTime = new \DateTime();
 
         }
 
 //        var_dump($reminder); die;
-        switch ($appStatus) {
+/*
+        switch ($ctype) {
             case 1:
                 $updateTime = $reminderDt;
             break;
 
             case 2:
-                $updateTime = $app->getUpdatedat();
+                $updateTime = new \DateTime();
             break;
 
             case 3:
+                $updateTime = $app->getUpdatedat();
+            break;
+
+            case 4:
+                $updateTime = $app->getUpdatedat();
+            break;
+
+            case 5:
+                $updateTime = $app->getUpdatedat();
+            break;
+
+            case 6:
                 $updateTime = $app->getUpdatedat();
             break;
 
@@ -98,7 +113,7 @@ class PostController extends BaseController
                 $updateTime = $app->getUpdatedat();
             break;
         }
-
+*/
         $newUpdateTime = $updateTime->add(new \DateInterval($interval));
 
         $app->setUpdatedat($newUpdateTime)
