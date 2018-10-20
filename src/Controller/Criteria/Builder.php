@@ -2,6 +2,7 @@
 
 namespace App\Controller\Criteria;
 
+use App\Controller\Actions\Autorize;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
 use Doctrine\Common\Collections\Expr\Comparison;
@@ -48,6 +49,12 @@ class Builder
             )
         );
 */
+        $allApps = (new Autorize())->getAccessList()[Autorize::ACCESS_ALL_APPS];
+//        var_dump($allApps); die;
+//        var_dump((new Autorize())->getUserId()); die;
+        if (!$allApps) {
+            $criteria->andWhere(Criteria::expr()->eq('userId', (new Autorize())->getUserId()));
+        }
 
         $criteria->orderBy(['status' => 'ASC', 'updatedat' => 'DESC', 'id' => 'DESC']);
 

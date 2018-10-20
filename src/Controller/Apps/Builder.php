@@ -39,12 +39,12 @@ class Builder
     /**
      * @return array
      */
-    public function buildTimePicker() : array
+    public function buildTimePicker(): array
     {
         $time = [];
-        for ($i=0; $i<24; $i++) {
-            $time[] = ['value' => $i * 24, 'text' => $i.':00'];
-            $time[] = ['value' => $i * 24 + 30, 'text' => $i.':30'];
+        for ($i = 0; $i < 24; $i++) {
+            $time[] = ['value' => $i * 24, 'text' => $i . ':00'];
+            $time[] = ['value' => $i * 24 + 30, 'text' => $i . ':30'];
         }
         return $time;
     }
@@ -54,14 +54,14 @@ class Builder
      * @param \Roles[] $userRoles
      * @return array
      */
-    public function buildRoles($roles, $userRoles) : array
+    public function buildRoles($roles, $userRoles): array
     {
         $granted = [];
-        foreach ($userRoles as $uRole){
+        foreach ($userRoles as $uRole) {
             $granted[$uRole->getId()] = true;
         }
         $listRoles = [];
-        foreach ($roles as $role){
+        foreach ($roles as $role) {
             $listRoles[$role->getId()] = [
                 'id' => $role->getId(),
                 'name' => $role->getName(),
@@ -70,5 +70,18 @@ class Builder
         }
 
         return $listRoles;
+    }
+
+    /**
+     * @param \AppStatus[] $appStatus
+     * @return array
+     */
+    public function buildAppStatus($appStatus): array
+    {
+        $appstatusArray = [];
+        foreach ($appStatus as $as) {
+            $appstatusArray[$as->getId()] = $as;
+        }
+        return $appstatusArray;
     }
 }

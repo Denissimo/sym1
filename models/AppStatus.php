@@ -12,9 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AppStatus
 {
-
     const
-        RED = 1;
+        RED = 1,
+        YELLOW = 2,
+        WHITE = 3,
+        CYAN = 4,
+        BLUE = 5,
+        GREEN = 6,
+        GRAY = 7;
+
     /**
      * @var int
      *

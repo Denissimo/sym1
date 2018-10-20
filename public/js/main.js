@@ -51,4 +51,20 @@ $(document).ready(function () {
             // console.log(targ);
         }
     );
+
+    $('.ctype').change(function () {
+        var val = parseInt($(this).val());
+        if(val == 1) {
+            $('.recall').css('display', 'block');
+        } else {
+            $('.recall').css('display', 'none');
+        }
+
+        if(val == 10) {
+            $('.notice').css('display', 'block');
+        } else {
+            $('.notice').css('display', 'none');
+        }
+        console.log($(this).val());
+    });
 });

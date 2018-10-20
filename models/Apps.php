@@ -15,7 +15,8 @@ class Apps
 {
     const
         ID = 'id',
-        USER_ID = 'user_id';
+        USER_ID = 'user_id'
+    ;
 
     /**
      * @var int
@@ -174,7 +175,8 @@ class Apps
      */
     public function getStatus(): int
     {
-        return $this->status;
+        return (new \DateTime()) < $this->updatedat ? \AppStatus::CYAN : $this->status;
+//        return $this->status;
     }
 
     /**
