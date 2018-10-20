@@ -83,7 +83,7 @@ class PostController extends BaseController
 //        var_dump($reminder); die;
         switch ($appStatus) {
             case 1:
-                $updateTime = $app->getUpdatedat();
+                $updateTime = $reminderDt;
             break;
 
             case 2:
@@ -91,7 +91,7 @@ class PostController extends BaseController
             break;
 
             case 3:
-                $updateTime = $reminderDt;
+                $updateTime = $app->getUpdatedat();
             break;
 
             default:
