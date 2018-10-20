@@ -88,7 +88,8 @@
                             <td><a href="mailto:{{ user.email }}"> {{ user.email }}</a></td>
                             {#<td>{{ user.role.0.id }}</td>#}
                             {#<td>{{ user.enabled }}</td>#}
-                            <td>{% if user.enabled %} <span class="badge badge-success">&#128522;</span> {% else %} <span class="badge badge-secondary">&#128532;</span> {% endif %}</td>
+                            {#<td>{% if user.enabled %} <span class="badge badge-success">&#128522;</span> {% else %} <span class="badge badge-secondary">&#128532;</span> {% endif %}</td>#}
+                            <td>{% if user.enabled %} <img class="color_label" src="/images/color_labels/color_green.png" /> {% else %} <img class="color_label" src="/images/color_labels/color_grey.png" /> {% endif %}</td>
                             <td>{{ user.priority }}</td>
                         </tr>
                     {% endfor %}

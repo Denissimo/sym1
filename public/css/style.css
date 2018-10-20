@@ -151,3 +151,7 @@ body {
     min-height: 360px;
 }
 
+.color_label {
+    width: 30px;
+    height: 30px;
+}
