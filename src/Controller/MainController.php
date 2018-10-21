@@ -17,6 +17,7 @@ use App\Controller\Criteria\Builder;
 use Doctrine\Common\Collections\Criteria;
 use App\Controller\Apps\Builder as AppBuilder;
 use App\Controller\Query\Builder as Qb;
+use App\Params\Params;
 use Monolog\Logger;
 
 
@@ -65,8 +66,8 @@ class MainController extends BaseController
         $data['post'] = self::getRequest()->getMethod();
         $data['uid'] = (new Autorize())->getUserId();
 
-//      var_dump((new Autorize())->getAccessList()); die;
-//      var_dump((new Autorize())->getUserName());die;
+//        $params = (new Params())->get('distribution');
+//        var_dump($params); die;
 
 //        /** @var \Apps $apps */
 //        $apps = Proxy::init()->getEntityManager()->getRepository('Apps')->matching(
