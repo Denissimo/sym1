@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Actions\Autorize;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Params\Params;
 use App\Twig\Render;
 use App\Validator;
 use App\Controller\Criteria\Builder;
@@ -201,6 +202,21 @@ class PostController extends BaseController
         return $this->redirect(
             $this->generateUrl('users')
         );
+    }
+
+    /**
+     * @Route("changeopts", name="changeopts")
+     * @return RedirectResponse
+     */
+    public function changeopts()
+    {
+        (new Params())
+            ->set(OptionsController::DISTR, self::getRequest()->get(OptionsController::DISTR))
+            ->set(OptionsController::ROWS, self::getRequest()->get(OptionsController::ROWS));
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+
     }
 
     /**
