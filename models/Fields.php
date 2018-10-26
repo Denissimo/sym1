@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Fields
 {
+    const
+        NAME = 5;
+
     /**
      * @var int
      *

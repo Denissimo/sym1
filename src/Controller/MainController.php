@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Exceptions\DefaultException;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Proxy;
@@ -88,6 +89,13 @@ class MainController extends BaseController
                     (new \DateTime())
                 ))
         )->toArray();
+        /** @var \Apps $app */
+//        $app = $apps[0][0];
+        /** @var Collection $fv */
+//        $fv = $app->getFieldValues();
+        /** @var \FieldValues $f1 */
+//        $f1 = $fv->toArray()[0];
+//        var_dump($f1->getField()); die;
 
         $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             (new Builder())->appsCommon(self::getRequest())

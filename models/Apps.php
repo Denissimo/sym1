@@ -149,6 +149,17 @@ class Apps
     private $lastComment;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Name", mappedBy="app")
+     * @ORM\OrderBy({"id" = "DESC"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="app_id")
+     * })
+     */
+    private $name;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -461,4 +472,14 @@ class Apps
         $this->lastComment = $lastComment;
         return $this;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getName(): Collection
+    {
+        return $this->name;
+    }
+
+
 }
