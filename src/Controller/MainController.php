@@ -88,14 +88,8 @@ class MainController extends BaseController
                     \Apps::UPDATED,
                     (new \DateTime())
                 ))
-        )->toArray();
-        /** @var \Apps $app */
-//        $app = $apps[0][0];
-        /** @var Collection $fv */
-//        $fv = $app->getFieldValues();
-        /** @var \FieldValues $f1 */
-//        $f1 = $fv->toArray()[0];
-//        var_dump($f1->getField()); die;
+        )
+            ->toArray();
 
         $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             (new Builder())->appsCommon(self::getRequest())

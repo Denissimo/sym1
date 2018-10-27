@@ -13,7 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Fields
 {
     const
-        NAME = 5;
+        FIRST_NAME = 5,
+        LAST_NAME = 4,
+        MIDDLE_NAME = 6,
+        CITY = 39,
+        PHONE = 8,
+        CITY_MAX_LENGTH = 32
+    ;
 
     /**
      * @var int

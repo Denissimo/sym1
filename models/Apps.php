@@ -151,13 +151,14 @@ class Apps
     /**
      * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="Name", mappedBy="app")
+     * @ORM\OneToMany(targetEntity="FieldValues", mappedBy="app")
      * @ORM\OrderBy({"id" = "DESC"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id", referencedColumnName="app_id")
      * })
      */
-    private $name;
+    private $fieldValues;
+
 
     /**
      * @return int
@@ -293,7 +294,7 @@ class Apps
      */
     public function getUserName()
     {
-        return $this->user->getName();
+        return $this->user->getNameShort();
     }
 
     /**
@@ -476,10 +477,62 @@ class Apps
     /**
      * @return Collection
      */
-    public function getName(): Collection
+    public function getFieldValues(): Collection
     {
-        return $this->name;
+        return $this->fieldValues;
     }
 
+   /**
+   * @return string | null
+   */
+   private function getFieldValue(int $id)
+    {
+        foreach ($this->fieldValues as $val)
+        {
+            if($val->getField()->getId() == $id) {
+                return $val->getValueText();
+            }
+        }
+        return null;
+    }
 
+    /**
+     * @return string | null
+     */
+    public function getFirstName()
+    {
+        return $this->getFieldValue(\Fields::FIRST_NAME);
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getLastName()
+    {
+        return $this->getFieldValue(\Fields::LAST_NAME);
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getMiddleName()
+    {
+        return $this->getFieldValue(\Fields::MIDDLE_NAME);
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getCity()
+    {
+        return mb_substr($this->getFieldValue(\Fields::CITY), 0, \Fields::CITY_MAX_LENGTH);
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getPhone()
+    {
+        return $this->getFieldValue(\Fields::PHONE);
+    }
 }

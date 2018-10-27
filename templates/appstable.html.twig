@@ -56,7 +56,7 @@
                 <div class="col-12 align-items-center">
                     <form class="form-inline">
                         {#<div class="row">#}
-                            <div class="col-2">
+                            <div>
                                 <input type="text" class="form-control" name="create_from" id="create_from"
                                        placeholder="create_from" value="{{ request.create_from }}" autocomplete="off">
                             </div>
@@ -110,6 +110,8 @@
                     <tr>
                         <th> id</th>
                         <th>Пользователь</th>
+                        <th>Тел, Город</th>
+                        <th>Оператор</th>
                         <th>Статус</th>
                         <th>Создано</th>
                         <th>Обработать</th>
@@ -121,6 +123,8 @@
                     {% for app in apps %}
                         <tr>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
+                            <td><a href="/app?app_id={{ app.id }}">{{ app.lastName }}&nbsp;{{ app.firstName }}&nbsp;{{ app.middleName }}</a></td>
+                            <td>{{ app.phone }}<br />{{ app.city }}</td>
                             <td>{{ app.userName }}</td>
                             {#<td><img src="/images/color_labels/{{ app.appStatus.picture }}" class="color_label" /> </td>#}
                             <td>
@@ -139,15 +143,15 @@
 
                                         <tr class="row{% if key>0 %} collapse_row collapse_{{ app.id }}{% endif %}">
                                             {#<td>{{ com.id }}</td>#}
-                                            <td class="col-2">{{ com.tsString }}</td>
-                                            <td class="col-2">
+                                            <td class="col-3">{{ com.tsString }}</td>
+                                            <td class="col-3">
                                                 {% autoescape false %}
                                                     <a href="/user/?user_id={{ com.user.id }}">{{ com.user.name|raw|replace({' ' : '&nbsp;'}) }}</a>
                                                 {% endautoescape %}
                                             </td>
-                                            <td class="col-2">{{ com.ctype.value }}</td>
-                                            <td class="col-2">{{ com.reminderString }}</td>
-                                            <td class="col-4">{{ com.comment }}</td>
+                                            <td class="col-3">{{ com.ctype.value }}</td>
+                                            <td class="col-3">{{ com.reminderString }}{{ com.comment }}</td>
+                                            {#<td class="col-4">{{ com.comment }}</td>#}
 
                                         </tr>
                                         {#{% if key==0 %}<div class="collapse" id="#collapse{{ app.id }}">{% endif %}#}

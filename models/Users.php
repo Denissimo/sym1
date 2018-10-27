@@ -132,6 +132,19 @@ class Users
     /**
      * @return string
      */
+    public function getNameShort(): string
+    {
+        $nameArray = explode(' ', $this->name);
+        $lastName = $nameArray[0].' ' ?? $this->name;
+        $firstName = isset($nameArray[1]) ? mb_substr($nameArray[1], 0, 1).'. ' : null;
+        $middleName = isset($nameArray[2]) ? mb_substr($nameArray[2], 0, 1).'. ' : null;
+
+        return $lastName.$firstName.$middleName;
+    }
+
+    /**
+     * @return string
+     */
     public function getEmail(): string
     {
         return $this->email;
