@@ -163,3 +163,10 @@ body {
 .appstable tr td {
     font-size: smaller;
 }
+
+input::-webkit-input-placeholder {
+    color: #E0E0E0 !important;
+}
+input:-moz-placeholder {
+    color: #E0E0E0 !important;;
+}

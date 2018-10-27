@@ -113,5 +113,63 @@ class FieldValues
         return $this->valueItem;
     }
 
+    /**
+     * @param int $id
+     * @return FieldValues
+     */
+    public function setId(int $id): FieldValues
+    {
+        $this->id = $id;
+        return $this;
+    }
 
+    /**
+     * @param null|string $valueText
+     * @return FieldValues
+     */
+    public function setValueText($valueText)
+    {
+        $this->valueText = $valueText;
+        return $this;
+    }
+
+    /**
+     * @param null|string $value
+     * @return FieldValues
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * @param Fields $field
+     * @return FieldValues
+     */
+    public function setField(Fields $field): FieldValues
+    {
+        $this->field = $field;
+        return $this;
+    }
+
+    /**
+     * @param Apps $app
+     * @return FieldValues
+     */
+    public function setApp(Apps $app): FieldValues
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * @param ValueLists $valueItem
+     * @return FieldValues
+     */
+    public function setValueItem(ValueLists $valueItem): FieldValues
+    {
+        $this->valueItem = $valueItem;
+        return $this;
+    }
 }

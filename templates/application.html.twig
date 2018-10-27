@@ -3,65 +3,90 @@
     <div class="container-fluid">
         <div class="row mart10">
             <div class="col-12 shadow-lg padt01 bg-white1">
+                <div class="row">
+                    <a href="/apps" class="col-12 text-center">
+                        <button class="btn btn-warning">Список заявок</button>
+                    </a>
+                </div>
 
-                <a href="/apps">
-                    <button class="btn btn-warning">Список заявок</button>
-                </a>
+                <div class="row">
+                    <div class="col-6 offset-3">
+                        <h4>Данные заявки</h4>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Значение</th>
+                            </tr>
+                            <tr>
+                                <td>ID</td>
+                                <td>{{ app.id }}</td>
+                            </tr>
+                            <tr>
+                                <td>Создан</td>
+                                <td>{{ app.createdAtString }}</td>
+                            </tr>
+                            <tr>
+                                <td>Изменён</td>
+                                <td>{{ app.updatedAtString }}</td>
+                            </tr>
+                            <tr>
+                                <td>Пользователь</td>
+                                <td>{{ app.user.name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Емайл</td>
+                                <td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>
+                            </tr>
+                            <tr>
+                                <td>Комментарии</td>
+                                <td>
+                                    {% for com in app.comments %}
+                                        {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
-                <br /><br />
-
-                <h4>Данные заявки</h4>
-
-                <table class="table table-striped">
-                    <tr>
-                        <th>Параметр</th>
-                        <th>Значение</th>
-                    </tr>
-                    <tr>
-                        <td>ID</td>
-                        <td>{{ app.id }}</td>
-                    </tr>
-                    <tr>
-                        <td>Создан</td>
-                        <td>{{ app.createdAtString }}</td>
-                    </tr>
-                    <tr>
-                        <td>Изменён</td>
-                        <td>{{ app.updatedAtString }}</td>
-                    </tr>
-                    <tr>
-                        <td>Пользователь</td>
-                        <td>{{ app.user.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Емайл</td>
-                        <td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>
-                    </tr>
-                    <tr>
-                        <td>Комментарии</td>
-                        <td>
-                            {% for com in app.comments %}
-                                {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
+                <div class="row">
+                    <div class="col-6 offset-3">
+                        <h4>Данные заёмщика</h4>
+                        <form class="form" method="post">
+                            {% for fv in FieldValues %}
+                                <div class="form-group row">
+                                    <label for="{{ fv.field.name }}"
+                                           class="control-label col-4 text-left">{{ fv.field.Description }}</label>
+                                    <input type="text" class="form-control col-8"
+                                           placeholder="{{ fv.field.Description }}"
+                                           id="{{ fv.field.name }}"
+                                           name="{{ fv.field.name }}" value="{{ fv.valueText }}"/>
+                                </div>
                             {% endfor %}
-                        </td>
-                    </tr>
-                </table>
+                            <div class="form-group row">
+                                <div class="col-12 text-center">
+                                    <input type="submit" class="btn btn-success">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-                <br />
-
-                <h4>Данные заёмщика</h4>
+                {#
                 <table class="table table-striped">
                     <tr>
                         <th>Параметр</th>
                         <th>Значение</th>
                     </tr>
-                    {% for fv in fieldValues %}
+                    {% for fv in FieldValues %}
                     <tr>
                         <td>{{ fv.field.Description }}</td>
                         <td>{{ fv.valueText }}</td>
                     </tr>
                     {% endfor %}
                 </table>
+                #}
+
             </div>
         </div>
     </div>

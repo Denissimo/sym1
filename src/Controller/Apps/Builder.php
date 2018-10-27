@@ -86,4 +86,28 @@ class Builder
         }
         return $appstatusArray;
     }
+
+    /**
+     * @param \Fields[] $fields
+     * @param \FieldValues[] $fieldValues
+     * @return \FieldValues[]
+     */
+    public function fieldValuesAll($fields, $fieldValues)
+    {
+        /** @var \FieldValues[] $fieldVal */
+        $fieldVal = [];
+
+        /** @var \FieldValues[] $fieldValuesAll */
+        $fieldValuesAll = [];
+
+        foreach ($fieldValues as $fv) {
+            $fieldVal[$fv->getField()->getId()] = $fv;
+        }
+
+        foreach ($fields as $field) {
+            $fieldValuesAll[$field->getId()] = $fieldVal[$field->getId()] ?? (new \FieldValues())->setField($field);
+        }
+
+        return $fieldValuesAll;
+    }
 }

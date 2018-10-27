@@ -22,7 +22,6 @@ abstract class BaseController extends Controller
         USER_ROLES = 'user_roles',
         LIST_ROLES = 'list_roles',
         ROLES = 'roles',
-        FIELD_VALUES = 'fieldValues',
         CREATE_FROM = 'create_from',
         CREATE_TO = 'create_to',
         CREATE_AT = 'createdat',
