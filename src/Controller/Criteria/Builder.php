@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 class Builder
 {
 
+    const
+        TIME_ZERO = '_00:00:00',
+        TIME_NIGHT = '_23:59:59',
+        TPL_DATE_TIME = 'd.m.Y_H:i:s';
+
     private $orderFields = [
         'id1' => ['id' => 'ASC'],
         'id2' => ['id' => 'DESC'],
@@ -41,14 +46,14 @@ class Builder
                 $criteria->andWhere($expression);
             }
         }
-/*
-        $criteria->andWhere(
-            Criteria::expr()->gte(
-                'createdat',
-                \DateTime::createFromFormat('Ymdhis', '20180103055050')
-            )
-        );
-*/
+        /*
+                $criteria->andWhere(
+                    Criteria::expr()->gte(
+                        'createdat',
+                        \DateTime::createFromFormat('Ymdhis', '20180103055050')
+                    )
+                );
+        */
         $allApps = (new Autorize())->getAccessList()[Autorize::ACCESS_ALL_APPS];
 //        var_dump($allApps); die;
 //        var_dump((new Autorize())->getUserId()); die;
@@ -124,56 +129,26 @@ class Builder
             return Criteria::expr()->andX(
                 Criteria::expr()->gte(
                     $field,
-                    \DateTime::createFromFormat('d.m.Y', $from)
+                    \DateTime::createFromFormat(self::TPL_DATE_TIME, $from . self::TIME_ZERO)
                 ),
                 Criteria::expr()->lte(
                     $field,
-                    \DateTime::createFromFormat('d.m.Y', $to)
+                    \DateTime::createFromFormat(self::TPL_DATE_TIME, $to . self::TIME_NIGHT)
                 )
             );
         } elseif ($from) {
             return Criteria::expr()->gte(
                 $field,
-                \DateTime::createFromFormat('d.m.Y', $from)
+                \DateTime::createFromFormat(self::TPL_DATE_TIME, $from . self::TIME_ZERO)
             );
         } elseif ($to) {
             return Criteria::expr()->lte(
                 $field,
-                \DateTime::createFromFormat('d.m.Y', $to)
+                \DateTime::createFromFormat(self::TPL_DATE_TIME, $to . self::TIME_NIGHT)
             );
         } else {
             return null;
         }
     }
 
-
-    /*
-        private function addWhere(Criteria $criteria, Request $request) : Criteria
-        {
-            foreach ($this->gte as $field) {
-                if($request->get($field)) {
-                    $criteria->andWhere(
-                        Criteria::expr()->gte($field, $request->get($field))
-                    );
-                }
-            }
-
-            foreach ($this->lte as $field) {
-                if($request->get($field)) {
-                    $criteria->andWhere(
-                        Criteria::expr()->lte($field, $request->get($field))
-                    );
-                }
-            }
-
-            foreach ($this->eq as $field) {
-                if($request->get($field)) {
-                    $criteria->andWhere(
-                        Criteria::expr()->eq($field, $request->get($field))
-                    );
-                }
-            }
-            return $criteria;
-        }
-    */
 }

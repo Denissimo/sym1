@@ -106,10 +106,10 @@
     <div class="container-fluid">
         <div class="row mart10">
             <div class="loginform col-12 shadow-lg padt01 bg-white1">
-                <table class="table table-striped">
+                <table class="table table-striped appstable">
                     <tr>
                         <th> id</th>
-                        <th>Пользователь</th>
+                        <th>Клиент</th>
                         <th>Тел, Город</th>
                         <th>Оператор</th>
                         <th>Статус</th>
@@ -146,7 +146,7 @@
                                             <td class="col-3">{{ com.tsString }}</td>
                                             <td class="col-3">
                                                 {% autoescape false %}
-                                                    <a href="/user/?user_id={{ com.user.id }}">{{ com.user.name|raw|replace({' ' : '&nbsp;'}) }}</a>
+                                                    <a href="/user/?user_id={{ com.user.id }}">{{ com.user.nameShort|raw|replace({' ' : '&nbsp;'}) }}</a>
                                                 {% endautoescape %}
                                             </td>
                                             <td class="col-3">{{ com.ctype.value }}</td>

@@ -159,3 +159,7 @@ body {
 .notice {
     display: none;
 }
+
+.appstable tr td {
+    font-size: smaller;
+}
