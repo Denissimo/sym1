@@ -46,7 +46,7 @@ class AppController extends BaseController
 //        var_dump($app->getUser()->getName());die;
 
 
-        $data[\FieldValues::class] = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);//$fieldValues;
+        $data[\FieldValues::class] = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
         return (new Render())->render($data, 'application.html.twig');

@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FieldValues
 {
+    const
+        ID = 'id',
+        APP_ID = 'app_id',
+        READY = 'ready',
+        FIELD = 'field'
+    ;
     /**
      * @var int
      *

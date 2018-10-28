@@ -52,7 +52,8 @@
                 <div class="row">
                     <div class="col-6 offset-3">
                         <h4>Данные заёмщика</h4>
-                        <form class="form" method="post">
+                        <form class="form" method="post" action="/updclientdata">
+                            <input type="hidden" name="app_id" value="{{ app_id }}"/>
                             {% for fv in FieldValues %}
                                 <div class="form-group row">
                                     <label for="{{ fv.field.name }}"
@@ -60,11 +61,20 @@
                                     <input type="text" class="form-control col-8"
                                            placeholder="{{ fv.field.Description }}"
                                            id="{{ fv.field.name }}"
-                                           name="{{ fv.field.name }}" value="{{ fv.valueText }}"/>
+                                           name="{{ fv.field.id }}" value="{{ fv.valueText }}"/>
                                 </div>
                             {% endfor %}
                             <div class="form-group row">
-                                <div class="col-12 text-center">
+                                <div class="btn-group-toggle col-2 offset-4" data-toggle="buttons">
+                                    {#<br />#}
+                                    <label class="btn btn-secondary {% if  app.status == 6 %} btn-success active {% endif %}">
+                                        <input id="ready" name="ready"
+                                               type="checkbox" {% if app.status == 6 %} checked {% endif %}
+                                               autocomplete="off">
+                                        Готово
+                                    </label>
+                                </div>
+                                <div class="col-2">
                                     <input type="submit" class="btn btn-success">
                                 </div>
                             </div>

@@ -12,6 +12,7 @@ use App\Controller\Actions\Autorize;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Params\Params;
+use Doctrine\Common\Collections\Criteria;
 use App\Twig\Render;
 use App\Validator;
 use App\Controller\Criteria\Builder;
@@ -33,11 +34,11 @@ class PostController extends BaseController
         switch (self::getRequest()->get(\Roles::FIELD_ACTION)) {
             case \Roles::ACTION_ADD :
                 $query = 'INSERT INTO users_roles SET user_id = :user_id, role_id = :role_id;';
-            break;
+                break;
 
             case \Roles::ACTION_DEL :
                 $query = 'DELETE FROM users_roles WHERE user_id = :user_id AND role_id = :role_id;';
-            break;
+                break;
             default:
                 return $this->redirect(
                     self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
@@ -70,9 +71,9 @@ class PostController extends BaseController
         $interval = $commentTypes->getDateInterval();
 
         /** @var \DateTime $reminderDt $app */
-        if(self::getRequest()->get('reminder')) {
+        if (self::getRequest()->get('reminder')) {
             $reminderTime = self::getRequest()->get('reminder_time') ?? '00:00';
-            $reminderGet = self::getRequest()->get('reminder').'T'.$reminderTime;
+            $reminderGet = self::getRequest()->get('reminder') . 'T' . $reminderTime;
             $reminderDt = \DateTime::createFromFormat('d.m.Y\TH:i', $reminderGet);
             $reminderStr = $reminderDt->format('YmdHis');
             $updateTime = $reminderDt;
@@ -84,43 +85,42 @@ class PostController extends BaseController
         }
 
 //        var_dump($reminder); die;
-/*
-        switch ($ctype) {
-            case 1:
-                $updateTime = $reminderDt;
-            break;
+        /*
+                switch ($ctype) {
+                    case 1:
+                        $updateTime = $reminderDt;
+                    break;
 
-            case 2:
-                $updateTime = new \DateTime();
-            break;
+                    case 2:
+                        $updateTime = new \DateTime();
+                    break;
 
-            case 3:
-                $updateTime = $app->getUpdatedat();
-            break;
+                    case 3:
+                        $updateTime = $app->getUpdatedat();
+                    break;
 
-            case 4:
-                $updateTime = $app->getUpdatedat();
-            break;
+                    case 4:
+                        $updateTime = $app->getUpdatedat();
+                    break;
 
-            case 5:
-                $updateTime = $app->getUpdatedat();
-            break;
+                    case 5:
+                        $updateTime = $app->getUpdatedat();
+                    break;
 
-            case 6:
-                $updateTime = $app->getUpdatedat();
-            break;
+                    case 6:
+                        $updateTime = $app->getUpdatedat();
+                    break;
 
-            default:
-                $updateTime = $app->getUpdatedat();
-            break;
-        }
-*/
+                    default:
+                        $updateTime = $app->getUpdatedat();
+                    break;
+                }
+        */
         $newUpdateTime = $updateTime->add(new \DateInterval($interval));
 
         $app->setUpdatedat($newUpdateTime)
             ->setStatus($appStatus)
-            ->setInWork($inWork)
-        ;
+            ->setInWork($inWork);
         Proxy::init()->getEntityManager()->flush();
 
 
@@ -136,6 +136,86 @@ class PostController extends BaseController
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
         );
 
+    }
+
+
+    /**
+     * @Route("updclientdata", name="updclientdata")
+     * @return RedirectResponse
+     */
+    public function updClientData()
+    {
+        $appId = self::getRequest()->get(\FieldValues::APP_ID);
+        self::getRequest()->request->remove(\FieldValues::APP_ID);
+        $ready = self::getRequest()->get(\FieldValues::READY);
+        self::getRequest()->request->remove(\FieldValues::READY);
+        $idArray = [];
+        foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
+            $idArray[$fieldId] = $fieldId;
+        }
+        /** @var \Apps $app */
+        $app = current(
+            Proxy::init()->getEntityManager()->getRepository(\Apps::class)->findBy(
+                [\Apps::ID => $appId]
+            )
+        );
+
+        /** @var \FieldValues[] $fieldValues */
+        $fieldValues = Proxy::init()->getEntityManager()->getRepository(\FieldValues::class)->matching(
+            (Criteria::create())
+                ->where(
+                    Criteria::expr()->eq('app', $app)
+                )
+                ->andWhere(
+                    Criteria::expr()->in(\FieldValues::FIELD, $idArray)
+                )
+        )
+            ->toArray();
+
+        foreach ($fieldValues as $fv) {
+            unset($idArray[$fv->getField()->getId()]);
+            $fv->setValueText(
+                self::getRequest()->get($fv->getField()->getId())
+            );
+        }
+
+        /** @var \Fields[] $fields */
+        $fields = Proxy::init()->getEntityManager()->getRepository(\Fields::class)->matching(
+            (Criteria::create())
+                ->where(
+                    Criteria::expr()->in(\FieldValues::ID, $idArray)
+                )
+            )
+            ->toArray();
+
+        /** @var \Fields[] $fieldList */
+        $fieldList = [];
+        foreach ($fields as $field) {
+            $fieldList[$field->getId()] = $field;
+        }
+
+        unset($fields);
+
+        foreach ($idArray as $id) {
+            if(self::getRequest()->get($id)) {
+                $newFieldValue = (new \FieldValues())
+                    ->setValueText(self::getRequest()->get($id))
+                    ->setApp($app)
+                    ->setField($fieldList[$id]);
+                Proxy::init()->getEntityManager()->persist($newFieldValue);
+            }
+        }
+
+
+        if ($ready) {
+            $app->setStatus(\AppStatus::GREEN);
+        }
+
+        Proxy::init()->getEntityManager()->flush();
+
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
     }
 
     /**
@@ -176,9 +256,7 @@ class PostController extends BaseController
         /** @var \Users $user */
         $user = Proxy::init()->getEntityManager()->getRepository(\Users::class)->find(
             self::getRequest()->get(\Users::ID)
-        )
-
-        ;
+        );
         $user->setName(self::getRequest()->get(\Users::NAME))
             ->setEmail(self::getRequest()->get(\Users::EMAIL))
             ->setEnabled(
@@ -187,7 +265,7 @@ class PostController extends BaseController
             ->setPriority(
                 self::getRequest()->get(\Users::PRIORITY)
             );
-        if(self::getRequest()->get(\Users::PASSWORD)) {
+        if (self::getRequest()->get(\Users::PASSWORD)) {
             $user->setPassword(
                 sha1(
                     strtolower(
@@ -196,8 +274,7 @@ class PostController extends BaseController
                 )
             );
         }
-//        var_dump($user->getName()); die;
-//        Proxy::init()->getEntityManager()->persist($user);
+
         Proxy::init()->getEntityManager()->flush();
         return $this->redirect(
             $this->generateUrl('users')
