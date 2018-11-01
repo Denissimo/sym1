@@ -54,6 +54,16 @@
                         <h4>Данные заёмщика</h4>
                         <form class="form" method="post" action="/updclientdata">
                             <input type="hidden" name="app_id" value="{{ app_id }}"/>
+                            {#<input id="address" name="address" type="text" size="100"/>#}
+                            <div class="form-group row">
+                                <label for="address"
+                                       class="control-label col-4 text-left">Адрес</label>
+                                <input type="text" class="form-control col-8"
+                                       placeholder="адрес"
+                                       id="address"
+                                       autocomplete="off"
+                                       name="address"/>
+                            </div>
                             {% for fv in FieldValues %}
                                 <div class="form-group row">
                                     <label for="{{ fv.field.name }}"
@@ -100,4 +110,5 @@
             </div>
         </div>
     </div>
+    {{ include('sub_address_js.html.twig', { 'article': article }) }}
 {% endblock %}
