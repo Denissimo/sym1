@@ -67,7 +67,7 @@
                             {% for fv in FieldValues %}
                                 <div class="form-group row">
                                     <label for="{{ fv.field.name }}"
-                                           class="control-label col-4 text-left">{{ fv.field.Description }}</label>
+                                           class="control-label col-4 text-left">{{ fv.field.Description }} {{ fv.field.id }} {{ fv.field.group.id }} {{ fv.field.group.name }}</label>
                                     <input type="text" class="form-control col-8"
                                            placeholder="{{ fv.field.Description }}"
                                            id="{{ fv.field.name }}"

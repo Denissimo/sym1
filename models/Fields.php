@@ -97,6 +97,16 @@ class Fields
     private $group;
 
     /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="FieldGroups")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     * })
+     */
+    private $groupId;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -174,5 +184,13 @@ class Fields
     public function getGroup(): FieldGroups
     {
         return $this->group;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGroupId(): int
+    {
+        return $this->groupId;
     }
 }
