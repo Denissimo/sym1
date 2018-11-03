@@ -70,7 +70,7 @@
                                     {% if fv.field.id == 17 %}
                                         <div class="form-group row">
                                             <label for="address_reg"
-                                                   class="control-label col-4 text-left">Адрес</label>
+                                                   class="control-label col-4 text-left"><b>Адрес прописки</b></label>
                                             <input type="text" class="form-control col-8"
                                                    placeholder="Указать полный адрес регистрации"
                                                    id="address_reg"
@@ -81,7 +81,7 @@
                                     {% if fv.field.id == 38 %}
                                         <div class="form-group row">
                                             <label for="address_live"
-                                                   class="control-label col-4 text-left">Адрес</label>
+                                                   class="control-label col-4 text-left"><b>Адрес места жительства</b></label>
                                             <input type="text" class="form-control col-8"
                                                    placeholder="Указать полный адрес проживания"
                                                    id="address_live"
@@ -90,6 +90,17 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-8 offset-4"><button id="adressidentical" class="btn btn-link">Совпадает с адресом регистрации</button></div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if fv.field.id == 50 %}
+                                        <div class="form-group row">
+                                            <label for="address_job"
+                                                   class="control-label col-4 text-left"><b>Адрес работы</b></label>
+                                            <input type="text" class="form-control col-8"
+                                                   placeholder="Указать полный адрес работы"
+                                                   id="address_job"
+                                                   autocomplete="off"/>
                                         </div>
                                     {% endif %}
 

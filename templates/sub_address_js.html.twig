@@ -7,13 +7,38 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.8.0/dist/js/jquery.suggestions.min.js"></script>
 <script type="text/javascript">
     $("#address_reg").suggestions({
-        token: "7bb5d27b33e60de38bfbbcd47207132ef007fb4f",
+        token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
+//        token: "7bb5d27b33e60de38bfbbcd47207132ef007fb4f",
         type: "ADDRESS",
         count: 5,
         /* Вызывается, когда пользователь выбирает одну из подсказок */
         onSelect: function(suggestion) {
             var data = suggestion.data;
             fill(data, '');
+        }
+    });
+
+    $("#address_live").suggestions({
+        token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
+//        token: "7bb5d27b33e60de38bfbbcd47207132ef007fb4f",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            var data = suggestion.data;
+            fill(data, 1);
+        }
+    });
+
+    $("#address_job").suggestions({
+        token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
+//        token: "7bb5d27b33e60de38bfbbcd47207132ef007fb4f",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            var data = suggestion.data;
+            fill_job(data);
         }
     });
 
@@ -31,21 +56,33 @@
     });
 
     function fill(data, prefix) {
-        console.log('#field_index' + prefix);
-        if(typeof(data.postal_code) != "undefined" && data.postal_code !== null) $('#field_index' + prefix).val(data.postal_code);
-        if(typeof(data.region) != "undefined" && data.region !== null) $('#field_region' + prefix).val(data.region);
-        if(typeof(data.city) != "undefined" && data.city !== null) $('#field_city' + prefix).val(data.city);
-        if(typeof(data.street) != "undefined" && data.street !== null) $('#field_street' + prefix).val(data.street);
-        if(typeof(data.house) != "undefined" && data.house !== null) $('#field_house' + prefix).val(data.house);
-        if (typeof(data.block) != "undefined" && data.block !== null && data.block_type.toString() == 'к') {
+        console.log('#field_index');
+        $('#field_index' + prefix).val(data.postal_code);
+        $('#field_region' + prefix).val(data.region);
+        $('#field_city' + prefix).val(data.city);
+        $('#field_street' + prefix).val(data.street);
+        $('#field_house' + prefix).val(data.house);
+        if (data.block_type == 'к') {
             $('#field_building' + prefix).val(data.block);
             $('#field_structure' + prefix).val('')
         }
-        if (typeof(data.block) != "undefined" && data.block !== null && data.block_type.toString() == 'стр') {
+        if (data.block_type == 'стр') {
             $('#field_structure' + prefix).val(data.block);
             $('#field_building' + prefix).val('');
         }
-        if(typeof(data.flat) != "undefined" && data.flat !== null) $('#field_apartment' + prefix).val(data.flat);
+        if (data.block_type == null) {
+            $('#field_structure' + prefix).val('');
+            $('#field_building' + prefix).val('');
+        }
+
+        $('#field_apartment' + prefix).val(data.flat);
         console.log(data.block_type);
+    }
+
+    function fill_job(data) {
+        $('#field_work_region').val(data.region);
+        $('#field_work_city').val(data.city);
+        $('#field_work_street').val(data.street);
+        $('#field_work_house_num').val(data.house);
     }
 </script>
