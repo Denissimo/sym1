@@ -150,9 +150,15 @@ class PostController extends BaseController
         $ready = self::getRequest()->get(\FieldValues::READY);
         self::getRequest()->request->remove(\FieldValues::READY);
         $idArray = [];
+//        foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
+//            $idArray[$fieldId] = $fieldId;
+//        }
         foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
-            $idArray[$fieldId] = $fieldId;
+            preg_match('/field_(\d{1,2})/', $fieldId, $id);
+            $idArray[(int)$id[1]] = (int)$id[1];
         }
+
+//        var_dump($idArray); die;
         /** @var \Apps $app */
         $app = current(
             Proxy::init()->getEntityManager()->getRepository(\Apps::class)->findBy(
@@ -175,7 +181,7 @@ class PostController extends BaseController
         foreach ($fieldValues as $fv) {
             unset($idArray[$fv->getField()->getId()]);
             $fv->setValueText(
-                self::getRequest()->get($fv->getField()->getId())
+                self::getRequest()->get(AppController::FIELD_PREFIX . $fv->getField()->getId())
             );
         }
 
@@ -197,9 +203,9 @@ class PostController extends BaseController
         unset($fields);
 
         foreach ($idArray as $id) {
-            if(self::getRequest()->get($id)) {
+            if(self::getRequest()->get(AppController::FIELD_PREFIX . $id)) {
                 $newFieldValue = (new \FieldValues())
-                    ->setValueText(self::getRequest()->get($id))
+                    ->setValueText(self::getRequest()->get(AppController::FIELD_PREFIX . $id))
                     ->setApp($app)
                     ->setField($fieldList[$id]);
                 Proxy::init()->getEntityManager()->persist($newFieldValue);

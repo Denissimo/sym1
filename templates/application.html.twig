@@ -55,24 +55,41 @@
                         <form class="form" method="post" action="/updclientdata">
                             <input type="hidden" name="app_id" value="{{ app_id }}"/>
                             {#<input id="address" name="address" type="text" size="100"/>#}
-                            <div class="form-group row">
-                                <label for="address"
-                                       class="control-label col-4 text-left">Адрес</label>
-                                <input type="text" class="form-control col-8"
-                                       placeholder="адрес"
-                                       id="address"
-                                       autocomplete="off"
-                                       name="address"/>
-                            </div>
-                            {% for fv in FieldValues %}
-                                <div class="form-group row">
-                                    <label for="{{ fv.field.name }}"
-                                           class="control-label col-4 text-left">{{ fv.field.Description }} {{ fv.field.id }} {{ fv.field.group.id }} {{ fv.field.group.name }}</label>
-                                    <input type="text" class="form-control col-8"
-                                           placeholder="{{ fv.field.Description }}"
-                                           id="{{ fv.field.name }}"
-                                           name="{{ fv.field.id }}" value="{{ fv.valueText }}"/>
-                                </div>
+                            {#<div class="form-group row">#}
+                                {#<label for="address"#}
+                                       {#class="control-label col-4 text-left">Адрес</label>#}
+                                {#<input type="text" class="form-control col-8"#}
+                                       {#placeholder="адрес"#}
+                                       {#id="address"#}
+                                       {#autocomplete="off"#}
+                                       {#name="address"/>#}
+                            {#</div>#}
+                            {% for groupName, fgroup in FieldGroups %}
+                                <h4>{{ groupName }}</h4>
+                                {% for fv in fgroup %}
+                                    {% if fv.field.id == 17 %}
+                                        <div class="form-group row">
+                                            <label for="address"
+                                                   class="control-label col-4 text-left">Адрес</label>
+                                            <input type="text" class="form-control col-8"
+                                                   placeholder="Указать полный адрес регистрации"
+                                                   id="address_reg"
+                                                   autocomplete="off" />
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-group row">
+                                        <label for="{{ fv.field.name }}"
+                                               class="control-label col-4 text-left">{{ fv.field.Description }}
+                                            {#{{ fv.field.id }} {{ fv.field.group.id }} {{ fv.field.group.name }}#}
+                                        </label>
+                                        <input type="text" class="form-control col-8"
+                                               placeholder="{{ fv.field.Description }}"
+                                               {#id="{{ fv.field.name }}"#}
+                                               {#name="{{ fv.field.id }}" value="{{ fv.valueText }}"/>#}
+                                        id="field_{{ fv.field.name }}"
+                                        name="field_{{ fv.field.id }}" value="{{ fv.valueText }}"/>
+                                    </div>
+                                {% endfor %}
                             {% endfor %}
                             <div class="form-group row">
                                 <div class="btn-group-toggle col-2 offset-4" data-toggle="buttons">

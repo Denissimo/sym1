@@ -105,7 +105,7 @@ class Builder
         }
 
         foreach ($fields as $field) {
-            $fieldValuesAll[$field->getId()] = $fieldVal[$field->getId()] ?? (new \FieldValues())->setField($field);
+            $fieldValuesAll[$field->getGroup()->getName()][$field->getId()] = $fieldVal[$field->getId()] ?? (new \FieldValues())->setField($field);
         }
 
         return $fieldValuesAll;

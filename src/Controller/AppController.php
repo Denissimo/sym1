@@ -21,6 +21,8 @@ use Doctrine\ORM\Query\Expr\Join;
 
 class AppController extends BaseController
 {
+    const
+        FIELD_PREFIX = 'field_';
     /**
      * @Route("app", name="app")
      * @return Response
@@ -80,7 +82,7 @@ class AppController extends BaseController
 //        var_dump($app->getUser()->getName());die;
 
 
-        $data[\FieldValues::class] = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);
+        $data[\FieldGroups::class] = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
         return (new Render())->render($data, 'application.html.twig');
