@@ -56,27 +56,43 @@
                             <input type="hidden" name="app_id" value="{{ app_id }}"/>
                             {#<input id="address" name="address" type="text" size="100"/>#}
                             {#<div class="form-group row">#}
-                                {#<label for="address"#}
-                                       {#class="control-label col-4 text-left">Адрес</label>#}
-                                {#<input type="text" class="form-control col-8"#}
-                                       {#placeholder="адрес"#}
-                                       {#id="address"#}
-                                       {#autocomplete="off"#}
-                                       {#name="address"/>#}
+                            {#<label for="address"#}
+                            {#class="control-label col-4 text-left">Адрес</label>#}
+                            {#<input type="text" class="form-control col-8"#}
+                            {#placeholder="адрес"#}
+                            {#id="address"#}
+                            {#autocomplete="off"#}
+                            {#name="address"/>#}
                             {#</div>#}
                             {% for groupName, fgroup in FieldGroups %}
                                 <h4>{{ groupName }}</h4>
                                 {% for fv in fgroup %}
                                     {% if fv.field.id == 17 %}
                                         <div class="form-group row">
-                                            <label for="address"
+                                            <label for="address_reg"
                                                    class="control-label col-4 text-left">Адрес</label>
                                             <input type="text" class="form-control col-8"
                                                    placeholder="Указать полный адрес регистрации"
                                                    id="address_reg"
-                                                   autocomplete="off" />
+                                                   autocomplete="off"/>
                                         </div>
                                     {% endif %}
+
+                                    {% if fv.field.id == 38 %}
+                                        <div class="form-group row">
+                                            <label for="address_live"
+                                                   class="control-label col-4 text-left">Адрес</label>
+                                            <input type="text" class="form-control col-8"
+                                                   placeholder="Указать полный адрес проживания"
+                                                   id="address_live"
+                                                   autocomplete="off"/>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-8 offset-4"><button id="adressidentical" class="btn btn-link">Совпадает с адресом регистрации</button></div>
+                                        </div>
+                                    {% endif %}
+
                                     <div class="form-group row">
                                         <label for="{{ fv.field.name }}"
                                                class="control-label col-4 text-left">{{ fv.field.Description }}
@@ -84,10 +100,8 @@
                                         </label>
                                         <input type="text" class="form-control col-8"
                                                placeholder="{{ fv.field.Description }}"
-                                               {#id="{{ fv.field.name }}"#}
-                                               {#name="{{ fv.field.id }}" value="{{ fv.valueText }}"/>#}
-                                        id="field_{{ fv.field.name }}"
-                                        name="field_{{ fv.field.id }}" value="{{ fv.valueText }}"/>
+                                               id="field_{{ fv.field.name }}"
+                                               name="field_{{ fv.field.id }}" value="{{ fv.valueText }}"/>
                                     </div>
                                 {% endfor %}
                             {% endfor %}

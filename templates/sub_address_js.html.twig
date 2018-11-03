@@ -12,7 +12,40 @@
         count: 5,
         /* Вызывается, когда пользователь выбирает одну из подсказок */
         onSelect: function(suggestion) {
-            console.log(suggestion.data.postal_code);
+            var data = suggestion.data;
+            fill(data, '');
         }
     });
+
+    $("#adressidentical").click(function(e){
+        e.preventDefault();
+        $("#field_index1").val($("#field_index").val());
+        $("#field_region1").val($("#field_region").val());
+        $("#field_city1").val($("#field_city").val());
+        $("#field_street1").val($("#field_street").val());
+        $("#field_house1").val($("#field_house").val());
+        $("#field_building1").val($("#field_building").val());
+        $("#field_structure1").val($("#field_structure").val());
+        $("#field_apartment1").val($("#field_apartment").val());
+        return false;
+    });
+
+    function fill(data, prefix) {
+        console.log('#field_index' + prefix);
+        if(typeof(data.postal_code) != "undefined" && data.postal_code !== null) $('#field_index' + prefix).val(data.postal_code);
+        if(typeof(data.region) != "undefined" && data.region !== null) $('#field_region' + prefix).val(data.region);
+        if(typeof(data.city) != "undefined" && data.city !== null) $('#field_city' + prefix).val(data.city);
+        if(typeof(data.street) != "undefined" && data.street !== null) $('#field_street' + prefix).val(data.street);
+        if(typeof(data.house) != "undefined" && data.house !== null) $('#field_house' + prefix).val(data.house);
+        if (typeof(data.block) != "undefined" && data.block !== null && data.block_type.toString() == 'к') {
+            $('#field_building' + prefix).val(data.block);
+            $('#field_structure' + prefix).val('')
+        }
+        if (typeof(data.block) != "undefined" && data.block !== null && data.block_type.toString() == 'стр') {
+            $('#field_structure' + prefix).val(data.block);
+            $('#field_building' + prefix).val('');
+        }
+        if(typeof(data.flat) != "undefined" && data.flat !== null) $('#field_apartment' + prefix).val(data.flat);
+        console.log(data.block_type);
+    }
 </script>
