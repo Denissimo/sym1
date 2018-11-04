@@ -68,7 +68,7 @@ class AppController extends BaseController
         $fieldGroups = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);
 //        var_dump($fieldGroups["Основные данные"][7]->getField()->getValueList()); die;
         $data[\FieldGroups::class] = $fieldGroups;
-        $data['type'] = get_class($fieldGroups["Основные данные"][7]->getField()->getValueList());
+//        $data['type'] = get_class($fieldGroups["Основные данные"][7]->getField()->getValueList());
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
         $data[\ValueLists::class] = $valueLists;

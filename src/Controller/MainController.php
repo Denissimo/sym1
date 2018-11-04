@@ -153,7 +153,7 @@ class MainController extends BaseController
 //        $appArr = $apps->toArray();
 //        var_dump($appArr[0]->getLastComment()->getId()); die;
 //        var_dump($allApps[0]->getComments()); die;
-        $data['type'] = get_class($allApps[0]->getComments());
+//        $data['type'] = get_class($allApps[0]->getComments());
         $data['appstatus'] = $appStatusArray;
         $data['apps'] = $allApps;
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
