@@ -13,6 +13,11 @@
 
     $('#field_birthDate').datepicker();
     $('#field_passportDate').datepicker();
+    $('#field_birthDate').mask("99.99.9999");
+    $('#field_passportDate').mask("99.99.9999");
+    $("#field_mobileNumber").mask("+7 (999) 999-99-99");
+    $("#field_work_phone").mask("+7 (999) 999-99-99");
+    $("#field_homePhone").mask("+7 (999) 999-99-99");
 
     $("#address_reg").suggestions({
         token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
