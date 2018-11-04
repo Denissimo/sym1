@@ -129,4 +129,13 @@
         $('#field_work_house_num').val(data.house);
     }
 
+
+    $('#btn_ready').click(function () {
+//        console.log('ZZZZZZZZZ');
+        if ($('#ready').is(':checked'))
+            $("#return").attr("disabled", "disabled");
+        else
+            $("#return").removeAttr("disabled");
+    });
+
 </script>

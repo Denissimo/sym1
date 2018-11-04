@@ -154,9 +154,9 @@
                                 {% endfor %}
                             {% endfor %}
                             <div class="form-group row">
-                                <div class="btn-group-toggle col-2 offset-4" data-toggle="buttons">
+                                <div class="btn-group-toggle col-2 offset-3" data-toggle="buttons">
                                     {#<br />#}
-                                    <label class="btn btn-secondary {% if  app.status == 6 %} btn-success active {% endif %}">
+                                    <label id="btn_ready" class="btn btn-secondary {% if  app.status == 6 %} btn-success active {% endif %}">
                                         <input id="ready" name="ready"
                                                type="checkbox" {% if app.status == 6 %} checked {% endif %}
                                                autocomplete="off">
@@ -165,6 +165,9 @@
                                 </div>
                                 <div class="col-2">
                                     <button type="submit" class="btn btn-success save">Сохранить</button>
+                                </div>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-success save" name="return" id="return" value="true" disabled="disabled">Отправить</button>
                                 </div>
                             </div>
                         </form>

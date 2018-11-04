@@ -22,6 +22,7 @@ use Monolog\Logger;
 
 class PostController extends BaseController
 {
+    const RETURN = 'return';
     /**
      * @Route("changerole", name="changerole")
      * @return RedirectResponse
@@ -117,6 +118,9 @@ class PostController extends BaseController
         self::getRequest()->request->remove(\FieldValues::APP_ID);
         $ready = self::getRequest()->get(\FieldValues::READY);
         self::getRequest()->request->remove(\FieldValues::READY);
+        $rerutn = self::getRequest()->get(self::RETURN);
+        self::getRequest()->request->remove(self::RETURN);
+//        var_dump($rerutn); die;
         $idArray = [];
 //        foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
 //            $idArray[$fieldId] = $fieldId;
@@ -188,7 +192,7 @@ class PostController extends BaseController
         Proxy::init()->getEntityManager()->flush();
 
         return $this->redirect(
-            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+            $rerutn ? $this->generateUrl('apps') : self::getRequest()->headers->get('referer')
         );
     }
 
