@@ -31,6 +31,18 @@
         }
     });
 
+    $("#field_passportCity").suggestions({
+        token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
+//        token: "7bb5d27b33e60de38bfbbcd47207132ef007fb4f",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function (suggestion) {
+            var data = suggestion.data;
+            $(this).val(data.city);
+        }
+    });
+
     $("#address_live").suggestions({
         token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
 //        token: "7bb5d27b33e60de38bfbbcd47207132ef007fb4f",
