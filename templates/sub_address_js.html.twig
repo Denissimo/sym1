@@ -80,6 +80,12 @@
         return false;
     });
 
+    $("#maildefault").click(function (e) {
+        e.preventDefault();
+        $("#field_email").val('null@mail.ru');
+        return false;
+    });
+
     $('#field_passportCode').blur(function () {
 //        console.log($(this).val());
 

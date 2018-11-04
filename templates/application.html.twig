@@ -142,6 +142,7 @@
                                         {% endif %}
 
                                     </div>
+
                                     {% if fv.field.id == 9 %}
                                         <div class="form-group row">
                                             <div class="col-8 offset-4">
@@ -151,6 +152,15 @@
                                             </div>
                                         </div>
                                     {% endif %}
+
+                                    {% if fv.field.id == 3 %}
+                                        <div class="form-group row">
+                                            <div class="col-8 offset-4">
+                                                <a href="#" id="maildefault">У клиента нет емайл </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
                                 {% endfor %}
                             {% endfor %}
                             <div class="form-group row">
