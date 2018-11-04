@@ -42,11 +42,12 @@
                                 <td>Комментарии</td>
                                 <td>
                                     {% for com in app.comments %}
-                                        {{ com.id }} {{ com.tsString }}
-
                                         {% autoescape false %}
                                             <a href="/user/?user_id={{ com.user.id }}">{{ com.user.nameShort|raw|replace({' ' : '&nbsp;'}) }}</a>
-                                        {% endautoescape %}{{ com.comment }}  <br/>
+                                        {% endautoescape %}
+                                        {{ com.id }}
+                                        {{ com.tsString }}
+                                        {{ com.comment }}  <br/>
                                     {% endfor %}
                                 </td>
                             </tr>
