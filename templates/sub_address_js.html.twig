@@ -1,10 +1,13 @@
 {#<input id="address" name="address" type="text" size="100"/>#}
-<link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.8.0/dist/css/suggestions.min.css" type="text/css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.8.0/dist/css/suggestions.min.css" type="text/css"
+      rel="stylesheet"/>
 {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>#}
 <!--[if lt IE 10]>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.8.0/dist/js/jquery.suggestions.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.8.0/dist/js/jquery.suggestions.min.js"></script>
 <script type="text/javascript">
     $("#address_reg").suggestions({
         token: "53d8a06683944866455eb1eb05c5fe5df33d788b",
@@ -12,7 +15,7 @@
         type: "ADDRESS",
         count: 5,
         /* Вызывается, когда пользователь выбирает одну из подсказок */
-        onSelect: function(suggestion) {
+        onSelect: function (suggestion) {
             var data = suggestion.data;
             fill(data, '');
         }
@@ -24,7 +27,7 @@
         type: "ADDRESS",
         count: 5,
         /* Вызывается, когда пользователь выбирает одну из подсказок */
-        onSelect: function(suggestion) {
+        onSelect: function (suggestion) {
             var data = suggestion.data;
             fill(data, 1);
         }
@@ -36,13 +39,13 @@
         type: "ADDRESS",
         count: 5,
         /* Вызывается, когда пользователь выбирает одну из подсказок */
-        onSelect: function(suggestion) {
+        onSelect: function (suggestion) {
             var data = suggestion.data;
             fill_job(data);
         }
     });
 
-    $("#adressidentical").click(function(e){
+    $("#adressidentical").click(function (e) {
         e.preventDefault();
         $("#field_index1").val($("#field_index").val());
         $("#field_region1").val($("#field_region").val());
@@ -53,6 +56,24 @@
         $("#field_structure1").val($("#field_structure").val());
         $("#field_apartment1").val($("#field_apartment").val());
         return false;
+    });
+
+    $('#field_passportCode').blur(function () {
+//        console.log($(this).val());
+
+        $.ajax({
+            method: 'POST',
+            url: '/ajaxcode',
+            data: {pcode: $(this).val()}
+        })
+            .done(function (msg) {
+                console.log(msg);
+//                if (msg != null && msg != '') {
+                    $('#field_passportWho').val(msg);
+//                }
+//                    $('#passportWho').attr("setvalue", msg);
+            });
+
     });
 
     function fill(data, prefix) {
@@ -85,4 +106,5 @@
         $('#field_work_street').val(data.street_with_type);
         $('#field_work_house_num').val(data.house);
     }
+
 </script>

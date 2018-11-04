@@ -194,14 +194,20 @@ class PostController extends BaseController
 
     /**
      * @Route("ajaxcode", name="ajaxcode")
-     * @return RedirectResponse
+     * @return Response
      */
     public function ajaxCode()
     {
-
-        return $this->redirect(
-            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
-        );
+        /** @var \Passportcode2who $passCode */
+        $passCode = Proxy::init()->getEntityManager()
+            ->getRepository(\Passportcode2who::class)
+            ->findOneBy(
+                [\Passportcode2who::CODE => self::getRequest()->get(\Passportcode2who::CODE)]
+            );
+//        $data[\Passportcode2who::NAME] = \GuzzleHttp\json_encode($passCode->getW());
+        $data[\Passportcode2who::NAME] = $passCode ? $passCode->getW() : null;
+//        var_dump($data); die;
+        return (new Render())->simpleRender($data, 'ajax.html.twig');
     }
 
     /**

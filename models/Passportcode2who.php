@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Passportcode2who
 {
+    const
+        CODE = 'pcode',
+        NAME = 'name'
+    ;
     /**
      * @var string
      *
@@ -27,6 +31,22 @@ class Passportcode2who
      * @ORM\Column(name="w", type="string", length=1000, nullable=true)
      */
     private $w = '';
+
+    /**
+     * @return string
+     */
+    public function getPcode(): string
+    {
+        return $this->pcode;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getW()
+    {
+        return $this->w;
+    }
 
 
 }
