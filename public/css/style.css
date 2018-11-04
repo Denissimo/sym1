@@ -170,3 +170,7 @@ input::-webkit-input-placeholder {
 input:-moz-placeholder {
     color: #E0E0E0 !important;;
 }
+
+.save{
+    /*border-radius: 20px !important;*/
+}

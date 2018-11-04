@@ -30,19 +30,23 @@
                                 <td>Изменён</td>
                                 <td>{{ app.updatedAtString }}</td>
                             </tr>
-                            <tr>
-                                <td>Пользователь</td>
-                                <td>{{ app.user.name }}</td>
-                            </tr>
-                            <tr>
-                                <td>Емайл</td>
-                                <td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>
-                            </tr>
+                            {#<tr>#}
+                                {#<td>Пользователь</td>#}
+                                {#<td>{{ app.user.name }}</td>#}
+                            {#</tr>#}
+                            {#<tr>#}
+                                {#<td>Емайл</td>#}
+                                {#<td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>#}
+                            {#</tr>#}
                             <tr>
                                 <td>Комментарии</td>
                                 <td>
                                     {% for com in app.comments %}
-                                        {{ com.id }} {{ com.tsString }} {{ com.comment }}  <br/>
+                                        {{ com.id }} {{ com.tsString }}
+
+                                        {% autoescape false %}
+                                            <a href="/user/?user_id={{ com.user.id }}">{{ com.user.nameShort|raw|replace({' ' : '&nbsp;'}) }}</a>
+                                        {% endautoescape %}{{ com.comment }}  <br/>
                                     {% endfor %}
                                 </td>
                             </tr>
@@ -150,7 +154,7 @@
                                     </label>
                                 </div>
                                 <div class="col-2">
-                                    <input type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success save">Сохранить</button>
                                 </div>
                             </div>
                         </form>

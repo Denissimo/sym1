@@ -84,38 +84,6 @@ class PostController extends BaseController
 
         }
 
-//        var_dump($reminder); die;
-        /*
-                switch ($ctype) {
-                    case 1:
-                        $updateTime = $reminderDt;
-                    break;
-
-                    case 2:
-                        $updateTime = new \DateTime();
-                    break;
-
-                    case 3:
-                        $updateTime = $app->getUpdatedat();
-                    break;
-
-                    case 4:
-                        $updateTime = $app->getUpdatedat();
-                    break;
-
-                    case 5:
-                        $updateTime = $app->getUpdatedat();
-                    break;
-
-                    case 6:
-                        $updateTime = $app->getUpdatedat();
-                    break;
-
-                    default:
-                        $updateTime = $app->getUpdatedat();
-                    break;
-                }
-        */
         $newUpdateTime = $updateTime->add(new \DateInterval($interval));
 
         $app->setUpdatedat($newUpdateTime)
@@ -218,6 +186,18 @@ class PostController extends BaseController
         }
 
         Proxy::init()->getEntityManager()->flush();
+
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
+     * @Route("ajaxcode", name="ajaxcode")
+     * @return RedirectResponse
+     */
+    public function ajaxCode()
+    {
 
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
