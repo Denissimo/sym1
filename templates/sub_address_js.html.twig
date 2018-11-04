@@ -60,7 +60,7 @@
         $('#field_index' + prefix).val(data.postal_code);
         $('#field_region' + prefix).val(data.region);
         $('#field_city' + prefix).val(data.city);
-        $('#field_street' + prefix).val(data.street);
+        $('#field_street' + prefix).val(data.street_with_type);
         $('#field_house' + prefix).val(data.house);
         if (data.block_type == 'к') {
             $('#field_building' + prefix).val(data.block);
@@ -82,7 +82,7 @@
     function fill_job(data) {
         $('#field_work_region').val(data.region);
         $('#field_work_city').val(data.city);
-        $('#field_work_street').val(data.street);
+        $('#field_work_street').val(data.street_with_type);
         $('#field_work_house_num').val(data.house);
     }
 </script>

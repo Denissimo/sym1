@@ -90,14 +90,14 @@ class Builder
     /**
      * @param \Fields[] $fields
      * @param \FieldValues[] $fieldValues
-     * @return \FieldValues[]
+     * @return \FieldValues[][]
      */
     public function fieldValuesAll($fields, $fieldValues)
     {
         /** @var \FieldValues[] $fieldVal */
         $fieldVal = [];
 
-        /** @var \FieldValues[] $fieldValuesAll */
+        /** @var \FieldValues[][] $fieldValuesAll */
         $fieldValuesAll = [];
 
         foreach ($fieldValues as $fv) {

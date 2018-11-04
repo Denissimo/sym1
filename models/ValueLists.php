@@ -29,6 +29,13 @@ class ValueLists
     private $value;
 
     /**
+     * @var int|null
+     *
+     * @ORM\Column(name="field_id", type="integer", nullable=true, options={"unsigned"=true})
+     */
+    private $fieldId;
+
+    /**
      * @var \Fields
      *
      * @ORM\ManyToOne(targetEntity="Fields")

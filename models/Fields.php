@@ -3,6 +3,7 @@
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Fields
@@ -97,14 +98,14 @@ class Fields
     private $group;
 
     /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="FieldGroups")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="\ValueLists", mappedBy="field")
+     * @ORM\OrderBy({"id" = "ASC"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id", referencedColumnName="field_id", nullable=false)
      * })
      */
-    private $groupId;
+    private $valueList;
 
     /**
      * @return int
@@ -187,10 +188,11 @@ class Fields
     }
 
     /**
-     * @return int
+     * @return Collection
      */
-    public function getGroupId(): int
+    public function getValueList(): Collection
     {
-        return $this->groupId;
+        return $this->valueList;
     }
+
 }

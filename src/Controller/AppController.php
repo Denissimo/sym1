@@ -48,28 +48,11 @@ class AppController extends BaseController
             )
             ->toArray();
 
-//        usort($fields, array(__CLASS__, '_compareGroupSort'));
+//        var_dump($fields[6]->getValueList()); die;
+
+        $valueLists = Proxy::init()->getEntityManager()->getRepository(\ValueLists::class)->findAll();
 
 
-//        $query = 'select f.*, fg.name as gname, fg.type as gtype from fields as f left join field_groups fg on fg.id=f.group_id where f.enabled=1 order by fg.orderNum asc, f.orderid asc';
-//        $fields = Proxy::init()->getConnecton()->query($query)->fetchAll();
-        /*
-                $qb = Proxy::init()->getEntityManager()->createQueryBuilder();
-                $fields = $qb
-                    ->select('f.id, fg.id')
-                    ->from('fields', 'f')
-                    ->leftJoin('fieldGroups', 'fg')
-        //            ->setMaxResults(60)
-                    ->getQuery()
-        //            ->useQueryCache(false)
-        //            ->useResultCache(false)
-                    ->execute()
-                    ;
-        */
-//        echo "<pre>";
-//        var_dump($fields[25]);
-//        echo "</pre>";
-//        die;
         /** @var \FieldValues[] $fieldValues */
         $fieldValues = Proxy::init()->getEntityManager()->getRepository(\FieldValues::class)->matching(
             (new Builder())->fieldValuesByAppId($app)
@@ -81,18 +64,14 @@ class AppController extends BaseController
 //        var_dump($fields[9]->getDescription());die;
 //        var_dump($app->getUser()->getName());die;
 
-
-        $data[\FieldGroups::class] = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);
+        /** @var \FieldValues[][] $fieldGroups */
+        $fieldGroups = (new AppBuilder())->fieldValuesAll($fields, $fieldValues);
+//        var_dump($fieldGroups["Основные данные"][7]->getField()->getValueList()); die;
+        $data[\FieldGroups::class] = $fieldGroups;
+        $data['type'] = get_class($fieldGroups["Основные данные"][7]->getField()->getValueList());
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
+        $data[\ValueLists::class] = $valueLists;
         return (new Render())->render($data, 'application.html.twig');
-    }
-
-    private static function _compareGroupSort(\Fields $a, \Fields  $b) {
-
-        if ($a->getOrderid() == $b->getOrderid()) {
-            return 0;
-        }
-        return ($a->getOrderid() < $b->getOrderid()) ? 1 : -1;
     }
 }

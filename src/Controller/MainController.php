@@ -133,6 +133,7 @@ class MainController extends BaseController
             $allApps = array_merge($allApps, $a);
         }
 //        $allApps = array_merge($apps[0], $apps[1]);
+//        var_dump($allApps[6]->getComments()); die;
 
         $appStatus = Proxy::init()->getEntityManager()->getRepository(\AppStatus::class)->findAll();
         $appStatusArray = (new AppBuilder())->buildAppStatus($appStatus);
@@ -151,6 +152,8 @@ class MainController extends BaseController
         /** @var \Apps[] $appArr */
 //        $appArr = $apps->toArray();
 //        var_dump($appArr[0]->getLastComment()->getId()); die;
+//        var_dump($allApps[0]->getComments()); die;
+        $data['type'] = get_class($allApps[0]->getComments());
         $data['appstatus'] = $appStatusArray;
         $data['apps'] = $allApps;
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
