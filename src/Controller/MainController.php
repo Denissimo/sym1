@@ -154,6 +154,8 @@ class MainController extends BaseController
 //        var_dump($appArr[0]->getLastComment()->getId()); die;
 //        var_dump($allApps[0]->getComments()); die;
 //        $data['type'] = get_class($allApps[0]->getComments());
+
+        $data[\Users::class] = Proxy::init()->getEntityManager()->getRepository(\Users::class)->findBy(['enabled' => 1]);
         $data['appstatus'] = $appStatusArray;
         $data['apps'] = $allApps;
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();

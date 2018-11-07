@@ -55,23 +55,38 @@
 
                 <div class="col-12 align-items-center">
                     <form class="form-inline">
-                        {#<div class="row">#}
-                            <div>
+                        <div class="row">
+                            <div class="col-2">
                                 <input type="text" class="form-control" name="create_from" id="create_from"
-                                       placeholder="create_from" value="{{ request.create_from }}" autocomplete="off">
+                                       placeholder="Дата создания ОТ" value="{{ request.create_from }}"
+                                       autocomplete="off">
                             </div>
                             <div class="col-2">
                                 <input type="text" class="form-control" name="create_to" id="create_to"
-                                       placeholder="create_to" value="{{ request.create_to }}" autocomplete="off">
+                                       placeholder="Дата создания ДО" value="{{ request.create_to }}"
+                                       autocomplete="off">
                             </div>
                             <div class="col-2">
                                 <input type="text" class="form-control" name="update_from" id="update_from"
-                                       placeholder="update_from" value="{{ request.update_from }}" autocomplete="off">
+                                       placeholder="Дата обработки ОТ" value="{{ request.update_from }}"
+                                       autocomplete="off">
                             </div>
                             <div class="col-2">
                                 <input type="text" class="form-control" name="update_to" id="update_to"
-                                       placeholder="update_to" value="{{ request.update_to }}" autocomplete="off">
+                                       placeholder="Дата обработки ДО" value="{{ request.update_to }}"
+                                       autocomplete="off">
                             </div>
+
+                            {% if access.all_apps %}
+                                <div class="col-2">
+                                    <select class="custom-select" name="userId">
+                                        <option selected selected="selected" value="">Все</option>
+                                        {% for user in Users %}
+                                            <option value="{{ user.id }}">{{ user.nameShort }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
 
                             <div class="col-2">
                                 <div class="row">
@@ -94,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                        {#</div>#}
+                        </div>
                     </form>
                 </div>
 
@@ -123,13 +138,15 @@
                     {% for app in apps %}
                         <tr>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
-                            <td><a href="/app?app_id={{ app.id }}">{{ app.lastName }}&nbsp;{{ app.firstName }}&nbsp;{{ app.middleName }}</a></td>
-                            <td>{{ app.phone }}<br />{{ app.city }}</td>
+                            <td><a href="/app?app_id={{ app.id }}">{{ app.lastName }}&nbsp;{{ app.firstName }}
+                                    &nbsp;{{ app.middleName }}</a></td>
+                            <td>{{ app.phone }}<br/>{{ app.city }}</td>
                             <td>{{ app.userName }}</td>
                             {#<td><img src="/images/color_labels/{{ app.appStatus.picture }}" class="color_label" /> </td>#}
                             <td>
                                 {#{{ app.status }}#}
-                                <img src="/images/color_labels/{{ appstatus[app.status].picture}}" class="color_label" />
+                                <img src="/images/color_labels/{{ appstatus[app.status].picture }}"
+                                     class="color_label"/>
                             </td>
                             {#<td>{{ appstatus[app.status].picture}}</td>#}
                             <td>{{ app.createdAtString }}</td>
@@ -156,7 +173,7 @@
                                         </tr>
                                         {#{% if key==0 %}<div class="collapse" id="#collapse{{ app.id }}">{% endif %}#}
                                     {% endfor %}
-                                        {#{% if app.comments | length %} </div> {% endif %}#}
+                                    {#{% if app.comments | length %} </div> {% endif %}#}
                                 </table>
                             </td>
                             <td>

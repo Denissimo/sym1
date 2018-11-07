@@ -16,7 +16,8 @@ class Builder
     const
         TIME_ZERO = '_00:00:00',
         TIME_NIGHT = '_23:59:59',
-        TPL_DATE_TIME = 'd.m.Y_H:i:s';
+        TPL_DATE_TIME = 'd.m.Y_H:i:s'
+;
 
     private $orderFields = [
         'id1' => ['id' => 'ASC'],
