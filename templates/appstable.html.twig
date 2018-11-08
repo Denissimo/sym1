@@ -55,7 +55,7 @@
 
                 <div class="col-12 align-items-center">
                     <form class="form-inline">
-                        <div class="row">
+                        {#<div class="row">#}
                             <div class="col-2">
                                 <input type="text" class="form-control" name="create_from" id="create_from"
                                        placeholder="Дата создания ОТ" value="{{ request.create_from }}"
@@ -80,9 +80,9 @@
                             {% if access.all_apps %}
                                 <div class="col-2">
                                     <select class="custom-select" name="userId">
-                                        <option selected selected="selected" value="">Все</option>
+                                        <option {% if not request.userId %} selected="selected" {% endif %} value="">Все</option>
                                         {% for user in Users %}
-                                            <option value="{{ user.id }}">{{ user.nameShort }}</option>
+                                            <option {% if request.userId == user.id %} selected="selected" {% endif %} value="{{ user.id }}">{{ user.nameShort }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        {#</div>#}
                     </form>
                 </div>
 
@@ -121,9 +121,11 @@
     <div class="container-fluid">
         <div class="row mart10">
             <div class="loginform col-12 shadow-lg padt01 bg-white1">
+                {#<p>&#x1F6AE</p>#}
                 <table class="table table-striped appstable">
                     <tr>
-                        <th> id</th>
+                        <th>id</th>
+                        {#<th></th>#}
                         <th>Клиент</th>
                         <th>Тел, Город</th>
                         <th>Оператор</th>
@@ -137,7 +139,13 @@
                     </tr>
                     {% for app in apps %}
                         <tr>
-                            <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a></td>
+                            <td><a href="/app?app_id={{ app.id }}">{{ app.id }}</a>
+                            {#</td>#}
+                            {#<td>#}
+                                {% if command_proc %}
+                                    {{ include('sub_modal_btn_trash.html.twig', { 'article': article }) }}
+                                {% endif %}
+                            </td>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.lastName }}&nbsp;{{ app.firstName }}
                                     &nbsp;{{ app.middleName }}</a></td>
                             <td>{{ app.phone }}<br/>{{ app.city }}</td>

@@ -39,6 +39,10 @@ class Builder
             Criteria::expr()->eq('inWork', 1)
         );
 
+        $criteria->andWhere(
+            Criteria::expr()->eq('trash', 0)
+        );
+
         //$criteria = $this->addWhere($criteria, $request);
 //        var_dump(\DateTime::createFromFormat('Ymd', '20180104')); die;
 //        echo "<pre>";var_dump($this->initExpressions($request)); echo "</pre>"; die;

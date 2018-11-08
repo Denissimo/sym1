@@ -244,6 +244,23 @@ class PostController extends BaseController
     }
 
     /**
+     * @Route("trash", name="trash")
+     * @return RedirectResponse
+     */
+    public function trash()
+    {
+        /** @var \Apps $app */
+        $app = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->find(
+            (int)self::getRequest()->get(self::APP_ID)
+        );
+        $app->setTrash(true);
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
      * @Route("edituser", name="edituser")
      * @return RedirectResponse
      */

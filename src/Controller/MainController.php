@@ -66,6 +66,7 @@ class MainController extends BaseController
         $data['request'] = self::getRequest()->query->all();
         $data['post'] = self::getRequest()->getMethod();
         $data['uid'] = (new Autorize())->getUserId();
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
 
 //        $params = (new Params())->get('distribution');
 //        var_dump($params); die;
@@ -156,6 +157,7 @@ class MainController extends BaseController
 //        $data['type'] = get_class($allApps[0]->getComments());
 
         $data[\Users::class] = Proxy::init()->getEntityManager()->getRepository(\Users::class)->findBy(['enabled' => 1]);
+        $data['request'] = self::getRequest()->query->all();
         $data['appstatus'] = $appStatusArray;
         $data['apps'] = $allApps;
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
