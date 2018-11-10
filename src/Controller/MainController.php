@@ -93,7 +93,7 @@ class MainController extends BaseController
 */
         $allApps = [];
         $apps = [];
-        if(!$filter) {
+        if (!$filter) {
             $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
                 (new Builder())->appsCommon(self::getRequest())
                     ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
@@ -140,7 +140,7 @@ class MainController extends BaseController
                 (new Builder())->appsCommon(self::getRequest())
                     ->andWhere(Criteria::expr()->notIn(\Apps::STATUS, [\AppStatus::WHITE, \AppStatus::YELLOW, \AppStatus::RED]))
             )->toArray();
-        } elseif($filter!='ready') {
+        } elseif ($filter != 'ready') {
             $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
                 (new Builder())->appsCommon(self::getRequest())
             )->toArray();
@@ -155,6 +155,12 @@ class MainController extends BaseController
         foreach ($apps as $a) {
             $allApps = array_merge($allApps, $a);
         }
+
+        $idArray = [];
+        foreach ($allApps as $app) {
+            $idArray[] = $app->getId();
+        }
+        $idList = implode(',', $idArray);
 //        $allApps = array_merge($apps[0], $apps[1]);
 //        var_dump($allApps[6]->getComments()); die;
 
@@ -178,6 +184,7 @@ class MainController extends BaseController
 //        var_dump($allApps[0]->getComments()); die;
 //        $data['type'] = get_class($allApps[0]->getComments());
 
+        $data['idList'] = $idList;
         $data[\Users::class] = Proxy::init()->getEntityManager()->getRepository(\Users::class)->findBy(['enabled' => 1]);
         $data['request'] = self::getRequest()->query->all();
         $data['appstatus'] = $appStatusArray;

@@ -62,6 +62,10 @@ body {
     background: linear-gradient(#E0E0E0 5%, #808080 20%, #D0D0D0 51%, #404040 100%);
 }
 
+.padb01 {
+    padding-bottom: 15px;
+}
+
 .padt01 {
     padding-top: 15px;
 }
