@@ -16,8 +16,7 @@ class Builder
     const
         TIME_ZERO = '_00:00:00',
         TIME_NIGHT = '_23:59:59',
-        TPL_DATE_TIME = 'd.m.Y_H:i:s'
-;
+        TPL_DATE_TIME = 'd.m.Y_H:i:s';
 
     private $orderFields = [
         'id1' => ['id' => 'ASC'],
@@ -34,16 +33,36 @@ class Builder
      */
     public function appsCommon(Request $request): Criteria
     {
+        $filter = $request->get('filter');
         $criteria = Criteria::create();
         $criteria->where(
-            Criteria::expr()->eq('inWork', 1)
-//            Criteria::expr()->neq('id', 0)
+//            Criteria::expr()->eq('inWork', 1)
+            Criteria::expr()->neq('id', 0)
         );
+        if ($filter == 'trash') {
+            $criteria->andWhere(
+                Criteria::expr()->eq('trash', 1)
+            );
+        } else {
+            if ($filter == 'new') {
+                $criteria->andWhere(
+                    Criteria::expr()->eq('inWork', 0)
+                );
+            } else {
+                $criteria->andWhere(
+                    Criteria::expr()->eq('inWork', 1)
+                );
+            }
+            $criteria->andWhere(
+                Criteria::expr()->eq('trash', 0)
+            );
+        }
 
+/*
         $criteria->andWhere(
             Criteria::expr()->eq('trash', 0)
         );
-
+*/
         //$criteria = $this->addWhere($criteria, $request);
 //        var_dump(\DateTime::createFromFormat('Ymd', '20180104')); die;
 //        echo "<pre>";var_dump($this->initExpressions($request)); echo "</pre>"; die;

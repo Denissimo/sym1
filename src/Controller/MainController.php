@@ -77,57 +77,79 @@ class MainController extends BaseController
 //        )->getValues();
 
 
-        $criteria = (new Builder())->appsCommon(self::getRequest());
+        $filter = self::getRequest()->get('filter');
+
         //$criteria->andWhere(Criteria::expr()->eq('status', 2));
         /** @var \Apps[] $allApps */
+
+
+        /*
+        if ($filter == 'ready') {
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                $criteria
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::WHITE))
+            )->toArray();
+        }
+*/
         $allApps = [];
         $apps = [];
-        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
-            (new Builder())->appsCommon(self::getRequest())
-                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
-                ->andWhere(Criteria::expr()->lt(
-                    \Apps::UPDATED,
-                    (new \DateTime())
-                ))
-        )
-            ->toArray();
+        if(!$filter) {
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
+                    ->andWhere(Criteria::expr()->lt(
+                        \Apps::UPDATED,
+                        (new \DateTime())
+                    ))
+            )
+                ->toArray();
 
-        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
-            (new Builder())->appsCommon(self::getRequest())
-                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::YELLOW))
-                ->andWhere(Criteria::expr()->lt(
-                    \Apps::UPDATED,
-                    new \DateTime()
-                ))
-        )->toArray();
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::YELLOW))
+                    ->andWhere(Criteria::expr()->lt(
+                        \Apps::UPDATED,
+                        new \DateTime()
+                    ))
+            )->toArray();
 
-        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
-            (new Builder())->appsCommon(self::getRequest())
-                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::WHITE))
-        )->toArray();
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::WHITE))
+            )->toArray();
 
-        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
-            (new Builder())->appsCommon(self::getRequest())
-                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
-                ->andWhere(Criteria::expr()->gte(
-                    \Apps::UPDATED,
-                    (new \DateTime())
-                ))
-        )->toArray();
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))
+                    ->andWhere(Criteria::expr()->gte(
+                        \Apps::UPDATED,
+                        (new \DateTime())
+                    ))
+            )->toArray();
 
-        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
-            (new Builder())->appsCommon(self::getRequest())
-                ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::YELLOW))
-                ->andWhere(Criteria::expr()->gte(
-                    \Apps::UPDATED,
-                    new \DateTime()
-                ))
-        )->toArray();
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::YELLOW))
+                    ->andWhere(Criteria::expr()->gte(
+                        \Apps::UPDATED,
+                        new \DateTime()
+                    ))
+            )->toArray();
 
-        $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
-            (new Builder())->appsCommon(self::getRequest())
-                ->andWhere(Criteria::expr()->notIn(\Apps::STATUS, [\AppStatus::WHITE, \AppStatus::YELLOW, \AppStatus::RED]))
-        )->toArray();
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->notIn(\Apps::STATUS, [\AppStatus::WHITE, \AppStatus::YELLOW, \AppStatus::RED]))
+            )->toArray();
+        } elseif($filter!='ready') {
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+            )->toArray();
+        } else {
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                (new Builder())->appsCommon(self::getRequest())
+                    ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::GREEN))
+            )->toArray();
+        }
 
 
         foreach ($apps as $a) {
