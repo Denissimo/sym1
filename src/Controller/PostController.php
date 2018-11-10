@@ -261,6 +261,24 @@ class PostController extends BaseController
     }
 
     /**
+     * @Route("transfer", name="transfer")
+     * @return RedirectResponse
+     */
+    public function transfer()
+    {
+        /** @var \Apps $app */
+        $app = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->find(
+            (int)self::getRequest()->get(self::APP_ID)
+        );
+        $userTo = (int)self::getRequest()->get('userTo') ? (int)self::getRequest()->get('userTo') : 1;
+        $app->setUserId( $userTo );
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
      * @Route("edituser", name="edituser")
      * @return RedirectResponse
      */
