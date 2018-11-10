@@ -186,7 +186,7 @@
                     {% for app in apps %}
                         <tr>
                             <td>
-                                {% if command_proc and request.filter != 'trash' %}
+                                {% if command_proc and request.userTo %}
                                     {{ include('sub_btn_transfer.html.twig', { 'article': article }) }}
                                 {% endif %}
 

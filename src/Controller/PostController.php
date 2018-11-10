@@ -88,6 +88,7 @@ class PostController extends BaseController
         $newUpdateTime = $updateTime->add(new \DateInterval($interval));
 
         $app->setUpdatedat($newUpdateTime)
+            ->setInWork(true)
             ->setStatus($appStatus)
             ->setTrash($inWork);
         Proxy::init()->getEntityManager()->flush();
