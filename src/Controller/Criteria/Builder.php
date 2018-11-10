@@ -37,6 +37,7 @@ class Builder
         $criteria = Criteria::create();
         $criteria->where(
             Criteria::expr()->eq('inWork', 1)
+//            Criteria::expr()->neq('id', 0)
         );
 
         $criteria->andWhere(

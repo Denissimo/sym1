@@ -26,7 +26,7 @@ class RequestAPIAddPerson extends RequestAPIPdo
         $sth = $this->getPDO()->prepare($query);
         $sth->bindValue(':partner', $this->request->getPartner(), \PDO::PARAM_INT);
         $sth->bindValue(':foreign_id', $this->request->getForeignId(), \PDO::PARAM_INT);
-        $sth->bindValue(':user_id', 0, \PDO::PARAM_INT);
+        $sth->bindValue(':user_id', 1, \PDO::PARAM_INT);
         $sth->bindValue(':ip', $this->request->getIp(), \PDO::PARAM_STR);
         $sth->bindValue(':check', $this->request->getCheck(), \PDO::PARAM_STR);
         $sth->execute();
