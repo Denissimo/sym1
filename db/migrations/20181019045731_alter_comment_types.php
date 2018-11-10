@@ -36,15 +36,15 @@ class AlterCommentTypes extends AbstractMigration
         $table->addColumn('date_interval', 'string', ['limit' => 8]);
         $table->addColumn('in_work', 'boolean')
             ->update();
-        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 1 WHERE name="recall"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT15M", in_work = 1 WHERE name="busy"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT3H", in_work = 1 WHERE name="no_answer"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT6H", in_work = 1 WHERE name="unawailable"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT30M", in_work = 1 WHERE name="drops"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 0 WHERE name="not_actual"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 0 WHERE name="wrong"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 0 WHERE name="moron"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 1 WHERE name="process"');
-        $this->execute('UPDATE comment_types SET date_interval = "PT3H", in_work = 1 WHERE name="comment"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 0 WHERE name="recall"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT15M", in_work = 0 WHERE name="busy"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT3H", in_work = 0 WHERE name="no_answer"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT6H", in_work = 0 WHERE name="unawailable"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT30M", in_work = 0 WHERE name="drops"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 1 WHERE name="not_actual"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 1 WHERE name="wrong"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 1 WHERE name="moron"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT0S", in_work = 0 WHERE name="process"');
+        $this->execute('UPDATE comment_types SET date_interval = "PT3H", in_work = 0 WHERE name="comment"');
     }
 }
