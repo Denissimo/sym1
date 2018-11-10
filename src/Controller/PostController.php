@@ -89,7 +89,7 @@ class PostController extends BaseController
 
         $app->setUpdatedat($newUpdateTime)
             ->setStatus($appStatus)
-            ->setInWork($inWork);
+            ->setTrash($inWork);
         Proxy::init()->getEntityManager()->flush();
 
 
