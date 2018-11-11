@@ -106,6 +106,7 @@ class MainController extends BaseController
         $data['uid'] = (new Autorize())->getUserId();
         $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         $search =  $data['request']['find'] ?? '';
+        $search = mb_strtolower($search);
 
 //        $params = (new Params())->get('distribution');
 //        var_dump($params); die;
@@ -141,10 +142,10 @@ class MainController extends BaseController
   LEFT JOIN (SELECT * FROM field_values WHERE field_id = 8) f8 ON a.id = f8.app_id
   WHERE 
   a.id  REGEXP "' . $search . '" OR
-  f39.value_text  REGEXP "' . $search . '" OR
-  f4.value_text  REGEXP "' . $search . '" OR
-  f5.value_text  REGEXP "' . $search . '" OR
-  f5.value_text  REGEXP "' . $search . '" OR
+  LOWER(f39.value_text)  REGEXP "' . $search . '" OR
+  LOWER(f4.value_text)  REGEXP "' . $search . '" OR
+  LOWER(f5.value_text)  REGEXP "' . $search . '" OR
+  LOWER(f6.value_text)  REGEXP "' . $search . '" OR
   f8.value_text  REGEXP "' . $search . '" 
   LIMIT 500';
             $search = Proxy::init()->getEntityManager()->getConnection()->query($sql)->fetchAll();
