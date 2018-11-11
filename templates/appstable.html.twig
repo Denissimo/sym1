@@ -105,6 +105,7 @@
                                 <select class="custom-select" name="filter">
                                     <option {% if not request.filter %} selected {% endif %} value="">В работе</option>
                                     <option {% if request.filter=='new' %} selected {% endif %} value="new">Новые</option>
+                                    <option {% if request.filter=='worknew' %} selected {% endif %} value="worknew">Нов+В раб.</option>
                                     <option {% if request.filter=='ready' %} selected {% endif %} value="ready">Готовые</option>
                                     <option {% if request.filter=='trash' %} selected {% endif %} value="trash">Корзина</option>
                                 </select>
@@ -112,9 +113,9 @@
                         {% endif %}
                         <div class="form-group mx-sm-2">
                             <select class="custom-select" name="limit">
-                                <option {% if request.limit == 10 %} selected {% endif %} value="10">10</option>
-                                <option {% if request.limit == 20 %} selected {% endif %} value="20">20</option>
-                                <option {% if request.limit == 30 %} selected {% endif %} value="30">30</option>
+                                {#<option {% if request.limit == 10 %} selected {% endif %} value="10">10</option>#}
+                                {#<option {% if request.limit == 20 %} selected {% endif %} value="20">20</option>#}
+                                {#<option {% if request.limit == 30 %} selected {% endif %} value="30">30</option>#}
                                 <option {% if request.limit == 50 %} selected {% endif %} value="50">50</option>
                                 <option {% if request.limit == 100 %} selected {% endif %} value="100">100</option>
                                 <option {% if request.limit == 150 %} selected {% endif %} value="150">150</option>

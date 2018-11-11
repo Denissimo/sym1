@@ -48,7 +48,11 @@ class Builder
                 $criteria->andWhere(
                     Criteria::expr()->eq('inWork', 0)
                 );
-            } else {
+            } elseif($filter == 'worknew') {
+//                $criteria->andWhere(
+//                    Criteria::expr()->in('inWork', [0,1])
+//                );
+            }else {
                 $criteria->andWhere(
                     Criteria::expr()->eq('inWork', 1)
                 );

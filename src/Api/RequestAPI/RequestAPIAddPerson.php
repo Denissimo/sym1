@@ -22,7 +22,7 @@ class RequestAPIAddPerson extends RequestAPIPdo
 
     public function add()
     {
-        $query = 'INSERT INTO apps SET partner_id = :partner, foreign_id = :foreign_id, user_id = :user_id, status = 0, createdAt = now(), updatedAt = now(), ip = INET_ATON(:ip), `check` = :check;';
+        $query = 'INSERT INTO apps SET partner_id = :partner, foreign_id = :foreign_id, user_id = :user_id, status = 3, createdAt = now(), updatedAt = now(), ip = INET_ATON(:ip), `check` = :check;';
         $sth = $this->getPDO()->prepare($query);
         $sth->bindValue(':partner', $this->request->getPartner(), \PDO::PARAM_INT);
         $sth->bindValue(':foreign_id', $this->request->getForeignId(), \PDO::PARAM_INT);
