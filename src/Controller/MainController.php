@@ -145,7 +145,8 @@ class MainController extends BaseController
   f4.value_text  REGEXP "' . $search . '" OR
   f5.value_text  REGEXP "' . $search . '" OR
   f5.value_text  REGEXP "' . $search . '" OR
-  f8.value_text  REGEXP "' . $search . '"';
+  f8.value_text  REGEXP "' . $search . '" 
+  LIMIT 500';
             $search = Proxy::init()->getEntityManager()->getConnection()->query($sql)->fetchAll();
             $searchId = [];
             foreach ($search as $app) {
