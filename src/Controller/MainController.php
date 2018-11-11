@@ -53,6 +53,44 @@ class MainController extends BaseController
         return (new Render())->render($data);
     }
 
+    /**
+     * @Route("find", name="find")
+     * @return Response
+     */
+    public function find()
+    {
+        $data['login'] = self::getRequest()->get('_route');
+        $data['number'] = 'docs';
+        $data['request'] = self::getRequest()->query->all();
+        $search =  $data['request']['find'] ?? '';
+        $data['post'] = self::getRequest()->getMethod();
+        $data['uid'] = (new Autorize())->getUserId();
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
+        if($search) {
+            $sql = 'SELECT a.id, a.user_id, a.status, f39.value_text AS city, f4.value_text AS surname, f5.value_text  AS firstname, f6.value_text  AS middlename, f8.value_text  AS phone FROM apps a 
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 39) f39 ON a.id = f39.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 4) f4 ON a.id = f4.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 5) f5 ON a.id = f5.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 6) f6 ON a.id = f6.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 8) f8 ON a.id = f8.app_id
+  WHERE 
+  a.id  REGEXP "' . $search . '" OR
+  f39.value_text  REGEXP "' . $search . '" OR
+  f4.value_text  REGEXP "' . $search . '" OR
+  f5.value_text  REGEXP "' . $search . '" OR
+  f5.value_text  REGEXP "' . $search . '" OR
+  f8.value_text  REGEXP "' . $search . '"';
+            $search = Proxy::init()->getEntityManager()->getConnection()->query($sql)->fetchAll();
+            $searchId = [];
+            foreach ($search as $app) {
+                $searchId[] = $app['id'];
+            }
+
+
+        var_dump($searchId); die;
+    }
+        return (new Render())->render($data,'appstable.html.twig');
+    }
 
     /**
      * @Route("apps", name="apps")
@@ -67,6 +105,7 @@ class MainController extends BaseController
         $data['post'] = self::getRequest()->getMethod();
         $data['uid'] = (new Autorize())->getUserId();
         $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
+        $search =  $data['request']['find'] ?? '';
 
 //        $params = (new Params())->get('distribution');
 //        var_dump($params); die;
@@ -93,7 +132,31 @@ class MainController extends BaseController
 */
         $allApps = [];
         $apps = [];
-        if (!$filter) {
+        if($search) {
+            $sql = 'SELECT a.id, a.user_id, a.status, f39.value_text AS city, f4.value_text AS surname, f5.value_text  AS firstname, f6.value_text  AS middlename, f8.value_text  AS phone FROM apps a 
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 39) f39 ON a.id = f39.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 4) f4 ON a.id = f4.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 5) f5 ON a.id = f5.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 6) f6 ON a.id = f6.app_id
+  LEFT JOIN (SELECT * FROM field_values WHERE field_id = 8) f8 ON a.id = f8.app_id
+  WHERE 
+  a.id  REGEXP "' . $search . '" OR
+  f39.value_text  REGEXP "' . $search . '" OR
+  f4.value_text  REGEXP "' . $search . '" OR
+  f5.value_text  REGEXP "' . $search . '" OR
+  f5.value_text  REGEXP "' . $search . '" OR
+  f8.value_text  REGEXP "' . $search . '"';
+            $search = Proxy::init()->getEntityManager()->getConnection()->query($sql)->fetchAll();
+            $searchId = [];
+            foreach ($search as $app) {
+                $searchId[] = $app['id'];
+            }
+            $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
+                Criteria::create()->where(
+                    Criteria::expr()->in('id', $searchId)
+                )
+            )->toArray();
+        }elseif (!$filter) {
             $apps[] = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
                 (new Builder())->appsCommon(self::getRequest())
                     ->andWhere(Criteria::expr()->eq(\Apps::STATUS, \AppStatus::RED))

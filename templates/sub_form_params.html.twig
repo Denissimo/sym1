@@ -1,0 +1,137 @@
+<div class="row mart10 oldfilter">
+    <div class="col-3">
+        <div class="card text-center bg-white1">
+            <div class="card-header">
+                Дата создания - от
+            </div>
+            <div class="card-body">
+                <div class="col-10" id="datepick_create_from">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card text-center bg-white1">
+            <div class="card-header">
+                Дата создания - до
+            </div>
+            <div class="card-body">
+                <div class="col-10" id="datepick_create_to">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="card text-center bg-white1">
+            <div class="card-header">
+                Дата обработки - от
+            </div>
+            <div class="card-body">
+                <div class="col-10" id="datepick_update_from">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card text-center bg-white1">
+            <div class="card-header">
+                Дата обработки - до
+            </div>
+            <div class="card-body">
+                <div class="col-10" id="datepick_update_to">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mart10">
+        <div class="col-12 bg-white1">
+            <p class="card-text">
+
+            <div class="col-12 align-items-center">
+                <form class="form-inline">
+                    {#<div class="row">#}
+                    <div class="form-group mx-sm-2">
+                        <input type="text" class="form-control" name="create_from" id="create_from"
+                               placeholder="Дата создания ОТ" value="{{ request.create_from }}"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group mx-sm-2">
+                        <input type="text" class="form-control" name="create_to" id="create_to"
+                               placeholder="Дата создания ДО" value="{{ request.create_to }}"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group mx-sm-2">
+                        <input type="text" class="form-control" name="update_from" id="update_from"
+                               placeholder="Дата обработки ОТ" value="{{ request.update_from }}"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group mx-sm-2">
+                        <input type="text" class="form-control" name="update_to" id="update_to"
+                               placeholder="Дата обработки ДО" value="{{ request.update_to }}"
+                               autocomplete="off">
+                    </div>
+
+                    {% if access.all_apps %}
+                        <div class="form-group mx-sm-2">
+                            <select class="custom-select" name="userId">
+                                <option {% if not request.userId %} selected="selected" {% endif %} value="">Все
+                                </option>
+                                {% for user in Users %}
+                                    <option {% if request.userId == user.id %} selected="selected" {% endif %}
+                                            value="{{ user.id }}">{{ user.nameShort }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group mx-sm-2">
+                            <select class="custom-select" name="userTo">
+
+                                </option>
+                                {% for user in Users %}
+                                    <option {% if request.userTo == user.id %} selected="selected" {% endif %}
+                                            value="{{ user.id }}">Передать {{ user.nameShort }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group mx-sm-2">
+                            <select class="custom-select" name="filter">
+                                <option {% if not request.filter %} selected {% endif %} value="">В работе</option>
+                                <option {% if request.filter=='new' %} selected {% endif %} value="new">Новые</option>
+                                <option {% if request.filter=='worknew' %} selected {% endif %} value="worknew">Нов+В раб.</option>
+                                <option {% if request.filter=='ready' %} selected {% endif %} value="ready">Готовые</option>
+                                <option {% if request.filter=='trash' %} selected {% endif %} value="trash">Корзина</option>
+                            </select>
+                        </div>
+                    {% endif %}
+                    <div class="form-group mx-sm-2">
+                        <select class="custom-select" name="limit">
+                            {#<option {% if request.limit == 10 %} selected {% endif %} value="10">10</option>#}
+                            {#<option {% if request.limit == 20 %} selected {% endif %} value="20">20</option>#}
+                            {#<option {% if request.limit == 30 %} selected {% endif %} value="30">30</option>#}
+                            <option {% if request.limit == 50 %} selected {% endif %} value="50">50</option>
+                            <option {% if request.limit == 100 %} selected {% endif %} value="100">100</option>
+                            <option {% if request.limit == 150 %} selected {% endif %} value="150">150</option>
+                            <option {% if request.limit == 200 %} selected {% endif %} value="200">200</option>
+                            <option {% if request.limit == 250 %} selected {% endif %} value="250">250</option>
+                            <option {% if request.limit == 300 %} selected {% endif %} value="300">300</option>
+                            <option {% if request.limit == 350 %} selected {% endif %} value="350">350</option>
+                            <option {% if request.limit == 400 %} selected {% endif %} value="400">400</option>
+                            <option {% if request.limit == 450 %} selected {% endif %} value="450">450</option>
+                            <option {% if request.limit == 500 %} selected {% endif %} value="500">500</option>
+                        </select>
+                    </div>
+                    <div class="form-group mx-sm-2">
+                        <button type="submit" class="btn btn-sm btn-primary">Ok</button>
+                    </div>
+                </form>
+            </div>
+
+            </p>
+        </div>
+    </div>
+</div>
