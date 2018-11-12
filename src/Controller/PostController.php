@@ -22,7 +22,11 @@ use Monolog\Logger;
 
 class PostController extends BaseController
 {
-    const RETURN = 'return';
+    const
+        RETURN = 'return',
+        FIAS = 'field_fias',
+        FIAS1 = 'field_fias1';
+
     /**
      * @Route("changerole", name="changerole")
      * @return RedirectResponse
@@ -121,16 +125,23 @@ class PostController extends BaseController
         self::getRequest()->request->remove(\FieldValues::READY);
         $rerutn = self::getRequest()->get(self::RETURN);
         self::getRequest()->request->remove(self::RETURN);
-//        var_dump($rerutn); die;
+        $fias = self::getRequest()->get(self::FIAS1) ?
+            self::getRequest()->get(self::FIAS1) : self::getRequest()->get(self::FIAS);
+        self::getRequest()->request->remove(self::FIAS);
+        self::getRequest()->request->remove(self::FIAS1);
+//        var_dump($fias); die;
         $idArray = [];
+        $fiasArray = [];
 //        foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
 //            $idArray[$fieldId] = $fieldId;
 //        }
         foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
             preg_match('/field_(\d{1,2})/', $fieldId, $id);
             $idArray[(int)$id[1]] = (int)$id[1];
+            $fiasArray[(int)$id[1]] = null;
         }
-
+        $fiasArray[\Fields::CITY] = $fias;
+//        var_dump($fiasArray); die;
 //        var_dump($idArray); die;
         /** @var \Apps $app */
         $app = current(
@@ -153,9 +164,11 @@ class PostController extends BaseController
 
         foreach ($fieldValues as $fv) {
             unset($idArray[$fv->getField()->getId()]);
-            $fv->setValueText(
-                self::getRequest()->get(AppController::FIELD_PREFIX . $fv->getField()->getId())
-            );
+            $fv
+                ->setValueText(
+                    self::getRequest()->get(AppController::FIELD_PREFIX . $fv->getField()->getId())
+                )
+                ->setValue($fiasArray[$fv->getField()->getId()]);
         }
 
         /** @var \Fields[] $fields */
@@ -164,7 +177,7 @@ class PostController extends BaseController
                 ->where(
                     Criteria::expr()->in(\FieldValues::ID, $idArray)
                 )
-            )
+        )
             ->toArray();
 
         /** @var \Fields[] $fieldList */
@@ -176,9 +189,10 @@ class PostController extends BaseController
         unset($fields);
 
         foreach ($idArray as $id) {
-            if(self::getRequest()->get(AppController::FIELD_PREFIX . $id)) {
+            if (self::getRequest()->get(AppController::FIELD_PREFIX . $id)) {
                 $newFieldValue = (new \FieldValues())
                     ->setValueText(self::getRequest()->get(AppController::FIELD_PREFIX . $id))
+                    ->setValue($fiasArray[$id])
                     ->setApp($app)
                     ->setField($fieldList[$id]);
                 Proxy::init()->getEntityManager()->persist($newFieldValue);
@@ -191,7 +205,6 @@ class PostController extends BaseController
         }
 
         Proxy::init()->getEntityManager()->flush();
-
         return $this->redirect(
             $rerutn ? $this->generateUrl('apps') : self::getRequest()->headers->get('referer')
         );
@@ -272,7 +285,7 @@ class PostController extends BaseController
             (int)self::getRequest()->get(self::APP_ID)
         );
         $userTo = (int)self::getRequest()->get('userTo') ? (int)self::getRequest()->get('userTo') : 1;
-        $app->setUserId( $userTo );
+        $app->setUserId($userTo);
         Proxy::init()->getEntityManager()->flush();
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')

@@ -31,12 +31,12 @@
                                 <td>{{ app.updatedAtString }}</td>
                             </tr>
                             {#<tr>#}
-                                {#<td>Пользователь</td>#}
-                                {#<td>{{ app.user.name }}</td>#}
+                            {#<td>Пользователь</td>#}
+                            {#<td>{{ app.user.name }}</td>#}
                             {#</tr>#}
                             {#<tr>#}
-                                {#<td>Емайл</td>#}
-                                {#<td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>#}
+                            {#<td>Емайл</td>#}
+                            {#<td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>#}
                             {#</tr>#}
                             <tr>
                                 <td>Комментарии</td>
@@ -131,9 +131,9 @@
                                                 {% endfor %}
                                             </select>
                                             {#<input type="text" class="form-control col-8"#}
-                                                   {#placeholder="{{ fv.field.Description }}"#}
-                                                   {#id="field_{{ fv.field.name }}"#}
-                                                   {#name="field_{{ fv.field.id }}" value="{{ fv.valueText }}"/>#}
+                                            {#placeholder="{{ fv.field.Description }}"#}
+                                            {#id="field_{{ fv.field.name }}"#}
+                                            {#name="field_{{ fv.field.id }}" value="{{ fv.valueText }}"/>#}
                                         {% else %}
                                             <input type="text" class="form-control col-8"
                                                    placeholder="{{ fv.field.Description }}"
@@ -163,10 +163,13 @@
 
                                 {% endfor %}
                             {% endfor %}
+                            <input type="hidden" id="field_fias" name="field_fias" value=""/>
+                            <input type="hidden" id="field_fias1" name="field_fias1" value=""/>
                             <div class="form-group row">
                                 <div class="btn-group-toggle col-2 offset-3" data-toggle="buttons">
                                     {#<br />#}
-                                    <label id="btn_ready" class="btn btn-secondary {% if  app.status == 6 %} btn-success active {% endif %}">
+                                    <label id="btn_ready"
+                                           class="btn btn-secondary {% if  app.status == 6 %} btn-success active {% endif %}">
                                         <input id="ready" name="ready"
                                                type="checkbox" {% if app.status == 6 %} checked {% endif %}
                                                autocomplete="off">
@@ -177,7 +180,9 @@
                                     <button type="submit" class="btn btn-success save">Сохранить</button>
                                 </div>
                                 <div class="col-2">
-                                    <button type="submit" class="btn btn-success save" name="return" id="return" value="true" disabled="disabled">Отправить</button>
+                                    <button type="submit" class="btn btn-success save" name="return" id="return"
+                                            value="true" disabled="disabled">Отправить
+                                    </button>
                                 </div>
                             </div>
                         </form>

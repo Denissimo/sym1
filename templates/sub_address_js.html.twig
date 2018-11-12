@@ -77,6 +77,7 @@
         $("#field_building1").val($("#field_building").val());
         $("#field_structure1").val($("#field_structure").val());
         $("#field_apartment1").val($("#field_apartment").val());
+        $("#field_fias1").val($("#field_fias").val());
         return false;
     });
 
@@ -125,8 +126,8 @@
         }
 
         $('#field_apartment' + prefix).val(data.flat);
-        $('#field_timezone' + prefix).val(data.timezone);
-        console.log(data.region_fias_id);
+        $('#field_fias' + prefix).val(data.region_fias_id);
+//        console.log(data.region_fias_id);
     }
 
     function fill_job(data) {
