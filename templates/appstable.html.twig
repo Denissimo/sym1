@@ -64,7 +64,11 @@
                             </td>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.lastName }}&nbsp;{{ app.firstName }}
                                     &nbsp;{{ app.middleName }}</a></td>
-                            <td>{{ app.phone }}<br/>{{ app.city }}<br/>Часовой пояс: {{ app.timeZone - 3 }}</td>
+                            <td>{{ app.phone }}<br/>{{ app.city }}<br/>
+                                {% if app.timeZone > 0 %}
+                                Часовой пояс: {{ app.timeZone - 3 }}
+                                {% endif %}
+                            </td>
                             <td>{{ app.userName }}</td>
                             {#<td><img src="/images/color_labels/{{ app.appStatus.picture }}" class="color_label" /> </td>#}
                             <td>

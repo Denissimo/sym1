@@ -529,11 +529,11 @@ class Apps
     }
 
     /**
-     * @return string | null
+     * @return int | null
      */
     public function getTimeZone()
     {
-        return $this->getFieldValue(\Fields::TIME_ZONE);
+        return (int)$this->getFieldValue(\Fields::TIME_ZONE);
     }
 
     /**
