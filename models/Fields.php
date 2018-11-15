@@ -19,7 +19,8 @@ class Fields
         MIDDLE_NAME = 6,
         CITY = 39,
         PHONE = 8,
-        CITY_MAX_LENGTH = 32
+        CITY_MAX_LENGTH = 32,
+        TIME_ZONE = 59
     ;
 
     /**

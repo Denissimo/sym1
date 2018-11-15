@@ -25,7 +25,10 @@ class PostController extends BaseController
     const
         RETURN = 'return',
         FIAS = 'field_fias',
-        FIAS1 = 'field_fias1';
+        FIAS1 = 'field_fias1',
+        TIME_ZONE = 'field_timezone',
+        TIME_ZONE1 = 'field_timezone1',
+        TIME_ZONE_DEFAULT = 3;
 
     /**
      * @Route("changerole", name="changerole")
@@ -119,28 +122,32 @@ class PostController extends BaseController
      */
     public function updClientData()
     {
-        $appId = self::getRequest()->get(\FieldValues::APP_ID);
-        self::getRequest()->request->remove(\FieldValues::APP_ID);
-        $ready = self::getRequest()->get(\FieldValues::READY);
-        self::getRequest()->request->remove(\FieldValues::READY);
-        $rerutn = self::getRequest()->get(self::RETURN);
-        self::getRequest()->request->remove(self::RETURN);
-        $fias = self::getRequest()->get(self::FIAS1) ?
-            self::getRequest()->get(self::FIAS1) : self::getRequest()->get(self::FIAS);
-        self::getRequest()->request->remove(self::FIAS);
-        self::getRequest()->request->remove(self::FIAS1);
+        $request = self::getRequest()->request->all();
+//        var_dump(self::getRequest()->request->all()); die;
+        $appId = $request[\FieldValues::APP_ID];
+        unset($request[\FieldValues::APP_ID]);
+        $ready = $request[\FieldValues::READY] ?? null;
+        unset($request[\FieldValues::READY]);
+        $rerutn = $request[self::RETURN] ?? null;
+        unset($request[self::RETURN]);
+        $fias = $request[self::FIAS1] ?? null;
+        unset($request[self::FIAS]);
+        unset($request[self::FIAS1]);
 //        var_dump($fias); die;
         $idArray = [];
         $fiasArray = [];
-//        foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
-//            $idArray[$fieldId] = $fieldId;
-//        }
-        foreach (self::getRequest()->request->all() as $fieldId => $fielfValue) {
+        foreach ($request as $fieldId => $fielfValue) {
             preg_match('/field_(\d{1,2})/', $fieldId, $id);
             $idArray[(int)$id[1]] = (int)$id[1];
             $fiasArray[(int)$id[1]] = null;
         }
         $fiasArray[\Fields::CITY] = $fias;
+
+        if ($fias) {
+            $request[AppController::FIELD_PREFIX . \Fields::TIME_ZONE] = $this->getTimeZone($fias);
+            $idArray[\Fields::TIME_ZONE] = \Fields::TIME_ZONE;
+            $fiasArray[\Fields::TIME_ZONE] = null;
+        }
 //        var_dump($fiasArray); die;
 //        var_dump($idArray); die;
         /** @var \Apps $app */
@@ -162,11 +169,14 @@ class PostController extends BaseController
         )
             ->toArray();
 
+
+//        var_dump($request[AppController::FIELD_PREFIX . \Fields::TIME_ZONE]); die;
+
         foreach ($fieldValues as $fv) {
             unset($idArray[$fv->getField()->getId()]);
             $fv
                 ->setValueText(
-                    self::getRequest()->get(AppController::FIELD_PREFIX . $fv->getField()->getId())
+                    $request [AppController::FIELD_PREFIX . $fv->getField()->getId()]
                 )
                 ->setValue($fiasArray[$fv->getField()->getId()]);
         }
@@ -189,9 +199,9 @@ class PostController extends BaseController
         unset($fields);
 
         foreach ($idArray as $id) {
-            if (self::getRequest()->get(AppController::FIELD_PREFIX . $id)) {
+            if ($request[AppController::FIELD_PREFIX . $id]) {
                 $newFieldValue = (new \FieldValues())
-                    ->setValueText(self::getRequest()->get(AppController::FIELD_PREFIX . $id))
+                    ->setValueText($request[AppController::FIELD_PREFIX . $id])
                     ->setValue($fiasArray[$id])
                     ->setApp($app)
                     ->setField($fieldList[$id]);
@@ -208,6 +218,18 @@ class PostController extends BaseController
         return $this->redirect(
             $rerutn ? $this->generateUrl('apps') : self::getRequest()->headers->get('referer')
         );
+    }
+
+    /**
+     * @param string $fias
+     * @return string | null
+     */
+    private function getTimeZone(string $fias)
+    {
+        $query = 'SELECT * FROM addrobj a LEFT JOIN region2offset r ON a.regioncode=r.region WHERE a.aoguid ="' . $fias . '"';
+        $timeZone = current(Proxy::init()->getEntityManager()->getConnection()->query($query)->fetchAll())['offset'];
+        return $timeZone ? $timeZone - self::TIME_ZONE_DEFAULT : null;
+//        return $timeZone ?? null;
     }
 
     /**

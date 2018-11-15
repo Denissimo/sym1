@@ -531,6 +531,14 @@ class Apps
     /**
      * @return string | null
      */
+    public function getTimeZone()
+    {
+        return $this->getFieldValue(\Fields::TIME_ZONE);
+    }
+
+    /**
+     * @return string | null
+     */
     public function getPhone()
     {
         return $this->getFieldValue(\Fields::PHONE);
