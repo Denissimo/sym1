@@ -169,9 +169,6 @@ class PostController extends BaseController
         )
             ->toArray();
 
-
-//        var_dump($request[AppController::FIELD_PREFIX . \Fields::TIME_ZONE]); die;
-
         foreach ($fieldValues as $fv) {
             unset($idArray[$fv->getField()->getId()]);
             $fv
@@ -179,7 +176,11 @@ class PostController extends BaseController
                     $request [AppController::FIELD_PREFIX . $fv->getField()->getId()]
                 )
                 ->setValue($fiasArray[$fv->getField()->getId()]);
+//            echo "<br />" . $fv->getField()->getId() . ">>>" . $request [AppController::FIELD_PREFIX . $fv->getField()->getId()];
         }
+
+
+//        var_dump($request[AppController::FIELD_PREFIX . \Fields::TIME_ZONE]); die;
 
         /** @var \Fields[] $fields */
         $fields = Proxy::init()->getEntityManager()->getRepository(\Fields::class)->matching(
@@ -228,8 +229,8 @@ class PostController extends BaseController
     {
         $query = 'SELECT * FROM addrobj a LEFT JOIN region2offset r ON a.regioncode=r.region WHERE a.aoguid ="' . $fias . '"';
         $timeZone = current(Proxy::init()->getEntityManager()->getConnection()->query($query)->fetchAll())['offset'];
-        return $timeZone ? $timeZone - self::TIME_ZONE_DEFAULT : null;
-//        return $timeZone ?? null;
+//        return $timeZone ? (string)($timeZone - self::TIME_ZONE_DEFAULT) : null;
+        return $timeZone ?? null;
     }
 
     /**

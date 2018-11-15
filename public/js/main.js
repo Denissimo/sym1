@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     $('.collapse_row').hide();
+    $('#field_timezone').parent().hide();
     $.datepicker.regional['ru'] = {
         closeText: 'Закрыть',
         prevText: '&#x3c;Пред',
