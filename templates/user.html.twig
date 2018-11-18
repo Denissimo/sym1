@@ -13,84 +13,17 @@
                     </div>
                     <div class="row">
                         <div class="col-6 text-center mart10 marb20 padt01">
-                            <div class="card border-secondary mb-3 shadow-lg">
-                                <div class="card-header">Пользователь</div>
-                                <div class="card-body">
-                                    {#<h5 class="card-title">Пользователь</h5>#}
-                                    <p class="card-text">
-                                    <form method="post" action="/edituser">
-                                        <input type="hidden" name="id" value="{{ user.id }}">
-                                        <div class="form-group">
-                                            <label for="name">Имя</label>
-                                            <input type="text" class="form-control" name="name" id="name"
-                                                   placeholder="Ф.И.О." value="{{ user.name }}">
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-6">
-                                                <label for="email">Емайл</label>
-                                                <input type="text" class="form-control" name="email" id="email"
-                                                       placeholder="Email" value="{{ user.email }}">
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="password">Пароль</label>
-                                                <input type="text" class="form-control" name="password" id="password"
-                                                       placeholder="Пароль">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="btn-group-toggle col-6" data-toggle="buttons">
-                                                {#<br />#}
-                                                <label class="btn btn-secondary {% if  user.enabled %} btn-success active {% endif %}">
-                                                    <input id="enabled" name="enabled"
-                                                           type="checkbox" {% if  user.enabled %} checked {% endif %}
-                                                           autocomplete="off">
-                                                    Активен
-                                                </label>
-                                            </div>
-                                            <div class="col-6">
-                                                {#<label for="priority">Приоритет</label>#}
-                                                <input type="text" class="form-control" name="priority" id="priority"
-                                                       placeholder="Приоритет" value="{{ user.priority }}">
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">OK</button>
-                                        <br/>
-                                        <br/>
-                                    </form>
-                                    </p>
-                                </div>
-                            </div>
+                            {{ include('sub_user_data.html.twig', { 'article': article }) }}
                         </div>
                         <div class="col-6 text-center mart10 marb20 padt01">
-                            <div class="card border-secondary mb-3 shadow-lg">
-                                <div class="card-header">Роли</div>
-                                <div class="card-body">
-                                    {#<h5 class="card-title">Пользователь</h5>#}
-                                    <p class="card-text">
-                                        {#<ul class="list-group">#}
-                                        {% for lr in list_roles %}
-                                        {#<li class="list-group-item">#}
-                                    <form method="post" action="/changerole">
-                                        <input type="hidden" name="user_id" value="{{ user.id }}">
-                                        <input type="hidden" name="role_id" value="{{ lr.id }}">
-                                        <input type="hidden" name="action"
-                                               value="{% if lr.access %}del{% else %}add{% endif %}">
-                                        <button type="submit"
-                                                class="mart10 col-6  {% if lr.access %}btn btn-success {% else %}btn btn-secondary{% endif %}">{{ lr.name }}
-                                        </button>
-                                        {#{{ lr.id }} >> {{ lr.name }} >> {{ lr.access }}#}
-                                    </form>
-                                    {#</li>#}
-                                    {% endfor %}
-                                    {#</ul>#}
-                                    </p>
-                                </div>
-                            </div>
-
+                            {{ include('sub_user_roles.html.twig', { 'article': article }) }}
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-12 text-center mart10 marb20 padt01">
+                            {{ include('sub_user_schedule.html.twig', { 'article': article }) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

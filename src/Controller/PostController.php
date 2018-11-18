@@ -281,6 +281,46 @@ class PostController extends BaseController
     }
 
     /**
+     * @Route("addschedule", name="addschedule")
+     * @return RedirectResponse
+     */
+    public function addSchedule()
+    {
+        $type = self::getRequest()->get('type');
+        if ($type) {
+            $fromDate = self::getRequest()->get('date_from');
+        } else {
+            $day = self::getRequest()->get('date_from');
+            $fromDate = date('d.m.Y', strtotime('next ' . $day));
+        }
+        $fromTime = self::getRequest()->get('time_from') ?? '00:00';
+        $fromGet = $fromDate . 'T' . $fromTime;
+        $fromDt = \DateTime::createFromFormat('d.m.Y\TH:i', $fromGet);
+
+        $toTime = self::getRequest()->get('time_to') ?? '00:00';
+        $dateTo = self::getRequest()->get('date_to') ?? $fromDate;
+        $toGet = $dateTo . 'T' . $toTime;
+        $toDt = \DateTime::createFromFormat('d.m.Y\TH:i', $toGet);
+
+        /** @var \Users $user */
+        $user = Proxy::init()->getEntityManager()->getRepository(\Users::class)
+            ->findOneBy(['id' => self::getRequest()->get('user_id')]);
+//        var_dump($fromGet); die;
+        $newSchedule = (new \UsersSchedule())
+            ->setEnabled(true)
+            ->setType(self::getRequest()->get('type'))
+            ->setUser($user)
+            ->setDateFrom($fromDt)
+            ->setDateTo($toDt);
+
+        Proxy::init()->getEntityManager()->persist($newSchedule);
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
      * @Route("trash", name="trash")
      * @return RedirectResponse
      */
