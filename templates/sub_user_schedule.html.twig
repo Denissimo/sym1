@@ -15,13 +15,13 @@
                         <label for="week_date_from">День</label>
                         {#<input type="text" class="form-control mx-2" name="date_from" id="week_date_from">#}
                         <select name="date_from" id="week_day" class="form-control mx-2">
-                                <option value="Monday">Понедельник</option>
-                                <option value="Tuesday">Вторник</option>
-                                <option value="Wednesday">Среда</option>
-                                <option value="Thursday">Четверг</option>
-                                <option value="Friday">Пятница</option>
-                                <option value="Saturday">Суббота</option>
-                                <option value="Sunday">Воскресенье</option>
+                            <option value="Monday">Понедельник</option>
+                            <option value="Tuesday">Вторник</option>
+                            <option value="Wednesday">Среда</option>
+                            <option value="Thursday">Четверг</option>
+                            <option value="Friday">Пятница</option>
+                            <option value="Saturday">Суббота</option>
+                            <option value="Sunday">Воскресенье</option>
                         </select>
                     </div>
 
@@ -49,7 +49,6 @@
                     </div>
                 </form>
             </div>
-
 
 
             <div class="col-7">
@@ -90,6 +89,46 @@
                         <button type="submit" class="btn btn-success">Ok</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="row mart20">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Активно</th>
+                        <th>Оператор</th>
+                        <th>От</th>
+                        <th>До</th>
+                        <th>Удалить</th>
+                    </tr>
+                    {% for sced in schedules %}
+                        <tr>
+                            <td>
+                                <a href="/editschedule?id={{ sced.id }}">
+                                    {% if sced.enabled %} <img class="color_label"
+                                                               src="/images/color_labels/color_green.png"/> {% else %}
+                                        <img class="color_label" src="/images/color_labels/color_gray.png"/> {% endif %}
+                                    {#<p class="emoji {% if sced.enabled %} emoji2705 {% else %} emoji2611 {% endif %}"></p>#}
+                                </a>
+                            </td>
+                            <td>{{ sced.user.nameShort }}</td>
+                            {% if sced.type %}
+                                <td>{{ sced.dateFromString }}</td>
+                                <td>{{ sced.dateToString }}</td>
+                            {% else %}
+                                <td>{{ sced.dayFrom }}</td>
+                                <td>{{ sced.dayTo }}</td>
+                            {% endif %}
+
+                            <td>
+                                <a href="/delschedule?id={{ sced.id }}">
+                                    <p class="emoji emoji274c"></p>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
         </p>

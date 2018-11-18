@@ -54,10 +54,25 @@ class UsersController extends BaseController
         /** @var \Roles[] $roles */
         $roles = Proxy::init()->getEntityManager()->getRepository(\Roles::class)->findAll();
 
-        /** @var \UsersSchedule[] $schedules */
-        $schedules = Proxy::init()->getEntityManager()->getRepository(\UsersSchedule::class)->findBy(
-            ['user' => $user]
+        /** @var \UsersSchedule[] $scheduleDays */
+        $scheduleDays = Proxy::init()->getEntityManager()->getRepository(\UsersSchedule::class)->findBy(
+            [
+                'user' => $user,
+//                'enabled' => 1,
+                'type' => 0
+            ]
         );
+
+        /** @var \UsersSchedule[] $scheduleDates */
+        $scheduleDates = Proxy::init()->getEntityManager()->getRepository(\UsersSchedule::class)->findBy(
+            [
+                'user' => $user,
+//                'enabled' => 1,
+                'type' => 1
+            ]
+        );
+
+        $schedules = array_merge($scheduleDays, $scheduleDates);
 
 //        var_dump($schedules[0]->getId());die;
 //        var_dump($roles[0]->getName());die;

@@ -194,10 +194,18 @@ class UsersSchedule
     /**
      * @return string
      */
-    public function getDayTime()
+    public function getDayFrom()
     {
         return self::$days[$this->dateFrom->format('l')] . '_'
-            . $this->dateFrom->format('H:i') . '_'
+            . $this->dateFrom->format('H:i');
+    }
+
+    /**
+     * @return string
+     */
+    public function getDayTo()
+    {
+        return self::$days[$this->dateTo->format('l')] . '_'
             . $this->dateTo->format('H:i');
     }
 

@@ -286,6 +286,11 @@ class PostController extends BaseController
      */
     public function addSchedule()
     {
+        if(!self::getRequest()->get('date_from')) {
+            return $this->redirect(
+                self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+            );
+        }
         $type = self::getRequest()->get('type');
         if ($type) {
             $fromDate = self::getRequest()->get('date_from');
@@ -320,6 +325,39 @@ class PostController extends BaseController
         );
     }
 
+    /**
+     * @Route("editschedule", name="editschedule")
+     * @return RedirectResponse
+     */
+    public function editSchedule()
+    {
+        $id = self::getRequest()->get('id');
+        /** @var \UsersSchedule $schedule */
+        $schedule = Proxy::init()->getEntityManager()->getRepository(\UsersSchedule::class)->find($id);
+        $enabled = $schedule->getEnabled();
+        $enabledNew = $enabled ? false : true;
+        $schedule->setEnabled($enabledNew);
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+    /**
+     * @Route("delschedule", name="delschedule")
+     * @return RedirectResponse
+     */
+    public function delSchedule()
+    {
+        $id = self::getRequest()->get('id');
+        /** @var \UsersSchedule $schedule */
+        $schedule = Proxy::init()->getEntityManager()->getRepository(\UsersSchedule::class)->find($id);
+        Proxy::init()->getEntityManager()->remove($schedule);
+        Proxy::init()->getEntityManager()->flush();
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
     /**
      * @Route("trash", name="trash")
      * @return RedirectResponse
