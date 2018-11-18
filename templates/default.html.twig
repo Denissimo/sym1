@@ -1,21 +1,19 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="row padt01">
-        <div class="loginform col-4 offset-4">
-
-            <a href="/apps"><button class="btn btn-warning">Список заявок</button></a>
-            <a href="/users"><button class="btn btn-info">Список Пользователей</button></a>
-             {#{{ number }} {{ post }} {{ login }}<br />#}
-            <!--
-            <form class="form-horizontal" role="form" method="POST" action="/autorize">
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="hidden" name="logout" value="1">
-                            <button type="submit" class="btn btn-default btn-sm">Logout</button>
-                        </div>
+    <div class="container-fluid">
+        <div class="row mart10">
+            <div class="col-12 shadow-lg bg-white1">
+                <div class="row mart20">
+                    <div class="text-center col-6 offset-3 padb01">
+                        <br /><br /><br />
+                        <a href="/apps"><button class="btn btn-warning col-3">Список заявок</button></a>
+                        <a href="/users"><button class="btn btn-info col-3">Список Пользователей</button></a>
+                        <a href="/options"><button class="btn btn-success col-3">Настройки</button></a>
+                        <br /><br /><br />
                     </div>
-            </form>
-            -->
+                </div>
+
+            </div>
         </div>
     </div>
 {% endblock %}

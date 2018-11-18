@@ -64,9 +64,9 @@
                             </td>
                             <td><a href="/app?app_id={{ app.id }}">{{ app.lastName }}&nbsp;{{ app.firstName }}
                                     &nbsp;{{ app.middleName }}</a></td>
-                            <td>{{ app.phone }}<br/>{{ app.city }}<br/>
+                            <td>{{ app.phone }}<br/>{{ app.city }}
                                 {% if app.timeZone > 0 %}
-                                Часовой пояс: {{ app.timeZone - 3 }}
+                                <p class="emoji emoji1f559"></p> {{ app.timeZone - 3 }}
                                 {% endif %}
                             </td>
                             <td>{{ app.userName }}</td>
