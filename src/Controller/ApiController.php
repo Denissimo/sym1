@@ -7,9 +7,11 @@ use App\Api\Config;
 use App\Exceptions\DefaultException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Proxy;
 use App\Twig\Render;
 use App\Api\RequestAPI\RequestAPI;
+use App\Api\Slovo\Api4s;
 
 
 class ApiController extends BaseController
@@ -53,6 +55,15 @@ class ApiController extends BaseController
             return (new Render())->simpleRender(['data' => $e->getMessage()], 'test.html.twig');
         }
 //        $data['data'] = Config::get('requestAPI.workingTime');
+    }
+
+    /**
+     * @Route("api4s", name="api4s")
+     * @param Request $request
+     */
+    public function api4s(Request $request)
+    {
+        (new Api4s())->dataSend($request);
     }
 
     /**
