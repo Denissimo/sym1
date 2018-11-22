@@ -48,6 +48,7 @@ class Builder
             $time[] = ['value' => $i * 24, 'text' => $i . ':00'];
             $time[] = ['value' => $i * 24 + 30, 'text' => $i . ':30'];
         }
+        $time[] = ['value' => 24 * 24, 'text' =>  '24:00'];
         return $time;
     }
 
