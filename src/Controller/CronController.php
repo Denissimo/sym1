@@ -49,6 +49,7 @@ class CronController extends BaseController
                   AND u.enabled = 1
                 AND sc.user_id IS NOT NULL
             ';
+            Proxy::init()->getLogger()->addWarning($query);
             $usersReady = Proxy::init()->getEntityManager()->getConnection()->query($query)->fetchAll();
             $userIdArray = array_column($usersReady, 'id');
             $prioriyArray = array_column($usersReady, 'priority');
@@ -115,7 +116,7 @@ class CronController extends BaseController
      */
     private function userSet($apps, $priorities)
     {
-//        var_dump(count($apps)); die;
+//        var_dump($priorities); die;
 
         $userIds = array_keys($priorities);
         $num = 0;
