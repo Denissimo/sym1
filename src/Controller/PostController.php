@@ -449,6 +449,7 @@ class PostController extends BaseController
     public function changeopts()
     {
         (new Params())
+            ->set(OptionsController::LIMIT, self::getRequest()->get(OptionsController::LIMIT))
             ->set(OptionsController::DISTR, self::getRequest()->get(OptionsController::DISTR))
             ->set(OptionsController::ROWS, self::getRequest()->get(OptionsController::ROWS));
         return $this->redirect(

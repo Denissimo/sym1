@@ -13,7 +13,8 @@ class OptionsController extends BaseController
 
     const
         DISTR = 'distribution',
-        ROWS = 'rows_for_iteration'
+        ROWS = 'rows_for_iteration',
+        LIMIT = 'apps_limit_for_user'
     ;
     /**
      * @Route("options", name="options")
@@ -24,7 +25,8 @@ class OptionsController extends BaseController
 
         $data = [
             self::DISTR => (new Params())->get(self::DISTR),
-            self::ROWS => (new Params())->get(self::ROWS)
+            self::ROWS => (new Params())->get(self::ROWS),
+            self::LIMIT => (new Params())->get(self::LIMIT)
         ];
         return (new Render())->render($data, 'options.html.twig');
     }
