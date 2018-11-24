@@ -68,6 +68,7 @@ class Api4s
             $this->response(0, 'Status not ready');
         }
 
+
         $pass = 'H0XtlQkar3uigSwyjF_BIdm1v66-XqI2';
         $data['partner'] = $result['partner_id'];
         $data['pid'] = $result['foreign_id'];
@@ -88,6 +89,7 @@ class Api4s
         $data['data']['passportWho'] = Functions::getValueText($id, 'passportWho');
         $data['data']['passportDate'] = Functions::getValueText($id, 'passportDate');
         $data['data']['passportCity'] = $this->checkFIAS($id, 'passportCity');
+        $data['data']['passportCity'] = Functions::getValueText($id, 'passportCity');
         $data['data']['passportCode'] = Functions::getValueText($id, 'passportCode');
 
         $marital_statuses = array(
@@ -99,8 +101,9 @@ class Api4s
         );
 
         $marital_status = Functions::getValueTextId($id, 'maritalStatus');
-        $data['data']['maritalStatus'] = $marital_statuses[$marital_status];
 
+        $data['data']['maritalStatus'] = $marital_statuses[$marital_status];
+        var_dump($data); die;
         $educations = array(
             89 => '26',
             90 => '27',

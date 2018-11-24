@@ -14,66 +14,19 @@ use App\Api\RequestAPI\RequestAPI;
 use App\Api\Slovo\Api4s;
 
 
-class ApiController extends BaseController
+class ReportController extends BaseController
 {
 
     /**
-     * @Route("api", name="api")
+     * @Route("report", name="report")
      * @return Response
      */
-    public function api()
+    public function report()
     {
-        $appId = self::getRequest()->get(self::APP_ID);
-//        $data['data'] = json_decode(Config::get('requestAPI.workingTime'), true);
-        $res = true;
-            var_dump(self::getRequest()->getRequestUri());
 
+        Proxy::init()->getConnecton()->query();
 
-        try {
-            $data = file_get_contents("php://input");
-            Proxy::init()->getLogger()->addWarning(
-                "\nINPUT:\r\n" . \GuzzleHttp\json_encode($data)
-            );
-            Proxy::init()->getLogger()->addWarning(
-                "\nPOST:\r\n" . \GuzzleHttp\json_encode($_POST)
-            );
-
-            Proxy::init()->getLogger()->addWarning(
-                "\nGET:\r\n" . \GuzzleHttp\json_encode($_GET)
-            );
-//            var_dump($_POST);die;
-            new RequestAPI($data);
-            $res = $data;
-            $renderData['data'] = $res;
-            return (new Render())->simpleRender($renderData, 'test.html.twig');
-
-        } catch (\Exception $e) {
-            Proxy::init()->getLogger()->addWarning(
-                $e->getMessage()
-            );
-            $res = $e->getMessage();
-            return (new Render())->simpleRender(['data' => $e->getMessage()], 'test.html.twig');
-        }
-//        $data['data'] = Config::get('requestAPI.workingTime');
+        return (new Render())->simpleRender(['data' => $e->getMessage()], 'test.html.twig');
     }
 
-    /**
-     * @Route("api4s", name="api4s")
-     * @param Request $request
-     */
-    public function api4s(Request $request)
-    {
-        (new Api4s())->dataSend($request);
-    }
-
-    /**
-     * @Route("postlog", name="postlog")
-     * @return Response
-     */
-    public function postlog()
-    {
-        Proxy::init()->getLogger()
-            ->addWarning(\GuzzleHttp\json_encode(self::getRequest()->request->all()));
-        return (new Render())->simpleRender([], 'test.html.twig');
-    }
 }
