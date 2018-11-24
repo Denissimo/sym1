@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\Criteria;
 class CronController extends BaseController
 {
     const
-    APP_LIMIT = 3,
+        APP_LIMIT = 3,
         PRIORITY = 'priority',
         PART = 'part';
 
@@ -31,7 +31,9 @@ class CronController extends BaseController
             $day3 = (new \DateTime('today'))->sub(new \DateInterval('P3D'))->format('Y-m-d');
             $query = '
                   SELECT u.id, u.name, ry.ry_qty, unpoc.unpoc_qty, u.enabled, u.priority, sc.user_id, sc.num FROM users u LEFT JOIN (
-                  SELECT a.user_id, COUNT(a.id) AS ry_qty FROM apps a WHERE a.status IN (1, 2)  AND DATE(a.updatedAt) > "' . $day3 . '"  AND DATE(a.updatedAt) < NOW() GROUP BY a.user_id
+                  SELECT a.user_id, COUNT(a.id) AS ry_qty FROM 
+                  (SELECT user_id, id, a.updatedAt FROM apps a WHERE a.status IN (1, 2)  AND DATE(a.updatedAt) > "' . $day3 . '" AND a.updatedAt < NOW()) a 
+                  GROUP BY a.user_id
                  ) ry ON ry.user_id = u.id LEFT JOIN (
                  SELECT a.user_id, COUNT(a.id) AS unpoc_qty FROM apps a LEFT JOIN comments c ON a.id = c.app_id WHERE c.id IS NULL GROUP BY a.user_id
                   ) unpoc ON u.id = unpoc.user_id
@@ -123,7 +125,7 @@ class CronController extends BaseController
         $qty = 0;
         foreach ($apps as $app) {
             $qty++;
-            if( $qty > self::APP_LIMIT ){
+            if ($qty > self::APP_LIMIT) {
                 $num++;
                 $qty = 0;
             }
