@@ -80,6 +80,9 @@ class CronController extends BaseController
 //                        ->setMaxResults($params[OptionsController::ROWS])
                 )
                 ->toArray();
+            if(!count($users)) {
+                return (new Render())->simpleRender(['data' => 'no users available'], 'test.html.twig');
+            }
 //
             $priorities = $this->priorities($users);
 
@@ -120,22 +123,27 @@ class CronController extends BaseController
     {
 //        var_dump($priorities); die;
 
+        $appsLimit = (new Params())->get('apps_limit_for_user');
         $userIds = array_keys($priorities);
+
         $num = 0;
         $qty = 0;
         foreach ($apps as $app) {
             $qty++;
-            if ($qty > self::APP_LIMIT) {
-                $num++;
-                $qty = 0;
-            }
             if (isset($userIds[$num])) {
                 $id = $userIds[$num];
                 $app->setUserId($id);
-//                $num++;
+//                var_dump($userIds[$num]);
             } else {
                 break;
             }
+
+            if ($qty >= $appsLimit) {
+                $num++;
+                $qty = 0;
+            }
+
+
         }
         Proxy::init()->getEntityManager()->flush();
         return $this;
