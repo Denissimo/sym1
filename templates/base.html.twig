@@ -75,12 +75,13 @@
                         <a class="nav-link" href="/users">Пользователи <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/apps">Заявки</a>
+                        <a class="nav-link" href="/apps?create_from={{ "3 days ago"|date("d.m.Y") }}">Заявки</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/options">Настройки</a>
                     </li>
-                    <li class="nav-item dropdown">
+
+                    {#<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown
                         </a>
@@ -93,7 +94,8 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
+                    </li>#}
+
                 </ul>
             {% if logged %}
                 <a href="/user/?user_id={{ uid }}">{{ name }}</a>&nbsp;&nbsp;
