@@ -104,7 +104,9 @@
                                 <option {% if not request.filter %} selected {% endif %} value="">В работе</option>
                                 <option {% if request.filter=='new' %} selected {% endif %} value="new">Новые</option>
                                 <option {% if request.filter=='ready' %} selected {% endif %} value="ready">Готовые</option>
-                                <option {% if request.filter=='trash' %} selected {% endif %} value="trash">Корзина</option>
+                                {% if access.all_apps %}
+                                    <option {% if request.filter=='trash' %} selected {% endif %} value="trash">Корзина</option>
+                                {% endif %}
                             </select>
                         </div>
 
