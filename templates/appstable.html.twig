@@ -58,7 +58,7 @@
                                 <a href="/app?app_id={{ app.id }}">{{ app.id }}</a>
                                 {#</td>#}
                                 {#<td>#}
-                                {% if command_proc and request.filter != 'trash' %}
+                                {% if command_proc and request.filter != 'trash' and app.trash==0 %}
                                     {{ include('sub_btn_trash.html.twig', { 'article': article }) }}
                                 {% endif %}
                             </td>
