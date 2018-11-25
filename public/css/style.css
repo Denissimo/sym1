@@ -178,3 +178,7 @@ input:-moz-placeholder {
 .save{
     /*border-radius: 20px !important;*/
 }
+
+.is_trash{
+    margin: 3px 0 0 -28px;
+}

@@ -74,8 +74,12 @@
                             <td>
                                 {#{{ app.status }}#}
                                 {#{{ app.id }} >> {{ app.userId }} >> {{ app.createdAtString }} >> {{ app.updatedAtString }} >> {{ app.status }} #}
+
                                 <img src="/images/color_labels/{{ appstatus[app.status].picture }}"
                                      class="color_label"/>
+                                {% if app.trash %}
+                                <p class="emoji emoji1f4a9 is_trash"></p>
+                                {% endif %}
                             </td>
                             {#<td>{{ appstatus[app.status].picture}}</td>#}
                             <td>{{ app.createdAtString }}</td>
