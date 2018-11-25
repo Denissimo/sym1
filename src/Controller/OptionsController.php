@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Twig\Render;
 use App\Params\Params;
+use App\Controller\Actions\Autorize;
 
 
 class OptionsController extends BaseController
@@ -28,6 +29,7 @@ class OptionsController extends BaseController
             self::ROWS => (new Params())->get(self::ROWS),
             self::LIMIT => (new Params())->get(self::LIMIT)
         ];
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data, 'options.html.twig');
     }
 }

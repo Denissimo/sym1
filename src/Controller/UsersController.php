@@ -31,6 +31,7 @@ class UsersController extends BaseController
         $users = Proxy::init()->getEntityManager()->getRepository(\Users::class)->findAll();
 
         $data[self::USERS] = $users;
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data, 'userstable.html.twig');
     }
 
@@ -83,6 +84,7 @@ class UsersController extends BaseController
         $data[self::ROLES] = $roles;
         $data['schedules'] = $schedules;
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data, 'user.html.twig');
     }
 }

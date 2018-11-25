@@ -72,6 +72,7 @@ class AppController extends BaseController
         $data[self::APP_ID] = $appId;
         $data[self::APP] = $app;
         $data[\ValueLists::class] = $valueLists;
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data, 'application.html.twig');
     }
 }

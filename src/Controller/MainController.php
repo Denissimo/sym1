@@ -50,6 +50,7 @@ class MainController extends BaseController
         $data['login'] = self::getRequest()->headers->get('referer');
         $data['number'] = random_int(0, 100);
         $data['post'] = self::getRequest()->getMethod();
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data);
     }
 
@@ -87,8 +88,9 @@ class MainController extends BaseController
             }
 
 
-        var_dump($searchId); die;
+//        var_dump($searchId); die;
     }
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data,'appstable.html.twig');
     }
 
@@ -257,6 +259,7 @@ class MainController extends BaseController
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
         $data[self::ADD_COMMENT] = $this->generateUrl(self::ADD_COMMENT);
         $data['ctype'] = Proxy::init()->getEntityManager()->getRepository(\CommentTypes::class)->findAll();
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
 
         /** @var \Comments $comment */
 //        $comment = $comments->toArray()[0];
