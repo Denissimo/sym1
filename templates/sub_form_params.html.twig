@@ -97,7 +97,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-
+                    {% endif %}
                         <div class="form-group mx-sm-2">
                             <select class="custom-select" name="filter">
                                 <option {% if request.filter=='worknew' %} selected {% endif %} value="worknew">Нов+В раб.</option>
@@ -107,7 +107,7 @@
                                 <option {% if request.filter=='trash' %} selected {% endif %} value="trash">Корзина</option>
                             </select>
                         </div>
-                    {% endif %}
+
                     <div class="form-group mx-sm-2">
                         <select class="custom-select" name="limit">
                             {#<option {% if request.limit == 10 %} selected {% endif %} value="10">10</option>#}
