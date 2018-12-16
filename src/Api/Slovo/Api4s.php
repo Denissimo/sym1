@@ -33,7 +33,7 @@ class Api4s
     private function checkFIAS($id, $field) {
         $value = Functions::getValueText2($id, $field);
         if (empty($value)) {
-            $this->response(0, $field . ' fias empty');
+//            $this->response(0, $field . ' fias empty');
         }
         return $value;
 
@@ -82,7 +82,7 @@ class Api4s
         $data['data']['secondName'] = Functions::getValueText($id, 'secondName');
         $data['data']['name'] = Functions::getValueText($id, 'name');
         $data['data']['middleName'] = Functions::getValueText($id, 'middleName');
-        $data['data']['sex'] = Functions::getValueTextId($id, 'sex');
+        $data['data']['sex'] = Functions::getValueText($id, 'sex');
         $data['data']['birthDate'] = date_create_from_format('d.m.Y', Functions::getValueText($id, 'birthDate'))->format('Y-m-d');
         $data['data']['birthPlace'] = Functions::getValueText($id, 'birthPlace');
         $data['data']['passportNumber'] = Functions::getValueText($id, 'passportNumber');
@@ -100,10 +100,11 @@ class Api4s
             88 => '43'
         );
 
-        $marital_status = Functions::getValueTextId($id, 'maritalStatus');
-
+//        $marital_status = Functions::getValueTextId($id, 'maritalStatus');
+        $marital_status = Functions::getValueText($id, 'maritalStatus');
+//        var_dump($marital_status); die;
         $data['data']['maritalStatus'] = $marital_statuses[$marital_status];
-        var_dump($data); die;
+//        var_dump($data); die;
         $educations = array(
             89 => '26',
             90 => '27',
@@ -114,7 +115,8 @@ class Api4s
         );
 
 
-        $education = Functions::getValueTextId($id, 'education');
+//        $education = Functions::getValueTextId($id, 'education');
+        $education = Functions::getValueText($id, 'education');
         $data['data']['education'] = $educations[$education];
 
         $creditPurpose = array(
@@ -142,14 +144,14 @@ class Api4s
         );
 
 
-        $data['data']['creditPurpose'] = intval($creditPurpose[Functions::getValueTextId($id, 'creditPurpose')]);
+        $data['data']['creditPurpose'] = intval($creditPurpose[Functions::getValueText($id, 'creditPurpose')]);
 
         $hasCreditCard = array(
             276 => 13494,
             277 => 13495,
         );
 
-        $data['data']['hasCreditCard'] = intval($hasCreditCard[Functions::getValueTextId($id, 'hasCreditCard')]);
+        $data['data']['hasCreditCard'] = intval($hasCreditCard[Functions::getValueText($id, 'hasCreditCard')]);
 
         $income = array(
             43 => 86,
@@ -160,7 +162,7 @@ class Api4s
             48 => 81,
         );
 
-        $data['data']['income'] = intval($income[Functions::getValueTextId($id, 'income')]);
+        $data['data']['income'] = intval($income[Functions::getValueText($id, 'income')]);
 
         $activeCredits = array(
             56 => 69,
@@ -180,7 +182,7 @@ class Api4s
             70 => 13472,
         );
 
-        $data['data']['activeCredits'] = intval($activeCredits[Functions::getValueTextId($id, 'activeCredits')]);
+        $data['data']['activeCredits'] = intval($activeCredits[Functions::getValueText($id, 'activeCredits')]);
 
 
 
@@ -202,7 +204,7 @@ class Api4s
 
 
         $data['signature'] = base64_encode(sha1(json_encode($data['data']) . $pass, true));
-
+//        echo '<pre>'; var_dump($data); die;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://crm.4slovo.ru/requestAPI.php');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -223,7 +225,7 @@ class Api4s
         $data = array('app_id' => $id, 'channel_id' => 4, 'status' => 1, 'success' => (isset($r['errorcode']) && $r['errorcode'] ? 0 : 1), 'message' => $result);
         $sth = self::getDb()->prepare($query);
         $sth->execute($data);
-
+//        var_dump($r); die;
         $this->response($r['errorcode'] ? 0 : 1, $r['errorcode'] ? 'BAD' : $r['link']);
     }
 
