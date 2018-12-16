@@ -33,14 +33,23 @@ class Config
         FIELD_FILE = 'file',
         FIELD_CONNECTION = 'connection',
         FIELD_UID = 'uid',
+        FIELD_USERPIC = 'userpic',
+        FIELD_UPLOAD = 'upload',
         FIELD_ROLES = 'roles',
-        FIELD_OPTIONS = 'options'
-    ;
+        FIELD_OPTIONS = 'options';
 
     /**
      * @var array
      */
     private static $params = [
+        self::FIELD_DEFAULT =>
+            [self::FIELD_USERPIC =>
+                [
+                    self::FIELD_NAME => 'default.png',
+                    self::FIELD_UPLOAD => '\public\images\userpics',
+                    self::FIELD_PATH => '/images/userpics/'
+                ],
+            ],
         self::PARAM_PROD => true,
         self::PARAM_AUTORIZE => [
             self::FIELD_OBLIG => true,
@@ -69,9 +78,9 @@ class Config
             self::FIELD_OPTIONS => ['cache' => 'compilation_cache', 'auto_reload' => true]
         ],
         self::VENDOR_LOGGER => [
-            self::FIELD_PATH => __DIR__.'/../../logs/'
+            self::FIELD_PATH => __DIR__ . '/../../logs/'
         ],
-        self::PARAM_GRANTED =>[
+        self::PARAM_GRANTED => [
             '/api',
             '/postlog'
         ]
@@ -132,12 +141,21 @@ class Config
     {
         return self::$params[self::PARAM_AUTORIZE];
     }
+
     /*
     * @return array
     */
     public static function getGrantedUris()
     {
         return self::$params[self::PARAM_GRANTED];
+    }
+
+    /*
+    * @return array
+    */
+    public static function getDefaults()
+    {
+        return self::$params[self::FIELD_DEFAULT];
     }
 
     /*

@@ -81,6 +81,13 @@ class Users
     private $priority = '0';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="user_pick", type="string", length=255, nullable=false)
+     */
+    private $userPick;
+
+    /**
      * @var \Partners
      *
      * @ORM\ManyToOne(targetEntity="Partners")
@@ -314,5 +321,22 @@ class Users
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getUserPick(): string
+    {
+        return $this->userPick;
+    }
+
+    /**
+     * @param string $userPick
+     * @return Users
+     */
+    public function setUserPick(string $userPick): Users
+    {
+        $this->userPick = $userPick;
+        return $this;
+    }
 
 }

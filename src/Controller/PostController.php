@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Actions\Autorize;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Params\Params;
 use Doctrine\Common\Collections\Criteria;
 use App\Twig\Render;
@@ -296,12 +297,52 @@ class PostController extends BaseController
     }
 
     /**
+     * @Route("addupic", name="addupic")
+     * @return RedirectResponse
+     */
+    public function addUpic()
+    {
+        /** @var UploadedFile $file */
+        $file = current(self::getRequest()->files->all());
+
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+//        $fileName = 's123.' . $file->guessExtension();
+//        var_dump($fileName); die;
+        try {
+//            var_dump($this->get('kernel')->getProjectDir().
+//                Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH]); die;
+            $file->move($this->get('kernel')->getProjectDir() .
+                Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_UPLOAD], $fileName
+            );
+//            $a = $file->move('\images\userpics', $fileName);
+        } catch (\Exception $e) {
+            return $this->redirect(
+                self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+            );
+        }
+
+        /** @var \Users $user */
+        $user = Proxy::init()->getEntityManager()->getRepository(\Users::class)->find(
+            (new Autorize())->getUserId()
+        );
+        $user->setUserPick($fileName);
+        Proxy::init()->getEntityManager()->flush();
+        (new Autorize())->setUserPick($fileName);
+
+
+        return $this->redirect(
+            self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
+        );
+    }
+
+
+    /**
      * @Route("addschedule", name="addschedule")
      * @return RedirectResponse
      */
     public function addSchedule()
     {
-        if(!self::getRequest()->get('date_from')) {
+        if (!self::getRequest()->get('date_from')) {
             return $this->redirect(
                 self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
             );
@@ -373,6 +414,7 @@ class PostController extends BaseController
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
         );
     }
+
     /**
      * @Route("trash", name="trash")
      * @return RedirectResponse

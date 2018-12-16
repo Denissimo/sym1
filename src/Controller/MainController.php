@@ -66,6 +66,7 @@ class MainController extends BaseController
         $search =  $data['request']['find'] ?? '';
         $data['post'] = self::getRequest()->getMethod();
         $data['uid'] = (new Autorize())->getUserId();
+        $data['user_pick'] = (new Autorize())->getUserPic();
         $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         if($search) {
             $sql = 'SELECT a.id, a.user_id, a.status, f39.value_text AS city, f4.value_text AS surname, f5.value_text  AS firstname, f6.value_text  AS middlename, f8.value_text  AS phone FROM apps a 
@@ -106,6 +107,7 @@ class MainController extends BaseController
         $data['request'] = self::getRequest()->query->all();
         $data['post'] = self::getRequest()->getMethod();
         $data['uid'] = (new Autorize())->getUserId();
+        $data['user_pick'] = (new Autorize())->getUserPic();
         $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         $search =  $data['request']['find'] ?? '';
         $search = mb_strtolower($search);

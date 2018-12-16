@@ -81,6 +81,7 @@ class Autorize
             Proxy::init()->getSession()->set(Config::FIELD_USER, $this->user->getEmail());
             Proxy::init()->getSession()->set(Config::FIELD_NAME, $this->user->getName());
             Proxy::init()->getSession()->set(Config::FIELD_UID, $this->user->getId());
+            Proxy::init()->getSession()->set(Config::FIELD_USERPIC, $this->user->getUserPick());
             return true;
         } else {
             return false;
@@ -121,6 +122,24 @@ class Autorize
     public function getRolesList()
     {
         return Proxy::init()->getSession()->get(Config::FIELD_ROLES);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserPic()
+    {
+        return Proxy::init()->getSession()->get(Config::FIELD_USERPIC) ?
+            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH] .
+            Proxy::init()->getSession()->get(Config::FIELD_USERPIC) :
+            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH] .
+            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_NAME];
+    }
+
+
+    public function setUserPick(string $userpick) {
+        Proxy::init()->getSession()->set(Config::FIELD_USERPIC, $userpick);
+        return true;
     }
 
     /**
