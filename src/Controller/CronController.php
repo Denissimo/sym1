@@ -50,6 +50,7 @@ SELECT * FROM users_schedule us WHERE us.type = 1 AND (DATE(NOW()) BETWEEN DATE(
 (unpoc.unpoc_qty IS NULL OR unpoc.unpoc_qty = 0)
   AND u.enabled = 1
 AND sc.user_id IS NOT NULL
+AND u.priority !=0
             ';
 //            Proxy::init()->getLogger()->addWarning($query);
             $usersReady = Proxy::init()->getEntityManager()->getConnection()->query($query)->fetchAll();
