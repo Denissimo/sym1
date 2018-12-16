@@ -30,26 +30,26 @@ class CronController extends BaseController
         try {
             $day3 = (new \DateTime('today'))->sub(new \DateInterval('P3D'))->format('Y-m-d');
             $query = '
-                  SELECT u.id, u.name, ry.ry_qty, unpoc.unpoc_qty, u.enabled, u.priority, sc.user_id, sc.num FROM users u LEFT JOIN (
-                  SELECT a.user_id, COUNT(a.id) AS ry_qty FROM 
-                  (SELECT user_id, id, a.updatedAt FROM apps a WHERE a.status IN (1, 2)  AND DATE(a.updatedAt) > "' . $day3 . '" AND a.updatedAt < NOW()) a 
-                  GROUP BY a.user_id
-                 ) ry ON ry.user_id = u.id LEFT JOIN (
-                 SELECT a.user_id, COUNT(a.id) AS unpoc_qty FROM apps a LEFT JOIN comments c ON a.id = c.app_id WHERE c.id IS NULL GROUP BY a.user_id
-                  ) unpoc ON u.id = unpoc.user_id
-                    LEFT JOIN
-                  (SELECT schedule.user_id, COUNT(schedule.id) AS num FROM ( 
-                SELECT * FROM users_schedule us WHERE us.type = 0 AND WEEKDAY(us.date_from) = WEEKDAY(NOW()) AND (TIME(NOW()) BETWEEN TIME(us.date_from) AND time(us.date_to))
-                  UNION
-                SELECT * FROM users_schedule us WHERE us.type = 1 AND (DATE(NOW()) BETWEEN DATE(us.date_from) AND DATE(us.date_to)) AND (TIME(NOW()) BETWEEN TIME(us.date_from) AND time(us.date_to))
-                  ) schedule GROUP BY schedule.user_id) sc ON sc.user_id = u.id
-                
-                  WHERE 
-                  (ry.ry_qty IS NULL OR ry.ry_qty = 0)
-                  AND
-                (unpoc.unpoc_qty IS NULL OR unpoc.unpoc_qty = 0)
-                  AND u.enabled = 1
-                AND sc.user_id IS NOT NULL
+  SELECT u.id, u.name, ry.ry_qty, unpoc.unpoc_qty, u.enabled, u.priority, sc.user_id, sc.num FROM users u LEFT JOIN (
+  SELECT a.user_id, COUNT(a.id) AS ry_qty FROM 
+  (SELECT user_id, id, a.updatedAt FROM apps a WHERE a.status IN (1, 2)  AND DATE(a.updatedAt) > "' . $day3 . '" AND a.updatedAt < NOW()) a 
+  GROUP BY a.user_id
+ ) ry ON ry.user_id = u.id LEFT JOIN (
+ SELECT a.user_id, COUNT(a.id) AS unpoc_qty FROM apps a LEFT JOIN comments c ON a.id = c.app_id WHERE c.id IS NULL GROUP BY a.user_id
+  ) unpoc ON u.id = unpoc.user_id
+    LEFT JOIN
+  (SELECT schedule.user_id, COUNT(schedule.id) AS num FROM ( 
+SELECT * FROM users_schedule us WHERE us.type = 0 AND WEEKDAY(us.date_from) = WEEKDAY(NOW()) AND (TIME(NOW()) BETWEEN TIME(us.date_from) AND time(us.date_to))
+  UNION
+SELECT * FROM users_schedule us WHERE us.type = 1 AND (DATE(NOW()) BETWEEN DATE(us.date_from) AND DATE(us.date_to)) AND (TIME(NOW()) BETWEEN TIME(us.date_from) AND time(us.date_to))
+  ) schedule GROUP BY schedule.user_id) sc ON sc.user_id = u.id
+
+  WHERE 
+  (ry.ry_qty IS NULL OR ry.ry_qty = 0)
+  AND
+(unpoc.unpoc_qty IS NULL OR unpoc.unpoc_qty = 0)
+  AND u.enabled = 1
+AND sc.user_id IS NOT NULL
             ';
 //            Proxy::init()->getLogger()->addWarning($query);
             $usersReady = Proxy::init()->getEntityManager()->getConnection()->query($query)->fetchAll();

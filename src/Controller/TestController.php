@@ -2,15 +2,35 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\Mapping\EntityResult;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Proxy;
 use App\Controller\Forms\FormBuilder;
 use Users;
 use App\Twig\Render;
+use App\Controller\Query;
 
 class TestController extends BaseController
 {
+
+    /**
+     * @Route("/sql")
+     */
+    public function sql()
+    {
+        $qb = Proxy::init()->getEntityManager()->createQueryBuilder();
+        $res =  $qb
+            ->select('a.id', 'a.userId')
+            ->from(\Apps::class, 'a')
+//            ->where('a.userId=9')
+            ->setMaxResults(50)->getQuery()
+            ->execute()
+            ;
+        var_dump($res); die;
+        $data['data'] = \GuzzleHttp\json_encode($res);
+        return (new Render())->render($data, 'test.html.twig');
+    }
      /**
       * @Route("/test")
       */
