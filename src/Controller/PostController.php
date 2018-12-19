@@ -306,11 +306,7 @@ class PostController extends BaseController
         $file = current(self::getRequest()->files->all());
 
         $fileName = md5(uniqid()).'.'.$file->guessExtension();
-//        $fileName = 's123.' . $file->guessExtension();
-//        var_dump($fileName); die;
         try {
-//            var_dump($this->get('kernel')->getProjectDir().
-//                Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH]); die;
             $file->move($this->get('kernel')->getProjectDir() .
                 Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_UPLOAD], $fileName
             );

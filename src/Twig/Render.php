@@ -23,6 +23,7 @@ class Render
         $data[Autorize::FIELD_ACCESS] = (new Autorize())->getAccessList();
 //        var_dump($data[Autorize::FIELD_ACCESS]); die;
         $data[Autorize::FIELD_UID] = (new Autorize())->getUserId();
+        $data[Autorize::FIELD_UPIC] = (new Autorize())->getUserPic();
         if(Config::isAutorizeObligatory() && !(new Autorize())->isLogged()){
             $tpl = Config::getTwigLoginTemplate();
         } else {

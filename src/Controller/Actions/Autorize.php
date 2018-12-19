@@ -15,6 +15,7 @@ class Autorize
         FIELD_USER_NAME = 'name',
         FIELD_ROLES = 'roles',
         FIELD_ACCESS = 'access',
+        FIELD_UPIC = 'user_pick',
         FIELD_UID = 'uid';
 
     const
