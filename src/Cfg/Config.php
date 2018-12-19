@@ -46,7 +46,7 @@ class Config
             [self::FIELD_USERPIC =>
                 [
                     self::FIELD_NAME => 'default.png',
-                    self::FIELD_UPLOAD => '/public/images/userpics',
+                    self::FIELD_UPLOAD => '\public\images\userpics',
                     self::FIELD_PATH => '/images/userpics/'
                 ],
             ],
@@ -60,13 +60,6 @@ class Config
             self::REQUEST_PASS => 'pass'
         ],
         self::VENDOR_DOCTRINE => [
-            self::FIELD_CONNECTION => [
-                self::FIELD_DRIVER => 'pdo_mysql',
-                self::FIELD_HOST => 'localhost',
-                self::FIELD_USER => 'kz',
-                self::FIELD_PASS => 'kz221459',
-                self::FIELD_DBNAME => 'kz',
-                self::FIELD_CHARSET => 'UTF8'],
             self::FIELD_OPTIONS => [
                 self::FIELD_PATH => '/models'
             ]
@@ -91,7 +84,14 @@ class Config
      */
     public static function getDoctrineParams()
     {
-        return self::$params[self::VENDOR_DOCTRINE][self::FIELD_CONNECTION];
+        return [
+            self::FIELD_DRIVER => env(self::FIELD_DRIVER),
+            self::FIELD_HOST => env(self::FIELD_HOST),
+            self::FIELD_USER => env(self::FIELD_USER),
+            self::FIELD_PASS => env(self::FIELD_PASS),
+            self::FIELD_DBNAME => env(self::FIELD_DBNAME),
+            self::FIELD_CHARSET => env(self::FIELD_CHARSET)
+        ];
     }
 
     /**
