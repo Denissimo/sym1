@@ -103,8 +103,8 @@
 
             </ul>
             {% if logged %}
-                <a href="/user/?user_id={{ uid }}">{{ name }}</a>&nbsp;&nbsp;
-                <img src="{{ user_pick }}" class="userpic" data-toggle="modal" data-target="#upicupload" />
+                <a href="/userstat/?user_id={{ uid }}">{{ name }}</a>&nbsp;&nbsp;
+                <img src="{{ user_pick }}" class="userpic u40" data-toggle="modal" data-target="#upicupload" />
                 {{ roles }} &nbsp;
                 <form class="form-horizontal" role="form" method="POST" action="/autorize">
                     <input type="hidden" name="logout" value="1">

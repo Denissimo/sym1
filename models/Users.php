@@ -1,8 +1,7 @@
 <?php
 
-
-
 use Doctrine\ORM\Mapping as ORM;
+use App\Cfg\Config;
 
 /**
  * Users
@@ -326,7 +325,10 @@ class Users
      */
     public function getUserPick(): string
     {
-        return $this->userPick;
+        return $this->userPick ?
+            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH] . $this->userPick :
+            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH] .
+            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_NAME];
     }
 
     /**

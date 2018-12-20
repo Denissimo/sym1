@@ -31,6 +31,23 @@ class TestController extends BaseController
         $data['data'] = \GuzzleHttp\json_encode($res);
         return (new Render())->render($data, 'test.html.twig');
     }
+
+    /**
+     * @Route("/sql2")
+     */
+    public function sql2()
+    {
+        $qb = Proxy::init()->getEntityManager()->createQueryBuilder();
+        $res = $qb->select('u')
+            ->from(\Users::class, 'u')
+            ->groupBy('u.id')
+            ->getQuery()
+            ->execute()
+        ;
+        var_dump($res); die;
+        $data['data'] = \GuzzleHttp\json_encode($res);
+        return (new Render())->render($data, 'test.html.twig');
+    }
      /**
       * @Route("/test")
       */

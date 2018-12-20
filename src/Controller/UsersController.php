@@ -16,6 +16,8 @@ use App\Controller\Criteria\Builder;
 use App\Controller\Apps\Builder as AppBuilder;
 use App\Controller\Query\Builder as Qb;
 use Monolog\Logger;
+use Doctrine\Common\Collections\Criteria;
+use AppStatus;
 
 class UsersController extends BaseController
 {
@@ -86,5 +88,38 @@ class UsersController extends BaseController
         $data['time_picker'] = (new AppBuilder())->buildTimePicker();
         $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data, 'user.html.twig');
+    }
+
+    /**
+     * @Route("userstat", name="userstat")
+     * @return Response
+     */
+    public function report()
+    {
+
+       /** @var \Users $user */
+        $user = Proxy::init()->getEntityManager()->getRepository(\Users::class)->findBy(
+            [\Users::ID => self::getRequest()->get('user_id')]
+        )[0];
+            $query = ' SELECT a.user_id, COUNT(a.id) AS qty FROM (
+                       SELECT * FROM apps WHERE user_id = :user_id AND status = :status AND DATE(updatedAt) >= :date1
+                     ) a GROUP BY a.user_id';
+        $values = [
+            \Apps::USER_ID => $user->getId(),
+            \AppStatus::FIELD => \AppStatus::GREEN,
+            'date1' => (new \DateTime('today'))->format('Y-m-d')
+        ];
+        $sth = Proxy::init()->getEntityManager()->getConnection()->prepare($query);
+        $sth->execute($values);
+        $dayStat = $sth->fetchAll()[0] ?? ['qty' => 0];
+        $values['date1'] = (new \DateTime('first day of this month'))->format('Y-m-d');
+        $sth->execute($values);
+        $monthStat = $sth->fetchAll()[0] ?? ['qty' => 0];
+
+
+//        var_dump($dayStat); die;
+        $data['user'] = $user;
+        $data['stat'] = ['today' => $dayStat['qty'], 'month' =>  $monthStat['qty']];
+        return (new Render())->render($data, 'userstat.html.twig');
     }
 }

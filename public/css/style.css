@@ -184,9 +184,18 @@ input:-moz-placeholder {
 }
 
 .userpic {
+     margin: 0 10px 0 0;
+}
+
+.u40{
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    margin: 0 10px 0 0;
     cursor: pointer;
+}
+
+.u150 {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
 }
