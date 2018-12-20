@@ -323,8 +323,7 @@ class PostController extends BaseController
         );
         $user->setUserPick($fileName);
         Proxy::init()->getEntityManager()->flush();
-        (new Autorize())->setUserPick($fileName);
-
+        (new Autorize())->setUserPick($user->getUserPick());
 
         return $this->redirect(
             self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')

@@ -131,7 +131,6 @@ class Autorize
     public function getUserPic()
     {
         return Proxy::init()->getSession()->get(Config::FIELD_USERPIC) ?
-            Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH] .
             Proxy::init()->getSession()->get(Config::FIELD_USERPIC) :
             Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_PATH] .
             Config::getDefaults()[Config::FIELD_USERPIC][Config::FIELD_NAME];
