@@ -46,7 +46,7 @@ class Config
             [self::FIELD_USERPIC =>
                 [
                     self::FIELD_NAME => 'default.png',
-                    self::FIELD_UPLOAD => '\public\images\userpics',
+                    self::FIELD_UPLOAD => '/public/images/userpics',
                     self::FIELD_PATH => '/images/userpics/'
                 ],
             ],
