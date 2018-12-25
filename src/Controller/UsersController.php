@@ -120,6 +120,7 @@ class UsersController extends BaseController
 //        var_dump($dayStat); die;
         $data['user'] = $user;
         $data['stat'] = ['today' => $dayStat['qty'], 'month' =>  $monthStat['qty']];
+        $data['command_proc'] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
         return (new Render())->render($data, 'userstat.html.twig');
     }
 }
