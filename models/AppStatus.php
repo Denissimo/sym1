@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AppStatus
 {
     const
+        PICTURE = 'picture',
         FIELD = 'status',
         RED = 1,
         YELLOW = 2,

@@ -21,6 +21,7 @@ class Render
         $data[Autorize::FIELD_USER_NAME] = (new Autorize())->getUserName();
         $data[Autorize::FIELD_ROLES] = (new Autorize())->getRolesList();
         $data[Autorize::FIELD_ACCESS] = (new Autorize())->getAccessList();
+        $data[Autorize::ACCESS_COMMAND_PROC] = (new Autorize())->getAccessList()[Autorize::ACCESS_COMMAND_PROC];
 //        var_dump($data[Autorize::FIELD_ACCESS]); die;
         $data[Autorize::FIELD_UID] = (new Autorize())->getUserId();
         $data[Autorize::FIELD_UPIC] = (new Autorize())->getUserPic();

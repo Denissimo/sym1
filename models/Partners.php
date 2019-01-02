@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Partners
 {
+    const
+        TITLE = 'title',
+        PID = 'pid';
     /**
      * @var int
      *

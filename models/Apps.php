@@ -15,6 +15,7 @@ class Apps
 {
     const
         ID = 'id',
+        TRASH = 'trash',
         STATUS = 'status',
         UPDATED = 'updatedat',
         USER_ID = 'user_id'
