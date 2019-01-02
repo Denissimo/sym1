@@ -22,6 +22,8 @@ class ReportController extends BaseController
         NAME = 'name',
         NEW = 'new',
         ALL = 'all',
+        SUMM = 'summ',
+        SUMM_LABEL = 'Итого',
         READY = 'ready',
         DAYS = 'P380D',
         MAX = 1000;
@@ -61,8 +63,11 @@ COUNT(a.id) AS qty FROM apps a LEFT JOIN partners p ON a.partner_id = p.id
 LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_work, a.trash';
         $statReport = Proxy::init()->getConnecton()->query($query)->fetchAll();
         $statTable = [];
-        $statList[\Apps::TRASH][self::NAME] = \Apps::TRASH;
-        $statList[\Apps::TRASH][\AppStatus::PICTURE] = '<p class="emoji emoji1f4a9" style="margin: 0 0 0 0;"></p>';
+        $summ[\Apps::TRASH][self::QTY] = 0;
+        $summ[\Apps::IN_WORK][self::QTY] = 0;
+        $summ[self::READY][self::QTY] = 0;
+        $summ[self::NEW][self::QTY] = 0;
+        $summ[self::ALL][self::QTY] = 0;
         foreach ($statReport as $stat) {
             $status = $stat[\Apps::STATUS];
             $pid = $stat[\Partners::PID];
@@ -82,20 +87,31 @@ LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_w
             $statTable[$pid][\Apps::IN_WORK][\Partners::TITLE] = $title;
             $statTable[$pid][self::READY][\Partners::TITLE] = $title;
             $statTable[$pid][self::NEW][\Partners::TITLE] = $title;
+            $statTable[$pid][self::ALL][\Partners::TITLE] = $title;
 //            $statList[$status][self::NAME] = $status;
 //            $statList[$status][\AppStatus::PICTURE] = '<img src="/images/color_labels/' . $picture . '" class="color_label">';
             if ($trash) {
                 $statTable[$pid][\Apps::TRASH][self::QTY] += $qty;
+                $summ[\Apps::TRASH][self::QTY] += $qty;
+                $summ[\Apps::TRASH][\Partners::TITLE] = self::SUMM_LABEL;
             } elseif (!$inWork) {
                 $statTable[$pid][self::NEW][self::QTY] += $qty;
+                $summ[self::NEW][self::QTY] += $qty;
+                $summ[self::NEW][\Partners::TITLE] = self::SUMM_LABEL;
             } elseif ($status == \AppStatus::GREEN) {
                 $statTable[$pid][self::READY][self::QTY] += $qty;
+                $summ[self::READY][self::QTY] += $qty;
+                $summ[self::READY][\Partners::TITLE] = self::SUMM_LABEL;
             } else {
                 $statTable[$pid][\Apps::IN_WORK][self::QTY] += $qty;
+                $summ[\Apps::IN_WORK][self::QTY] += $qty;
+                $summ[\Apps::IN_WORK][\Partners::TITLE] = self::SUMM_LABEL;
             }
             $statTable[$pid][self::ALL][self::QTY] += $qty;
-
+            $summ[self::ALL][self::QTY] += $qty;
+            $summ[self::ALL][\Partners::TITLE] = self::SUMM_LABEL;
         }
+        $statTable[self::SUMM] = $summ;
 
 //        echo "<pre>";
 //        var_dump($statTable);

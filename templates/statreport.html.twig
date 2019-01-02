@@ -20,21 +20,21 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                        <th>Partner</th>
-                                        {% for list in statList %}
-                                            <th>{{ list.picture | raw }}</th>
-                                        {% endfor %}
+                                            <th>Partner</th>
+                                            {% for list in statList %}
+                                                <th>{{ list.picture | raw }}</th>
+                                            {% endfor %}
                                         </tr>
                                         </thead>
                                         <tbody>
 
                                         {% for stat in statTable %}
-                                        <tr>
-                                            <td>{{ stat|first.title }}</td>
-                                            {% for list in statList %}
-                                                <td>{{ stat[list.name].qty }}</td>
-                                            {% endfor %}
-                                        </tr>
+                                            <tr>
+                                                <td>{{ stat|first.title }}</td>
+                                                {% for list in statList %}
+                                                    <td>{{ stat[list.name].qty }}</td>
+                                                {% endfor %}
+                                            </tr>
                                         {% endfor %}
 
                                         </tbody>
