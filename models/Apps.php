@@ -17,6 +17,7 @@ class Apps
         ID = 'id',
         TRASH = 'trash',
         STATUS = 'status',
+        IN_WORK = 'in_work',
         UPDATED = 'updatedat',
         USER_ID = 'user_id'
     ;
