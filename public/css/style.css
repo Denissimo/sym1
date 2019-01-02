@@ -200,3 +200,7 @@ input:-moz-placeholder {
     border-radius: 75px;
     margin: 0 0 20px 0;
 }
+
+.main-margin {
+    margin: 90px auto 90px auto;
+}

@@ -4,12 +4,23 @@
         <div class="row mart10">
             <div class="col-12 shadow-lg bg-white1">
                 <div class="row mart20">
-                    <div class="text-center col-6 offset-3 padb01">
-                        <br /><br /><br />
-                        <a href="/apps?update_from={{ "2 days ago"|date("d.m.Y") }}"><button class="btn btn-warning col-3">Список заявок</button></a>
-                        <a href="/users"><button class="btn btn-info col-3">Список Пользователей</button></a>
-                        <a href="/options"><button class="btn btn-success col-3">Настройки</button></a>
-                        <br /><br /><br />
+                    <div class="text-center col-6 offset-3 padb01 main-margin">
+                        <div class="row mart20">
+                            <div class="col-3"><a href="/apps?update_from={{ "2 days ago"|date("d.m.Y") }}">
+                                    <button class="btn btn-warning col-12">Список заявок</button>
+                                </a></div>
+                            {% if command_proc %}
+                                <div class="col-3"><a href="/users">
+                                        <button class="btn btn-info col-12">Пользователи</button>
+                                    </a></div>
+                                <div class="col-3"><a href="/options">
+                                        <button class="btn btn-success col-12">Настройки</button>
+                                    </a></div>
+                                <div class="col-3"><a href="/statreport">
+                                        <button class="btn btn-primary col-12">Статистика</button>
+                                    </a></div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 
