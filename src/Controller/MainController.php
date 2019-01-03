@@ -17,6 +17,7 @@ use App\Validator;
 use App\Controller\Criteria\Builder;
 use Doctrine\Common\Collections\Criteria;
 use App\Controller\Apps\Builder as AppBuilder;
+use App\Controller\Apps\Sorter;
 use App\Controller\Query\Builder as Qb;
 use App\Params\Params;
 use Monolog\Logger;
@@ -220,8 +221,9 @@ class MainController extends BaseController
             )->toArray();
         }
 
+        $appsSortedByTimeZone = (new Sorter())->sortAll($apps);
 
-        foreach ($apps as $a) {
+        foreach ($appsSortedByTimeZone as $a) {
             $allApps = array_merge($allApps, $a);
         }
 
