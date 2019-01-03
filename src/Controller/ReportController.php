@@ -34,9 +34,6 @@ class ReportController extends BaseController
      */
     public function report()
     {
-
-//        $query = 'SELECT * FROM apps a LEFT JOIN users u ON a.user_id = u.id WHERE DATE(a.createdAt) > (CURDATE() - '.self::DAYS.')';
-//        $data['report'] = Proxy::init()->getConnecton()->query($query)->fetchAll();
         $criteria = Criteria::create();
         $data = Proxy::init()->getEntityManager()->getRepository(\Apps::class)->matching(
             $criteria->where(
@@ -46,7 +43,6 @@ class ReportController extends BaseController
                 ->orderBy(['id' => Criteria::DESC])
                 ->setMaxResults(self::MAX)
         )->toArray();
-//        var_dump($data);
 
         return (new Render())->simpleRender(['data' => $data], 'report.html.twig');
     }
@@ -74,7 +70,6 @@ LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_w
             $title = $stat[\Partners::TITLE];
             $trash = $stat[\Apps::TRASH];
             $inWork = $stat[\Apps::IN_WORK];
-            $picture = $stat[\AppStatus::PICTURE];
             $qty = $stat[self::QTY];
             //При более простом синтаксисе - notice
             $statTable[$pid][\Apps::TRASH][self::QTY] = $statTable[$pid][\Apps::TRASH][self::QTY] ?? 0;
@@ -82,14 +77,11 @@ LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_w
             $statTable[$pid][self::READY][self::QTY] = $statTable[$pid][$status][self::QTY] ?? 0;
             $statTable[$pid][self::NEW][self::QTY] = $statTable[$pid][self::NEW][self::QTY] ?? 0;
             $statTable[$pid][self::ALL][self::QTY] = $statTable[$pid][self::ALL][self::QTY] ?? 0;
-//            $statTable[$pid][$status][self::QTY] = $statTable[$pid][$status][self::QTY] ?? 0;
             $statTable[$pid][\Apps::TRASH][\Partners::TITLE] = $title;
             $statTable[$pid][\Apps::IN_WORK][\Partners::TITLE] = $title;
             $statTable[$pid][self::READY][\Partners::TITLE] = $title;
             $statTable[$pid][self::NEW][\Partners::TITLE] = $title;
             $statTable[$pid][self::ALL][\Partners::TITLE] = $title;
-//            $statList[$status][self::NAME] = $status;
-//            $statList[$status][\AppStatus::PICTURE] = '<img src="/images/color_labels/' . $picture . '" class="color_label">';
             if ($trash) {
                 $statTable[$pid][\Apps::TRASH][self::QTY] += $qty;
                 $summ[\Apps::TRASH][self::QTY] += $qty;
@@ -112,9 +104,6 @@ LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_w
             $summ[self::ALL][\Partners::TITLE] = self::SUMM_LABEL;
         }
         $statTable[self::SUMM] = $summ;
-
-//        echo "<pre>";
-//        var_dump($statTable);
 
         $data['statTable'] = $statTable;
         $data['statList'] = [
