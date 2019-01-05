@@ -12,34 +12,37 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4 text-center mart10 marb20 padt01">
+                        <div class="col-6 text-center mart10 marb20 padt01">
                             <div class="card border-secondary mb-3 shadow-lg">
                                 <div class="card-header">Статистика источников заявок:</div>
                                 <div class="card-body">
                                     <p class="card-text">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Partner</th>
-                                            {% for list in statList %}
-                                                <th>{{ list.picture | raw }}</th>
-                                            {% endfor %}
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Partner</th>
+                                                    {% for list in statList %}
+                                                        <th>{{ list.picture | raw }}</th>
+                                                    {% endfor %}
+                                                </tr>
+                                                </thead>
+                                                <tbody>
 
-                                        {% for stat in statTable %}
-                                            <tr>
-                                                <td>{{ stat|first.title }}</td>
-                                                {% for list in statList %}
-                                                    <td>{{ stat[list.name].qty }}</td>
+                                                {% for stat in statTable %}
+                                                    <tr>
+                                                        <td>{{ stat|first.title }}</td>
+                                                        {% for list in statList %}
+                                                            <td>{{ stat[list.name].qty }}</td>
+                                                        {% endfor %}
+                                                    </tr>
                                                 {% endfor %}
-                                            </tr>
-                                        {% endfor %}
 
-                                        </tbody>
-                                    </table>
-
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
                                     </p>
                                 </div>

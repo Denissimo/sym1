@@ -107,11 +107,11 @@ LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_w
 
         $data['statTable'] = $statTable;
         $data['statList'] = [
-            \Apps::TRASH => [self::NAME => \Apps::TRASH, \AppStatus::PICTURE => '<p class="emoji emoji1f4a9" style="margin: 0 0 0 0;"></p>'],
-            self::NEW => [self::NAME => self::NEW, \AppStatus::PICTURE => '<img src="/images/color_labels/color_white.png" class="color_label">'],
-            \Apps::IN_WORK => [self::NAME => \Apps::IN_WORK, \AppStatus::PICTURE => '<img src="/images/color_labels/color_cyan.png" class="color_label">'],
-            self::READY => [self::NAME => self::READY, \AppStatus::PICTURE => '<img src="/images/color_labels/color_green.png" class="color_label">'],
-            self::ALL => [self::NAME => self::ALL, \AppStatus::PICTURE => '<img src="/images/color_labels/color_all.png" class="color_label">'],
+            self::ALL => [self::NAME => self::ALL, \AppStatus::PICTURE => 'Все&nbsp;<img src="/images/color_labels/color_all.png" class="color_label">'],
+            self::NEW => [self::NAME => self::NEW, \AppStatus::PICTURE => 'Новые&nbsp;<img src="/images/color_labels/color_white.png" class="color_label">'],
+            \Apps::IN_WORK => [self::NAME => \Apps::IN_WORK, \AppStatus::PICTURE => 'В&nbsp;работе&nbsp;<img src="/images/color_labels/color_cyan.png" class="color_label">'],
+            self::READY => [self::NAME => self::READY, \AppStatus::PICTURE => 'Готовые&nbsp;<img src="/images/color_labels/color_green.png" class="color_label">'],
+            \Apps::TRASH =>  [self::NAME => \Apps::TRASH, \AppStatus::PICTURE => 'Корзина&nbsp;<div class="emoji emoji1f4a9" style="margin: 0 0 8px 0;"></div>'],
         ];
 
         return (new Render())->render($data, 'statreport.html.twig');
