@@ -257,6 +257,7 @@ class MainController extends BaseController
 
         $data['idList'] = $idList;
         $data[\Users::class] = Proxy::init()->getEntityManager()->getRepository(\Users::class)->findBy(['enabled' => 1]);
+        $data[\Partners::class] = Proxy::init()->getEntityManager()->getRepository(\Partners::class)->findAll();
         $data['request'] = self::getRequest()->query->all();
         $data['appstatus'] = $appStatusArray;
         $data['apps'] = $allApps;

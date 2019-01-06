@@ -45,5 +45,75 @@ class Partners
      */
     private $email;
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
+    /**
+     * @param int $id
+     * @return Partners
+     */
+    public function setId(int $id): Partners
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return Partners
+     */
+    public function setTitle(string $title): Partners
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param null|string $info
+     * @return Partners
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Partners
+     */
+    public function setEmail(string $email): Partners
+    {
+        $this->email = $email;
+        return $this;
+    }
 }

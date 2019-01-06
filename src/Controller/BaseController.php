@@ -29,6 +29,7 @@ abstract class BaseController extends Controller
         UPDATE_TO = 'update_to',
         UPDATE_AT = 'updatedat',
         USER_ID = 'userId',
+        PARTNER_ID = 'partnerId',
         PER_PAGE = 'per_page',
         DEFAULT_LIMIT = 50,
         SORT = 'sort',

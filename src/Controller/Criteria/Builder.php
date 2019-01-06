@@ -139,6 +139,9 @@ class Builder
             Controller::USER_ID =>
                 $request->get(Controller::USER_ID) ?
                     Criteria::expr()->eq(Controller::USER_ID, $request->get(Controller::USER_ID)) : null,
+            Controller::PARTNER_ID =>
+                $request->get(Controller::PARTNER_ID) ?
+                    Criteria::expr()->eq(Controller::PARTNER_ID, $request->get(Controller::PARTNER_ID)) : null,
         ];
 
     }

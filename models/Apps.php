@@ -46,6 +46,13 @@ class Apps
     private $userId;
 
     /**
+     * @var int|null
+     *
+     * @ORM\Column(name="partner_id", type="integer", nullable=true)
+     */
+    private $partnerId;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
@@ -545,4 +552,23 @@ class Apps
     {
         return $this->getFieldValue(\Fields::PHONE);
     }
+
+    /**
+     * @return int|null
+     */
+    public function getParnterId()
+    {
+        return $this->parnterId;
+    }
+
+    /**
+     * @param int|null $parnterId
+     * @return Apps
+     */
+    public function setParnterId($parnterId)
+    {
+        $this->parnterId = $parnterId;
+        return $this;
+    }
+
 }
