@@ -10,6 +10,7 @@
         src="https://cdn.jsdelivr.net/npm/suggestions-jquery@18.8.0/dist/js/jquery.suggestions.min.js"></script>
 <script type="text/javascript">
 
+    var app_id = {{ app_id }};
 
     $('#field_birthDate').datepicker();
     $('#field_passportDate').datepicker();
@@ -144,6 +145,29 @@
             $("#return").attr("disabled", "disabled");
         else
             $("#return").removeAttr("disabled");
+    });
+
+    $('#send2partner').click(function () {
+//        console.log(app_id);
+
+        $.ajax({
+            method: 'POST',
+            url: '/api4s?id=' + app_id,
+            dataType: "json",
+            success: function( data ) {
+                console.log( data.response );
+                $('body').append(
+                    '<div class="alert alert-info alert-dismissible fade show alert-center" role="alert">'
+                    + data.response + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                    <span aria-hidden="true">&times;</span>\
+                </button>\
+                </div>'
+                );
+            },
+            error: function() {
+                console.log( [] );
+            }
+        });
     });
 
 </script>

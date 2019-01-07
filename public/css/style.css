@@ -204,3 +204,9 @@ input:-moz-placeholder {
 .main-margin {
     margin: 90px auto 90px auto;
 }
+
+.alert-center {
+    position: relative;
+    margin: -200px 0 0 25%;
+    width: 50%;
+}
