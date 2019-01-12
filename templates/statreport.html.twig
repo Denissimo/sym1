@@ -65,6 +65,44 @@
                     </div>
 
                 </div>
+
+                <div class="col-6 text-center mart10 marb20 padt01">
+                    <div class="card border-secondary mb-3 shadow-lg">
+                        <div class="card-header">Статистика источников заявок:</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            {% for list in statList %}
+                                                <th>{{ list.picture | raw }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% for stat in userStat %}
+                                            <tr>
+                                                <td>{{ stat|first.name }}</td>
+                                                {% for list in statList %}
+                                                    <td>{{ stat[list.label].qty }}</td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>

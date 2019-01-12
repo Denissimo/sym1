@@ -58,10 +58,9 @@ class ReportController extends BaseController
      */
     public function statReport()
     {
-
-
         $data['request'] = self::getRequest()->query->all();
         $data['partnerStat'] = $this->partnerStat('p', 'title');
+        $data['userStat'] = $this->partnerStat('u', 'name');
         $data['statList'] = [
             self::ALL => [self::LABEL => self::ALL, \AppStatus::PICTURE => 'Все&nbsp;<img src="/images/color_labels/color_all.png" class="color_label">'],
             self::NEW => [self::LABEL => self::NEW, \AppStatus::PICTURE => 'Новые&nbsp;<img src="/images/color_labels/color_white.png" class="color_label">'],
@@ -99,7 +98,7 @@ GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
         foreach ($statReport as $stat) {
             $status = $stat[\Apps::STATUS];
             $id = $stat[self::ID];
-            $name = $stat[self::NAME];
+            $name = $this->buildShortName($stat[self::NAME]);
             $trash = $stat[\Apps::TRASH];
             $inWork = $stat[\Apps::IN_WORK];
             $qty = $stat[self::QTY];
@@ -170,5 +169,19 @@ GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
     private function buildDate(string $date): string
     {
         return 'DATE("' . \DateTime::createFromFormat(self::TPL_DATE_TIME, $date)->format('Y-m-d') . '")';
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    private function buildShortName(string $name)
+    {
+        $nameArray = explode(' ', $name);
+        $lastName = $nameArray[0].' ' ?? $name;
+        $firstName = isset($nameArray[1]) ? mb_substr($nameArray[1], 0, 1).'. ' : null;
+        $middleName = isset($nameArray[2]) ? mb_substr($nameArray[2], 0, 1).'. ' : null;
+
+        return $lastName.$firstName.$middleName;
     }
 }
