@@ -21,6 +21,8 @@ class ReportController extends BaseController
     const
         TPL_DATE_TIME = 'd.m.Y',
         QTY = 'qty',
+        LABEL = 'label',
+        ID = 'id',
         NAME = 'name',
         NEW = 'new',
         ALL = 'all',
@@ -56,11 +58,35 @@ class ReportController extends BaseController
      */
     public function statReport()
     {
-        $query = 'SELECT p.id AS pid, p.title, a.in_work, a.status, `as`.picture, a.trash,
+
+
+        $data['request'] = self::getRequest()->query->all();
+        $data['partnerStat'] = $this->partnerStat('p', 'title');
+        $data['statList'] = [
+            self::ALL => [self::LABEL => self::ALL, \AppStatus::PICTURE => 'Все&nbsp;<img src="/images/color_labels/color_all.png" class="color_label">'],
+            self::NEW => [self::LABEL => self::NEW, \AppStatus::PICTURE => 'Новые&nbsp;<img src="/images/color_labels/color_white.png" class="color_label">'],
+            \Apps::IN_WORK => [self::LABEL => \Apps::IN_WORK, \AppStatus::PICTURE => 'В&nbsp;работе&nbsp;<img src="/images/color_labels/color_cyan.png" class="color_label">'],
+            self::READY => [self::LABEL => self::READY, \AppStatus::PICTURE => 'Готовые&nbsp;<img src="/images/color_labels/color_green.png" class="color_label">'],
+            \Apps::TRASH => [self::LABEL => \Apps::TRASH, \AppStatus::PICTURE => 'Корзина&nbsp;<div class="emoji emoji1f4a9" style="margin: 0 0 8px 0;"></div>'],
+        ];
+
+        return (new Render())->render($data, 'statreport.html.twig');
+    }
+
+    /**
+     * @param string $tableAlias
+     * @param string $field
+     * @return array
+     */
+    private function partnerStat(string $tableAlias, string $field)
+    {
+        $query = 'SELECT '.$tableAlias.'.id, '.$tableAlias.'.'.$field.' AS ' . self::NAME . ', a.in_work, a.status, `as`.picture, a.trash,
 COUNT(a.id) AS qty FROM 
   (SELECT * FROM apps ' . $this->buildPeriod() . ') a 
 LEFT JOIN partners p ON a.partner_id = p.id
-LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_work, a.trash';
+LEFT JOIN app_status `as` ON a.status=`as`.id 
+LEFT JOIN users u ON a.user_id = u.id
+GROUP BY ' . self::NAME . ', a.status, a.in_work, a.trash';
         $statReport = Proxy::init()->getConnecton()->query($query)->fetchAll();
         $statTable = [];
         $summ[\Apps::TRASH][self::QTY] = 0;
@@ -70,56 +96,45 @@ LEFT JOIN app_status `as` ON a.status=`as`.id GROUP BY p.title, a.status, a.in_w
         $summ[self::ALL][self::QTY] = 0;
         foreach ($statReport as $stat) {
             $status = $stat[\Apps::STATUS];
-            $pid = $stat[\Partners::PID];
-            $title = $stat[\Partners::TITLE];
+            $id = $stat[self::ID];
+            $name = $stat[self::NAME];
             $trash = $stat[\Apps::TRASH];
             $inWork = $stat[\Apps::IN_WORK];
             $qty = $stat[self::QTY];
             //При более простом синтаксисе - notice
-            $statTable[$pid][\Apps::TRASH][self::QTY] = $statTable[$pid][\Apps::TRASH][self::QTY] ?? 0;
-            $statTable[$pid][\Apps::IN_WORK][self::QTY] = $statTable[$pid][\Apps::IN_WORK][self::QTY] ?? 0;
-            $statTable[$pid][self::READY][self::QTY] = $statTable[$pid][$status][self::QTY] ?? 0;
-            $statTable[$pid][self::NEW][self::QTY] = $statTable[$pid][self::NEW][self::QTY] ?? 0;
-            $statTable[$pid][self::ALL][self::QTY] = $statTable[$pid][self::ALL][self::QTY] ?? 0;
-            $statTable[$pid][\Apps::TRASH][\Partners::TITLE] = $title;
-            $statTable[$pid][\Apps::IN_WORK][\Partners::TITLE] = $title;
-            $statTable[$pid][self::READY][\Partners::TITLE] = $title;
-            $statTable[$pid][self::NEW][\Partners::TITLE] = $title;
-            $statTable[$pid][self::ALL][\Partners::TITLE] = $title;
+            $statTable[$id][\Apps::TRASH][self::QTY] = $statTable[$id][\Apps::TRASH][self::QTY] ?? 0;
+            $statTable[$id][\Apps::IN_WORK][self::QTY] = $statTable[$id][\Apps::IN_WORK][self::QTY] ?? 0;
+            $statTable[$id][self::READY][self::QTY] = $statTable[$id][$status][self::QTY] ?? 0;
+            $statTable[$id][self::NEW][self::QTY] = $statTable[$id][self::NEW][self::QTY] ?? 0;
+            $statTable[$id][self::ALL][self::QTY] = $statTable[$id][self::ALL][self::QTY] ?? 0;
+            $statTable[$id][\Apps::TRASH][self::NAME] = $name;
+            $statTable[$id][\Apps::IN_WORK][self::NAME] = $name;
+            $statTable[$id][self::READY][self::NAME] = $name;
+            $statTable[$id][self::NEW][self::NAME] = $name;
+            $statTable[$id][self::ALL][self::NAME] = $name;
             if ($trash) {
-                $statTable[$pid][\Apps::TRASH][self::QTY] += $qty;
+                $statTable[$id][\Apps::TRASH][self::QTY] += $qty;
                 $summ[\Apps::TRASH][self::QTY] += $qty;
-                $summ[\Apps::TRASH][\Partners::TITLE] = self::SUMM_LABEL;
+                $summ[\Apps::TRASH][self::NAME] = self::SUMM_LABEL;
             } elseif (!$inWork) {
-                $statTable[$pid][self::NEW][self::QTY] += $qty;
+                $statTable[$id][self::NEW][self::QTY] += $qty;
                 $summ[self::NEW][self::QTY] += $qty;
-                $summ[self::NEW][\Partners::TITLE] = self::SUMM_LABEL;
+                $summ[self::NEW][self::NAME] = self::SUMM_LABEL;
             } elseif ($status == \AppStatus::GREEN) {
-                $statTable[$pid][self::READY][self::QTY] += $qty;
+                $statTable[$id][self::READY][self::QTY] += $qty;
                 $summ[self::READY][self::QTY] += $qty;
-                $summ[self::READY][\Partners::TITLE] = self::SUMM_LABEL;
+                $summ[self::READY][self::NAME] = self::SUMM_LABEL;
             } else {
-                $statTable[$pid][\Apps::IN_WORK][self::QTY] += $qty;
+                $statTable[$id][\Apps::IN_WORK][self::QTY] += $qty;
                 $summ[\Apps::IN_WORK][self::QTY] += $qty;
-                $summ[\Apps::IN_WORK][\Partners::TITLE] = self::SUMM_LABEL;
+                $summ[\Apps::IN_WORK][self::NAME] = self::SUMM_LABEL;
             }
-            $statTable[$pid][self::ALL][self::QTY] += $qty;
+            $statTable[$id][self::ALL][self::QTY] += $qty;
             $summ[self::ALL][self::QTY] += $qty;
-            $summ[self::ALL][\Partners::TITLE] = self::SUMM_LABEL;
+            $summ[self::ALL][self::NAME] = self::SUMM_LABEL;
         }
         $statTable[self::SUMM] = $summ;
-
-        $data['request'] = self::getRequest()->query->all();
-        $data['statTable'] = $statTable;
-        $data['statList'] = [
-            self::ALL => [self::NAME => self::ALL, \AppStatus::PICTURE => 'Все&nbsp;<img src="/images/color_labels/color_all.png" class="color_label">'],
-            self::NEW => [self::NAME => self::NEW, \AppStatus::PICTURE => 'Новые&nbsp;<img src="/images/color_labels/color_white.png" class="color_label">'],
-            \Apps::IN_WORK => [self::NAME => \Apps::IN_WORK, \AppStatus::PICTURE => 'В&nbsp;работе&nbsp;<img src="/images/color_labels/color_cyan.png" class="color_label">'],
-            self::READY => [self::NAME => self::READY, \AppStatus::PICTURE => 'Готовые&nbsp;<img src="/images/color_labels/color_green.png" class="color_label">'],
-            \Apps::TRASH => [self::NAME => \Apps::TRASH, \AppStatus::PICTURE => 'Корзина&nbsp;<div class="emoji emoji1f4a9" style="margin: 0 0 8px 0;"></div>'],
-        ];
-
-        return (new Render())->render($data, 'statreport.html.twig');
+        return $statTable;
     }
 
     /**

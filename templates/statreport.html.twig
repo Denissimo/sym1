@@ -46,11 +46,11 @@
                                         </thead>
                                         <tbody>
 
-                                        {% for stat in statTable %}
+                                        {% for stat in partnerStat %}
                                             <tr>
-                                                <td>{{ stat|first.title }}</td>
+                                                <td>{{ stat|first.name }}</td>
                                                 {% for list in statList %}
-                                                    <td>{{ stat[list.name].qty }}</td>
+                                                    <td>{{ stat[list.label].qty }}</td>
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
