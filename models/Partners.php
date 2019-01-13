@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Partners
 {
     const
+        DEFAULT_ID = 3,
         TITLE = 'title',
         PID = 'pid';
     /**

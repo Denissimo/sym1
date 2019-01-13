@@ -258,7 +258,7 @@ class PostController extends BaseController
      */
     public function addApp()
     {
-        $query = 'INSERT INTO apps SET partner_id = 1, foreign_id = 1, user_id = 1, status = 3, createdAt = now(), updatedAt = now(), ip = 0, `check` = 0;';
+        $query = 'INSERT INTO apps SET partner_id = '.\Partners::DEFAULT_ID.', foreign_id = 1, user_id = 1, status = 3, createdAt = now(), updatedAt = now(), ip = 0, `check` = 0;';
         Proxy::init()->getEntityManager()->getConnection()->query($query);
         $id = Proxy::init()->getConnecton()->lastInsertId();
 
