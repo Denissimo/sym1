@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Criteria;
 use App\Api\RequestAPI\RequestAPI;
 use App\Api\Slovo\Api4s;
 use App\Controller\MainController as Controller;
+use App\Controller\Criteria\Builder;
 
 
 class ReportController extends BaseController
@@ -79,7 +80,7 @@ class ReportController extends BaseController
      */
     private function partnerStat(string $tableAlias, string $field)
     {
-        $query = 'SELECT '.$tableAlias.'.id AS '.self::ID.', '.$tableAlias.'.'.$field.' AS ' . self::NAME .
+        $query = 'SELECT ' . $tableAlias . '.id AS ' . self::ID . ', ' . $tableAlias . '.' . $field . ' AS ' . self::NAME .
             ', a.in_work, a.status, `as`.picture, a.trash,
 COUNT(a.id) AS qty FROM 
   (SELECT * FROM apps ' . $this->buildPeriod() . ') a 
@@ -87,7 +88,7 @@ LEFT JOIN partners p ON a.partner_id = p.id
 LEFT JOIN app_status `as` ON a.status=`as`.id 
 LEFT JOIN users u ON a.user_id = u.id
 GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
-
+//var_dump($query); die;
         $statReport = Proxy::init()->getConnecton()->query($query)->fetchAll();
         $statTable = [];
         $summ[\Apps::TRASH][self::QTY] = 0;
@@ -114,7 +115,7 @@ GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
             $statTable[$id][self::NEW][self::NAME] = $name;
             $statTable[$id][self::ALL][self::NAME] = $name;
             $summ[\Apps::TRASH][self::NAME] = $summ[self::NEW][self::NAME] = $summ[self::READY][self::NAME] =
-                $summ[\Apps::IN_WORK][self::NAME] = $summ[self::ALL][self::NAME] = self::SUMM_LABEL;
+            $summ[\Apps::IN_WORK][self::NAME] = $summ[self::ALL][self::NAME] = self::SUMM_LABEL;
             if ($trash) {
                 $statTable[$id][\Apps::TRASH][self::QTY] += $qty;
                 $summ[\Apps::TRASH][self::QTY] += $qty;
@@ -149,13 +150,13 @@ GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
 
         $andFields = [];
         $fields[self::CREATE_FROM] ? $andFields[] =
-            self::CREATE_AT . '>=' . $this->buildDate($fields[self::CREATE_FROM]) : null;
+            self::CREATE_AT . '>= "' . $this->buildDate($fields[self::CREATE_FROM]) . Builder::TIME_ZERO .'"' : null;
         $fields[self::CREATE_TO] ? $andFields[] =
-            self::CREATE_AT . '<=' . $this->buildDate($fields[self::CREATE_TO]) : null;
+            self::CREATE_AT . '<= "' . $this->buildDate($fields[self::CREATE_TO]) . Builder::TIME_NIGHT .'"' : null;
         $fields[self::UPDATE_FROM] ? $andFields[] =
-            self::UPDATE_AT . '>=' . $this->buildDate($fields[self::UPDATE_FROM]) : null;
+            self::UPDATE_AT . '>= "' . $this->buildDate($fields[self::UPDATE_FROM]) . Builder::TIME_ZERO .'"' : null;
         $fields[self::UPDATE_TO] ? $andFields[] =
-            self::UPDATE_AT . '<=' . $this->buildDate($fields[self::UPDATE_TO]) : null;
+            self::UPDATE_AT . '<= "' . $this->buildDate($fields[self::UPDATE_TO]) . Builder::TIME_NIGHT .'"' : null;
 
         $glued = implode(self:: AND, $andFields);
 
@@ -168,7 +169,7 @@ GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
      */
     private function buildDate(string $date): string
     {
-        return 'DATE("' . \DateTime::createFromFormat(self::TPL_DATE_TIME, $date)->format('Y-m-d') . '")';
+        return  \DateTime::createFromFormat(self::TPL_DATE_TIME, $date)->format('Y-m-d');
     }
 
     /**
@@ -178,10 +179,10 @@ GROUP BY ' . self::ID . ', a.status, a.in_work, a.trash';
     private function buildShortName(string $name)
     {
         $nameArray = explode(' ', $name);
-        $lastName = $nameArray[0].' ' ?? $name;
-        $firstName = isset($nameArray[1]) ? mb_substr($nameArray[1], 0, 1).'. ' : null;
-        $middleName = isset($nameArray[2]) ? mb_substr($nameArray[2], 0, 1).'. ' : null;
+        $lastName = $nameArray[0] . ' ' ?? $name;
+        $firstName = isset($nameArray[1]) ? mb_substr($nameArray[1], 0, 1) . '. ' : null;
+        $middleName = isset($nameArray[2]) ? mb_substr($nameArray[2], 0, 1) . '. ' : null;
 
-        return $lastName.$firstName.$middleName;
+        return $lastName . $firstName . $middleName;
     }
 }
