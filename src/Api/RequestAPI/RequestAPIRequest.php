@@ -15,8 +15,7 @@ class RequestAPIRequest
         'residence',
         'residence_fias',
         'amount',
-        'term',
-        'timezone'
+        'term'
     );
     
     private $linkedFields = array(
