@@ -26,7 +26,6 @@ class ApiController extends BaseController
         $appId = self::getRequest()->get(self::APP_ID);
 //        $data['data'] = json_decode(Config::get('requestAPI.workingTime'), true);
         $res = true;
-            var_dump(self::getRequest()->getRequestUri());
 
 
         try {

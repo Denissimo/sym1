@@ -37,7 +37,6 @@ class PostController extends BaseController
      */
     public function changeRole()
     {
-//        var_dump(self::getRequest()->request); die;
         /** var string $query */
         $query = null;
         switch (self::getRequest()->get(\Roles::FIELD_ACTION)) {
@@ -53,7 +52,6 @@ class PostController extends BaseController
                     self::getRequest()->headers->get('referer') ?? $this->generateUrl('main')
                 );
         }
-//        echo $query; die;
         $sth = Proxy::init()->getConnecton()->prepare($query);
         $sth->bindValue(':user_id', (int)self::getRequest()->get('user_id'), \PDO::PARAM_INT);
         $sth->bindValue(':role_id', (int)self::getRequest()->get('role_id'), \PDO::PARAM_INT);

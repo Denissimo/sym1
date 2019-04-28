@@ -37,7 +37,7 @@ class RequestAPIRequest
     {
         $r = json_decode($request, true);
         if (empty($r) || !isset($r['data']) || !is_array($r['data']) || !isset($r['signature'])) {
-            throw new \Exception('bad data');
+//            throw new \Exception('bad data');
         }
         $this->data = $r['data'];
         $this->signature = $r['signature'];

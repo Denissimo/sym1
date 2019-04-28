@@ -61,6 +61,15 @@ class RequestAPIAddPerson extends RequestAPIPdo
                 $params['linked_field'] = $this->request->getProperty($linkedField);
                 $query = "INSERT INTO field_values SET app_id = :id, field_id = :field_id, value_text = :value, value= :linked_field";
             }
+
+            if($this->fieldsFid[$field] == 39){
+                //$query = 'SELECT * FROM addrobj a LEFT JOIN region2offset r ON a.regioncode=r.region WHERE a.aoguid ="' . $params['linked_field'] . '"';
+//                $query = 'SELECT r.offset FROM addrobj a LEFT JOIN region2offset r ON a.regioncode=r.region WHERE a.aoguid =":linked_field"';
+                $query2 = 'INSERT INTO field_values SET app_id = '.$params['id'].', field_id = 59, value_text = 
+    (SELECT r.offset FROM addrobj a LEFT JOIN region2offset r ON a.regioncode=r.region WHERE a.aoguid ="'.$params['linked_field'].'")';
+                $sth = $this->getPDO()->prepare($query2);
+                $sth->execute();
+            }
             $sth = $this->getPDO()->prepare($query);
             $sth->execute($params);
             $arr = $sth->errorInfo();
