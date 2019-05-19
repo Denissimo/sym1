@@ -52,10 +52,13 @@ class Builder
 //                $criteria->andWhere(
 //                    Criteria::expr()->in('inWork', [0,1])
 //                );
-            }else {
                 $criteria->andWhere(
                     Criteria::expr()->eq('inWork', 1)
                 );
+            }else {
+//                $criteria->andWhere(
+//                    Criteria::expr()->eq('inWork', 1)
+//                );
             }
             $criteria->andWhere(
                 Criteria::expr()->eq('trash', 0)

@@ -97,10 +97,8 @@
 
             <div class="form-group col-2">
                 <select class="custom-select" name="filter">
-                    <option {% if request.filter=='worknew' %} selected {% endif %} value="worknew">Нов+В
-                        раб.
-                    </option>
-                    <option {% if not request.filter %} selected {% endif %} value="">В работе</option>
+                    <option {% if request.filter=='worknew' %} selected {% endif %} value="worknew">В работе</option>
+                    <option {% if not request.filter %} selected {% endif %} value="">Нов+В раб.</option>
                     <option {% if request.filter=='new' %} selected {% endif %} value="new">Новые</option>
                     <option {% if request.filter=='ready' %} selected {% endif %} value="ready">Готовые
                     </option>
